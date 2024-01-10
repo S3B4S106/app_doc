@@ -55,6 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.orange,
               child: const Text("Sign Out"),
               onPressed: _handleSignOut,
+            ),
+            MaterialButton(
+              color: Colors.orange,
+              child: const Text("Nuevo Paciente"),
+              onPressed: _openNewPx,
             )
           ],
         ),
@@ -65,6 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void _handleSignOut() {
     auth.signOut();
     Navigator.pushNamed(context, "/login");
+  }
+
+  void _openNewPx() {
+    Navigator.pushNamed(context, "/newPx");
   }
 }
 /*
