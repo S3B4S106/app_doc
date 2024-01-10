@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("home"),
+        title: const Text("PxPhotoPRO"),
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
