@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:video_player/video_player.dart';
 
 class SplashScreen extends StatefulWidget {
   final Widget? child;
@@ -9,9 +11,15 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  TextStyle? font = GoogleFonts.getFont('Dancing Script');
+  late VideoPlayerController _controller;
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3), () {
+    _controller = VideoPlayerController.asset("assets/PxPhotoProBG.mp4");
+    _controller.initialize().then((_) {
+      _controller.play();
+    });
+    Future.delayed(Duration(seconds: 5), () {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => widget.child!),
@@ -24,13 +32,30 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(
-          "Welcome To App Doc",
-          style: TextStyle(
-            color: Colors.blue,
-            fontWeight: FontWeight.bold,
-          ),
+        child: AspectRatio(
+          aspectRatio: MediaQuery.of(context).size.aspectRatio,
+          child: VideoPlayer(_controller),
+          // Container(
+          //  decoration: BoxDecoration(
+          //    image: DecorationImage(
+          //      image: AssetImage('assets/Wallpapertouchup.jpg'),
+          //      fit: BoxFit.cover,
+          //    ),
+          //  ),
         ),
+        //  Center(
+        //    child: Text(
+        //      "Welcome To Px.Photo.Pro",
+        //      style: font,
+
+        //TextStyle(
+        //fontSize: 31,
+        //color: Color.fromRGBO(35, 93, 113, 1),
+        //fontWeight: FontWeight.w500,
+        //GoogleFonts.getFont('Lato'),
+        //),
+        //  ),
+        //   ),
       ),
     );
   }

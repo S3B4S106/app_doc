@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text("Login"),
+        title: const Text("PxPhotoPro"),
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,

@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 100,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(user!.photoUrl ?? "image"),
+                  image: NetworkImage("image"),
                 ),
               ),
             ),
