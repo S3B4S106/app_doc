@@ -49,8 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Text(user!.email ?? ""),
-            Text(user!.displayName ?? ""),
+            // Text(user!.email ?? ""),
+            // Text(user!.displayName ?? ""),
             MaterialButton(
               color: Colors.orange,
               child: const Text("Sign Out"),
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _openNewPx() {
-    Navigator.pushNamed(context, "/newPx");
+    Navigator.pushNamed(context, "/firstpage");
   }
 }
 /*

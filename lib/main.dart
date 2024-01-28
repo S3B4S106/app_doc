@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:app_doc/NewPx.dart';
+import 'package:app_doc/firstpage.dart';
 import 'package:app_doc/features/user_auth/presentation/ResetPassword.dart';
 import 'package:app_doc/features/app/splash_screen/splash_screen.dart';
 import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_options.dart';
@@ -96,6 +97,7 @@ class MyApp extends StatelessWidget {
         '/resetPassword': (context) => ResetPasswordScreen(),
         '/home': (context) => HomeScreen(),
         '/newPx': (context) => NewPxScreen(),
+        '/firstpage': (context) => firstpage(),
       },
     );
   }
