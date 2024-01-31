@@ -6,7 +6,9 @@ import 'package:app_doc/firstpage.dart';
 import 'package:app_doc/features/user_auth/presentation/ResetPassword.dart';
 import 'package:app_doc/features/app/splash_screen/splash_screen.dart';
 import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_options.dart';
+import 'package:app_doc/photos_screen.dart';
 import 'package:app_doc/home.dart';
+import 'package:app_doc/pacient_list.dart';
 import 'package:app_doc/features/user_auth/presentation/login.dart';
 import 'package:app_doc/features/user_auth/presentation/login_email.dart';
 import 'package:app_doc/features/user_auth/presentation/sign_up.dart';
@@ -14,8 +16,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import 'package:app_doc/app.dart';
 
 MaterialColor colour(Color darkmint1) {
   final int red = darkmint1.red;
@@ -38,7 +38,7 @@ MaterialColor colour(Color darkmint1) {
   return MaterialColor(darkmint1.value, shades);
 }
 
-Future main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
@@ -99,7 +99,8 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/newPx': (context) => NewPxScreen(),
         '/firstpage': (context) => firstpage(),
-        '/listPx': (context) => ListPxScreen(),
+        '/fotos': (context) => PhotosScreen(),
+        '/listPx': (context) => PacientListScreen(),
       },
     );
   }

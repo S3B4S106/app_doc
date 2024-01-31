@@ -1,11 +1,21 @@
+import 'dart:io';
+import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
+import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
+import 'package:app_doc/features/global/commun/transversals.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:app_doc/app.dart';
 import 'package:app_doc/main.dart';
+import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:app_doc/photo.dart';
 import 'package:app_doc/photo_collection.dart';
 import 'package:app_doc/photo_analysis.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/testing.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -106,11 +116,6 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               height: 100,
               width: 100,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage("image"),
-                ),
-              ),
             ),
             // Text(user!.email ?? ""),
             // Text(user!.displayName ?? ""),
