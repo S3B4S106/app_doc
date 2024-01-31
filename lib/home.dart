@@ -1,10 +1,20 @@
+import 'dart:io';
+import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
+import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
+import 'package:app_doc/features/global/commun/transversals.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:app_doc/app.dart';
+import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:app_doc/photo.dart';
 import 'package:app_doc/photo_collection.dart';
 import 'package:app_doc/photo_analysis.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/testing.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -43,11 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               height: 100,
               width: 100,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage("image"),
-                ),
-              ),
             ),
             Text(user!.email ?? ""),
             Text(user!.displayName ?? ""),
@@ -55,6 +60,13 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.orange,
               child: const Text("Sign Out"),
               onPressed: _handleSignOut,
+            ),
+            MaterialButton(
+              color: Colors.orange,
+              child: const Text("Show list"),
+              onPressed: () {
+                Navigator.pushNamed(context, "/pacient-list");
+              },
             )
           ],
         ),
@@ -66,68 +78,44 @@ class _HomeScreenState extends State<HomeScreen> {
     auth.signOut();
     Navigator.pushNamed(context, "/login");
   }
-}
-/*
-// Photo collection
 
-// PhotoCollection photoCollection = PhotoCollection();
+  Future<void> _handlePrueba() async {
+    // FirebaseStorageService _storage = FirebaseStorageService();
 
-// Photos
+    // final path = await _storage.getUrl(await _storage.uploadFile(
+    //     await fileFromAssets('Wallpaper.jpg'), 'prueba.jpg'));
+    // Photo newPhoto = Photo(
+    //     nombre: 'prueba',
+    //     fecha: DateTime.now(),
+    //     ruta: path,
+    //     tipo: 'Fotografia');
+    FirebaseRealTimeDbService _realtimedb = FirebaseRealTimeDbService();
+    // _realtimedb.addImage(newPhoto, "idPasient");
+    //List<Photo> photos = _realtimedb.getAllPhotos('one');
+    // // Guardar la URL en la base de datos
+    // final db = FirebaseDatabase.instance;
+    // var key = db.ref('prueba').push().key;
 
-//List<Photo> photos = [];
+    // final foto1Ref = db.ref('fotos/one/1');
+    // await foto1Ref.set({
+    //   'ruta': fotoUrl,
+    // });
 
-// Loading photos
+    // Obtén la referencia a la colección "fotos"
+    DatabaseReference fotosRef = FirebaseDatabase.instance.ref().child("fotos");
 
-@override
-void initState() {
-  super.initState();
+    // Obtén la referencia al id "one"
+    DatabaseReference oneRef = fotosRef.child("one");
+    oneRef.onValue.listen((DatabaseEvent event) {
+      event.snapshot.children.forEach((child) {
+        // Obtén el objeto foto
+        dynamic foto = child.value;
 
-  // Load photos from the database
-  photoCollection.loadPhotos().then((photos) {
-    setState(() {
-      this.photos = photos;
-    });
-  });
-}
-
-  // Taking a photo
-
-  void _takePhoto() async {
-    // Capture the image
-    ImageSource imageSource = ImageSource.camera;
-    File imageFile = await ImagePicker.pickImage(source: imageSource);
-
-    // Save the photo to the database
-    if (imageFile != null) {
-      Photo photo = Photo(name: imageFile.name, date: DateTime.now(), content: imageFile.path);
-      photoCollection.savePhoto(photo).then((id) {
-        setState(() {
-          photos.add(photo);
-        });
-      });
-    }
-  }
-
-  // Analyzing a photo
-
-  void _analyzePhoto(Photo photo) {
-    // Analyze the photo
-    PhotoAnalysis analysis = PhotoAnalysis();
-    analysis.analyzePhoto(photo).then((results) {
-      setState(() {
-        photo.results = results;
+        // Imprime los datos de la foto
+        print(foto["id"]);
+        print(foto["ruta"]);
+        print(foto["clienteId"]);
       });
     });
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('app_doc'),
-      ),
-      body: ListView.builder(
-        itemCount: photos.length,
-        itemBuilder: (context, index) {
-          Photo photo = photos[index
-*/
+}

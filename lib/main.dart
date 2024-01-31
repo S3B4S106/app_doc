@@ -1,9 +1,9 @@
-import 'dart:ffi';
-
 import 'package:app_doc/features/user_auth/presentation/ResetPassword.dart';
 import 'package:app_doc/features/app/splash_screen/splash_screen.dart';
 import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_options.dart';
+import 'package:app_doc/photos_screen.dart';
 import 'package:app_doc/home.dart';
+import 'package:app_doc/pacient_list.dart';
 import 'package:app_doc/features/user_auth/presentation/login.dart';
 import 'package:app_doc/features/user_auth/presentation/login_email.dart';
 import 'package:app_doc/features/user_auth/presentation/sign_up.dart';
@@ -11,8 +11,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import 'package:app_doc/app.dart';
 
 MaterialColor colour(Color darkmint1) {
   final int red = darkmint1.red;
@@ -35,7 +33,7 @@ MaterialColor colour(Color darkmint1) {
   return MaterialColor(darkmint1.value, shades);
 }
 
-Future main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
@@ -57,44 +55,36 @@ Future main() async {
     _currentScreen = LoginScreen();
     print("El usuario no está logueado");
   }
-  runApp(MyApp(_currentScreen));
+  runApp(mainWiget(_currentScreen));
 }
 
-class MyApp extends StatelessWidget {
-  Widget _currentScreen = LoginScreen();
-  MyApp(Widget currentScreen) {
-    _currentScreen = currentScreen;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'PxPhotoPro',
-      //Tema Principal, se usa cuando no está activo el modo oscuro
-      theme: ThemeData(
-        //Se indica que el tema tiene un brillo luminoso/claro
-        brightness: Brightness.light,
-        primarySwatch: colour(Color.fromRGBO(35, 93, 113, 1)),
-        secondaryHeaderColor: Color.fromARGB(255, 204, 0, 255),
-      ),
-      //Tema Oscuro, se usa cuando se activa el modo oscuro
-      darkTheme: ThemeData(
-        //Se indica que el tema tiene un brillo oscuro
-        brightness: Brightness.dark,
-        primarySwatch: colour(Color.fromRGBO(35, 93, 113, 1)),
-        secondaryHeaderColor: Color.fromARGB(255, 204, 0, 255),
-      ),
-      routes: {
-        '/': (context) => SplashScreen(
-            // Here, you can decide whether to show the LoginPage or HomePage based on user authentication
-            child: _currentScreen),
-        '/login': (context) => LoginScreen(),
-        '/login-email': (context) => LoginEmailScreen(),
-        '/signUp': (context) => SignUpScreen(),
-        '/resetPassword': (context) => ResetPasswordScreen(),
-        '/home': (context) => HomeScreen(),
-      },
-    );
-  }
+Widget mainWiget(_currentScreen) {
+  return MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'PxPhotoPro',
+    //Tema Principal, se usa cuando no está activo el modo oscuro
+    theme: ThemeData(
+      //Se indica que el tema tiene un brillo luminoso/claro
+      brightness: Brightness.light,
+      primarySwatch: colour(Color.fromRGBO(35, 93, 113, 1)),
+      secondaryHeaderColor: Color.fromARGB(255, 204, 0, 255),
+    ),
+    //Tema Oscuro, se usa cuando se activa el modo oscuro
+    darkTheme: ThemeData(
+      //Se indica que el tema tiene un brillo oscuro
+      brightness: Brightness.dark,
+      primarySwatch: colour(Color.fromRGBO(35, 93, 113, 1)),
+      secondaryHeaderColor: Color.fromARGB(255, 204, 0, 255),
+    ),
+    routes: {
+      '/': (context) => _currentScreen,
+      '/login': (context) => LoginScreen(),
+      '/login-email': (context) => LoginEmailScreen(),
+      '/signUp': (context) => SignUpScreen(),
+      '/resetPassword': (context) => ResetPasswordScreen(),
+      '/home': (context) => HomeScreen(),
+      '/fotos': (context) => PhotosScreen(),
+      '/pacient-list': (context) => PacientListScreen()
+    },
+  );
 }
