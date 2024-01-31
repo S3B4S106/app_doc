@@ -6,12 +6,12 @@ import 'package:app_doc/photo_collection.dart';
 import 'package:app_doc/photo_analysis.dart';
 import 'package:google_sign_in/testing.dart';
 
-class NewPxScreen extends StatefulWidget {
+class ListPxScreen extends StatefulWidget {
   @override
-  _NewPxScreenState createState() => _NewPxScreenState();
+  _ListPxScreenState createState() => _ListPxScreenState();
 }
 
-class _NewPxScreenState extends State<NewPxScreen> {
+class _ListPxScreenState extends State<ListPxScreen> {
   //var ;
   @override
   void initState() {
@@ -22,7 +22,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Nuevo Paciente"),
+        title: const Text("Listado de Pacientes"),
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,

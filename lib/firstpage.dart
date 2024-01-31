@@ -25,6 +25,7 @@ class _FirstPageState extends State<firstpage> {
           )),
           Container(
               child: InkWell(
+            splashColor: Colors.blue,
             onTap: () {},
             child: Ink.image(
               image: AssetImage('assets/List.png'),

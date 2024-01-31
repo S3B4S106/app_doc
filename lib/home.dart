@@ -1,4 +1,5 @@
 import 'package:app_doc/app.dart';
+import 'package:app_doc/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:app_doc/photo.dart';
@@ -31,11 +32,73 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("PxPhotoPRO"),
+        elevation: 10,
+        centerTitle: true,
+        //backgroundColor: Color.fromRGBO(35, 93, 113, 1),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            colors: [
+              Color.fromRGBO(35, 93, 113, 1),
+              Color.fromRGBO(124, 187, 176, 1)
+            ],
+          )),
+        ),
+        title: const Text("P x P h o t o P r o"),
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+                child: Material(
+                    elevation: 13,
+                    borderRadius: BorderRadius.circular(57),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: InkWell(
+                        splashColor: Colors.white70,
+                        onTap: _openNewPx,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(
+                                color: Color.fromRGBO(17, 63, 89, 1), width: 7),
+                            borderRadius: BorderRadius.circular(57),
+                          ),
+                          child: Ink.image(
+                            image: const AssetImage('assets/newpx1.png'),
+                            height: 300,
+                            width: 500,
+                            fit: BoxFit.cover,
+                          ),
+                        )))),
+            Container(
+                child: Material(
+                    elevation: 10,
+                    borderRadius: BorderRadius.circular(57),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: InkWell(
+                        splashColor: Colors.black87,
+                        onTap: _openlistPx,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(
+                                color: Color.fromRGBO(17, 63, 89, 1), width: 7),
+                            borderRadius: BorderRadius.circular(57),
+                          ),
+                          child: Ink.image(
+                            image: const AssetImage('assets/List.png'),
+                            height: 300,
+                            width: 500,
+                            fit: BoxFit.cover,
+                          ),
+                        )))),
+          ],
+          //color: Colors.black,
+        ),
+        /*child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
@@ -62,20 +125,25 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: _openNewPx,
             )
           ],
-        ),
+        ),*/
       ),
     );
   }
 
-  void _handleSignOut() {
+  /*void _handleSignOut() {
     auth.signOut();
     Navigator.pushNamed(context, "/login");
-  }
+  }*/
 
   void _openNewPx() {
-    Navigator.pushNamed(context, "/firstpage");
+    Navigator.pushNamed(context, "/newPx");
+  }
+
+  void _openlistPx() {
+    Navigator.pushNamed(context, "/listPx");
   }
 }
+
 /*
 // Photo collection
 
@@ -140,3 +208,4 @@ void initState() {
         itemBuilder: (context, index) {
           Photo photo = photos[index
 */
+

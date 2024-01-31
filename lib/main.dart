@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:app_doc/ListPx.dart';
 import 'package:app_doc/NewPx.dart';
 import 'package:app_doc/firstpage.dart';
 import 'package:app_doc/features/user_auth/presentation/ResetPassword.dart';
@@ -98,6 +99,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/newPx': (context) => NewPxScreen(),
         '/firstpage': (context) => firstpage(),
+        '/listPx': (context) => ListPxScreen(),
       },
     );
   }
