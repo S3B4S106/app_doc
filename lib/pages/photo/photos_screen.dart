@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:app_doc/pacient.dart';
-import 'package:app_doc/pacient_list.dart';
-import 'package:app_doc/photo.dart';
+import 'package:app_doc/features/entity/pacient.dart';
+import 'package:app_doc/pages/pacient/pacient_list.dart';
+import 'package:app_doc/features/entity/photo.dart';
 import 'package:flutter/material.dart';
 
 class PhotosScreen extends StatefulWidget {

@@ -1,14 +1,13 @@
 import 'dart:ffi';
 
-import 'package:app_doc/ListPx.dart';
-import 'package:app_doc/NewPx.dart';
+import 'package:app_doc/pages/pacient/NewPx.dart';
 import 'package:app_doc/firstpage.dart';
 import 'package:app_doc/features/user_auth/presentation/ResetPassword.dart';
 import 'package:app_doc/features/app/splash_screen/splash_screen.dart';
 import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_options.dart';
-import 'package:app_doc/photos_screen.dart';
-import 'package:app_doc/home.dart';
-import 'package:app_doc/pacient_list.dart';
+import 'package:app_doc/pages/photo/photos_screen.dart';
+import 'package:app_doc/pages/home.dart';
+import 'package:app_doc/pages/pacient/pacient_list.dart';
 import 'package:app_doc/features/user_auth/presentation/login.dart';
 import 'package:app_doc/features/user_auth/presentation/login_email.dart';
 import 'package:app_doc/features/user_auth/presentation/sign_up.dart';

@@ -1,8 +1,8 @@
-import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
-import 'package:app_doc/pacient.dart';
-import 'package:app_doc/photo.dart';
+import 'package:app_doc/features/entity/pacient.dart';
+import 'package:app_doc/features/entity/photo.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:app_doc/features/global/commun/searchList_widget.dart';
 
 class PacientListScreen extends StatefulWidget {
   @override
@@ -35,7 +35,7 @@ class _PacientListState extends State<PacientListScreen> {
             id: pacient["id"],
             nombre: pacient["nombre"],
             apellido: pacient["apellido"],
-            fechaNacimiento: pacient["fechaNacimiento"],
+            fechaNacimiento: DateTime.parse(pacient["fechaNacimiento"]),
             genero: pacient["genero"],
             fotos: []);
 
@@ -43,6 +43,8 @@ class _PacientListState extends State<PacientListScreen> {
       });
     });
   }
+
+  //funcional methods
 
   void fetchPhotos(String pacientid, Pacient paciente) {
     DatabaseReference twoRef = fotosRef.child("$pacientid");
@@ -61,7 +63,11 @@ class _PacientListState extends State<PacientListScreen> {
           );
           paciente.fotos.add(foto);
         });
-        if (!pacientes.contains(paciente)) pacientes.add(paciente);
+        if (!pacientes.contains(paciente)) {
+          pacientes.add(paciente);
+          pacientes
+              .sort((a, b) => b.fechaNacimiento.compareTo(a.fechaNacimiento));
+        }
         // Update the UI after adding photos
       });
     });
@@ -73,6 +79,15 @@ class _PacientListState extends State<PacientListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("PacientList"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              // Mostramos la barra de búsqueda
+              showSearch(context: context, delegate: SearchList(pacientes));
+            },
+          ),
+        ],
       ),
       body: pacientes.isNotEmpty
           ? ListView(
