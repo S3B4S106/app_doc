@@ -44,6 +44,16 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         elevation: 10,
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.account_circle_rounded),
+          onPressed: () {},
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.menu_rounded),
+            onPressed: () {},
+          )
+        ],
         //backgroundColor: Color.fromRGBO(35, 93, 113, 1),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -56,13 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         title: const Text("P x P h o t o P r o"),
       ),
-      body: SizedBox(
+      body: Container(
         width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
                 child: Material(
+                    color: Color.fromRGBO(18, 62, 89, 1),
                     elevation: 13,
                     borderRadius: BorderRadius.circular(57),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -70,19 +81,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         splashColor: Colors.white70,
                         onTap: _openNewPx,
                         child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            border: Border.all(
-                                color: Color.fromRGBO(17, 63, 89, 1), width: 7),
-                            borderRadius: BorderRadius.circular(57),
-                          ),
-                          child: Ink.image(
-                            image: const AssetImage('assets/newpx1.png'),
-                            height: 300,
-                            width: 500,
-                            fit: BoxFit.cover,
-                          ),
-                        )))),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: Color.fromRGBO(17, 63, 89, 1),
+                                  width: 7),
+                              borderRadius: BorderRadius.circular(57),
+                            ),
+                            child: Column(children: [
+                              Ink.image(
+                                image:
+                                    const AssetImage('assets/newpx1edit.png'),
+                                height: 220,
+                                width: 375,
+                                fit: BoxFit.cover,
+                              ),
+                              const SizedBox(
+                                height: 1,
+                              ),
+                              const Text(
+                                'Nuevo Paciente',
+                                style: TextStyle(
+                                    fontSize: 28,
+                                    color: Color.fromRGBO(122, 188, 176, 1)),
+                              )
+                            ]))))),
             Container(
                 child: Material(
                     elevation: 10,
@@ -99,9 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(57),
                           ),
                           child: Ink.image(
-                            image: const AssetImage('assets/List.png'),
-                            height: 300,
-                            width: 500,
+                            image: const AssetImage('assets/Listedit.png'),
+                            height: 220,
+                            width: 375,
                             fit: BoxFit.cover,
                           ),
                         )))),

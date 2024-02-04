@@ -24,9 +24,6 @@ class _NewPxScreenState extends State<NewPxScreen> {
       appBar: AppBar(
         title: const Text("Nuevo Paciente"),
       ),
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-      ),
     );
   }
 }
