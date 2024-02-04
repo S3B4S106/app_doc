@@ -77,8 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           child: Ink.image(
                             image: const AssetImage('assets/newpx1.png'),
-                            height: 300,
-                            width: 500,
+                            height:
+                                (MediaQuery.of(context).size.height / 2) - 70,
+                            width: MediaQuery.of(context).size.width,
                             fit: BoxFit.cover,
                           ),
                         )))),
@@ -99,8 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           child: Ink.image(
                             image: const AssetImage('assets/List.png'),
-                            height: 300,
-                            width: 500,
+                            height:
+                                (MediaQuery.of(context).size.height / 2) - 70,
+                            width: MediaQuery.of(context).size.width,
                             fit: BoxFit.cover,
                           ),
                         )))),
