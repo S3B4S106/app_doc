@@ -1,4 +1,4 @@
-import 'package:app_doc/photo.dart';
+import 'package:app_doc/features/entity/photo.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class FirebaseRealTimeDbService {

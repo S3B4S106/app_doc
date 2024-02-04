@@ -1,11 +1,11 @@
-import 'package:app_doc/photo.dart';
+import 'package:app_doc/features/entity/photo.dart';
 
 class Pacient {
-  String id = "";
-  String nombre = "";
-  String apellido = "";
-  String fechaNacimiento = "";
-  String genero = "";
+  String id;
+  String nombre;
+  String apellido;
+  DateTime fechaNacimiento;
+  String genero;
   List<Photo> fotos = [];
 
   Pacient(

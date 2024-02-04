@@ -3,16 +3,15 @@ import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.
 import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
 import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:app_doc/app.dart';
 import 'package:app_doc/main.dart';
 import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:app_doc/photo.dart';
-import 'package:app_doc/photo_collection.dart';
-import 'package:app_doc/photo_analysis.dart';
+import 'package:app_doc/features/entity/photo.dart';
+import 'package:app_doc/features/photo/photo_collection.dart';
+import 'package:app_doc/features/photo/photo_analysis.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/testing.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -92,8 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               Ink.image(
                                 image:
                                     const AssetImage('assets/newpx1edit.png'),
-                                height: 220,
-                                width: 375,
+                                height: MediaQuery.of(context).size.height / 2 -
+                                    175,
+                                width: MediaQuery.of(context).size.width - 17,
                                 fit: BoxFit.cover,
                               ),
                               const SizedBox(
@@ -123,8 +123,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           child: Ink.image(
                             image: const AssetImage('assets/Listedit.png'),
-                            height: 220,
-                            width: 375,
+                            height:
+                                MediaQuery.of(context).size.height / 2 - 175,
+                            width: MediaQuery.of(context).size.width - 17,
                             fit: BoxFit.cover,
                           ),
                         )))),
@@ -236,4 +237,3 @@ void initState() {
         itemBuilder: (context, index) {
           Photo photo = photos[index
 */
-
