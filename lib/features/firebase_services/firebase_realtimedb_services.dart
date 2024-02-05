@@ -9,12 +9,30 @@ class FirebaseRealTimeDbService {
     _realtimeDb = FirebaseDatabase.instance;
   }
 
-  // Subir la foto
-  void addImage(Photo photo, String idPasient) async {
-    final key = _realtimeDb.ref('fotos').push().key;
-    photo.id = key;
-    final fotoRef = _realtimeDb.ref('fotos/$idPasient/$key');
-    await fotoRef.set(photo);
+  FirebaseDatabase get() {
+    return _realtimeDb;
+  }
+
+  Future<bool> fetchOnce(String ref) async {
+    final event = await _realtimeDb.ref(ref).once(DatabaseEventType.value);
+    final item = event.snapshot.value != null ? true : false;
+    return item;
+  }
+
+  // Subir item
+  void addItem(String ref, dynamic item,
+      [String? idParent, String? idItem]) async {
+    final DatabaseReference dbRef;
+
+    if (idItem == null) {
+      final key = _realtimeDb.ref(ref).push().key;
+      item.id = key;
+      dbRef = _realtimeDb.ref('$ref/$idParent/$key');
+    } else {
+      dbRef = _realtimeDb.ref('$ref/$idItem');
+    }
+
+    await dbRef.set(item);
   }
 
   // Obtener ruta imagen

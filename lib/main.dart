@@ -11,6 +11,7 @@ import 'package:app_doc/pages/pacient/pacient_list.dart';
 import 'package:app_doc/features/user_auth/presentation/login.dart';
 import 'package:app_doc/features/user_auth/presentation/login_email.dart';
 import 'package:app_doc/features/user_auth/presentation/sign_up.dart';
+import 'package:app_doc/pages/user/user_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -113,6 +114,7 @@ class MyApp extends StatelessWidget {
         '/firstpage': (context) => firstpage(),
         '/fotos': (context) => PhotosScreen(),
         '/listPx': (context) => PacientListScreen(),
+        '/user-info': (context) => UserScreen(),
       },
     );
   }

@@ -1,20 +1,9 @@
-import 'dart:io';
-import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
-import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
-import 'package:app_doc/features/global/commun/transversals.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:app_doc/main.dart';
-import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:app_doc/features/entity/photo.dart';
-import 'package:app_doc/features/photo/photo_collection.dart';
-import 'package:app_doc/features/photo/photo_analysis.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/testing.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -23,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseRealTimeDbService dbService = FirebaseRealTimeDbService();
   var user;
   @override
   void initState() {
@@ -31,8 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
     // Check if the user is authenticated
 
     auth.authStateChanges().listen((event) {
-      setState(() {
+      setState(() async {
         user = event ?? FakeUser();
+        var id = user.uid;
+        if (!await dbService.fetchOnce("medicos/$id")) {
+          dbService.addItem(
+              "medicos", {"id": id, "suscription": false}, null, id);
+        }
       });
     });
   }
@@ -45,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.account_circle_rounded),
-          onPressed: () {},
+          onPressed: _openUserInfo,
         ),
         actions: [
           IconButton(
@@ -170,6 +165,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _openlistPx() {
     Navigator.pushNamed(context, "/listPx");
+  }
+
+  void _openUserInfo() {
+    Navigator.pushNamed(context, "/user-info",
+        arguments: {'user': user, 'service': auth});
   }
 }
 
