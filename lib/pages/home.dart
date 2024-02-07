@@ -1,8 +1,7 @@
+import 'package:app_doc/features/entity/doctor.dart';
+import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_sign_in/testing.dart';
 import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,22 +10,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final FirebaseRealTimeDbService dbService = FirebaseRealTimeDbService();
-  var user;
+  final FirebaseAuthService _authService = FirebaseAuthService();
+  final FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
+  User? user;
+  Doctor? doctor;
+
   @override
   void initState() {
     super.initState();
-
     // Check if the user is authenticated
-
-    auth.authStateChanges().listen((event) {
+    _authService.getAuth()!.authStateChanges().listen((event) {
       setState(() async {
-        user = event ?? FakeUser();
-        var id = user.uid;
-        if (!await dbService.fetchOnce("medicos/$id")) {
-          dbService.addItem(
-              "medicos", {"id": id, "suscription": false}, null, id);
+        user = event;
+        doctor = Doctor(
+            id: user!.uid,
+            name: "name",
+            lastname: "lastname",
+            dueDate: DateTime.now(),
+            genero: "genero",
+            suscriptionType: "prueba",
+            suscriptionActive: false);
+        if (!await _dbService.fetchOnce("medicos/${user!.uid}")) {
+          _dbService.addItem("medicos", doctor!.toMap(), null, user!.uid);
         }
       });
     });
@@ -168,8 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _openUserInfo() {
-    Navigator.pushNamed(context, "/user-info",
-        arguments: {'user': user, 'service': auth});
+    Navigator.pushNamed(context, "/user-info", arguments: {'user': doctor});
   }
 }
 

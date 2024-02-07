@@ -9,7 +9,7 @@ class FirebaseRealTimeDbService {
     _realtimeDb = FirebaseDatabase.instance;
   }
 
-  FirebaseDatabase get() {
+  FirebaseDatabase getDb() {
     return _realtimeDb;
   }
 
@@ -47,5 +47,9 @@ class FirebaseRealTimeDbService {
       photos.add(data as Photo);
     });
     return photos;
+  }
+
+  DatabaseReference getReference(String parentRef, String ref) {
+    return _realtimeDb.ref().child(parentRef).child(ref);
   }
 }

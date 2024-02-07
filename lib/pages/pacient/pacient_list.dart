@@ -1,6 +1,8 @@
 import 'package:app_doc/features/entity/pacient.dart';
 import 'package:app_doc/features/entity/photo.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
+import 'package:app_doc/features/global/commun/transversals.dart';
+import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:app_doc/features/global/commun/searchList_widget.dart';
 
@@ -11,10 +13,10 @@ class PacientListScreen extends StatefulWidget {
 
 class _PacientListState extends State<PacientListScreen> {
   // Obtén la referencia a la colección "fotos"
-
-  DatabaseReference pacientRef =
-      FirebaseDatabase.instance.ref().child("clientes");
-  DatabaseReference fotosRef = FirebaseDatabase.instance.ref().child("fotos");
+  FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
+  FirebaseAuthService _authService = FirebaseAuthService();
+  var pacientRef;
+  var fotosRef;
 
   var pacientes = [];
   late Pacient paciente;
@@ -23,8 +25,9 @@ class _PacientListState extends State<PacientListScreen> {
     super.initState();
 
     // Escucha el evento onValue
-    DatabaseReference oneRef = pacientRef.child("m1");
-    oneRef.onValue.listen((DatabaseEvent event) {
+    pacientRef =
+        _dbService.getReference("clientes", _authService.getUser()!.uid);
+    pacientRef.onValue.listen((event) {
       // Actualiza el arreglo de pacientes
       pacientes = [];
       event.snapshot.children.forEach((child) {
@@ -47,8 +50,8 @@ class _PacientListState extends State<PacientListScreen> {
   //funcional methods
 
   void fetchPhotos(String pacientid, Pacient paciente) {
-    DatabaseReference twoRef = fotosRef.child("$pacientid");
-    twoRef.onValue.listen((DatabaseEvent event) {
+    fotosRef = _dbService.getReference("fotos", pacientid);
+    fotosRef.onValue.listen((event) {
       // Add photos to the paciente object
       setState(() {
         paciente.fotos = [];
@@ -96,7 +99,7 @@ class _PacientListState extends State<PacientListScreen> {
                 for (final paciente in pacientes)
                   ListTile(
                     title: Text("${paciente.nombre} ${paciente.apellido}"),
-                    subtitle: Text("${paciente.fechaNacimiento}"),
+                    subtitle: Text(formatDate(paciente.fechaNacimiento)),
                     trailing: Text(paciente.fotos.length.toString()),
                     onTap: () {
                       // Mostramos las fotos del cliente

@@ -1,3 +1,5 @@
+import 'package:app_doc/features/global/commun/transversals.dart';
+import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:flutter/material.dart';
 
 class UserScreen extends StatefulWidget {
@@ -6,13 +8,12 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
+  FirebaseAuthService _authService = FirebaseAuthService();
   var user;
-  var auth;
   @override
   Widget build(BuildContext context) {
     Map parameters = ModalRoute.of(context)?.settings.arguments as Map;
     user = parameters['user'];
-    auth = parameters['service'];
     return Scaffold(
       appBar: AppBar(
         elevation: 10,
@@ -38,8 +39,8 @@ class _UserScreenState extends State<UserScreen> {
             height: 100,
             width: 100,
           ),
-          Text(user!.email ?? ""),
-          Text(user!.displayName ?? ""),
+          Text(formatDate(user!.dueDate)),
+          Text(user!.name ?? ""),
           MaterialButton(
             color: Color.fromARGB(255, 0, 141, 110),
             onPressed: _handleSignOut,
@@ -51,7 +52,7 @@ class _UserScreenState extends State<UserScreen> {
   }
 
   void _handleSignOut() {
-    auth.signOut();
+    _authService.signOut();
     Navigator.pushNamed(context, "/login");
   }
 }
