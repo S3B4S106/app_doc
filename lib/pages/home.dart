@@ -1,4 +1,5 @@
 import 'package:app_doc/features/entity/doctor.dart';
+import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,30 +42,20 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 10,
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.account_circle_rounded),
-          onPressed: _openUserInfo,
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.menu_rounded),
-            onPressed: () {},
-          )
-        ],
-        //backgroundColor: Color.fromRGBO(35, 93, 113, 1),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-            colors: [
-              Color.fromRGBO(35, 93, 113, 1),
-              Color.fromRGBO(124, 187, 176, 1)
-            ],
-          )),
-        ),
-        title: const Text("P x P h o t o P r o"),
-      ),
+          elevation: 10,
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.account_circle_rounded),
+            onPressed: _openUserInfo,
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.menu_rounded),
+              onPressed: () {},
+            )
+          ],
+          flexibleSpace: header(),
+          title: titleApp()),
       body: Container(
         width: MediaQuery.of(context).size.width,
         child: Column(

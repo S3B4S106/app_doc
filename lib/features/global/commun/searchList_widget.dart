@@ -1,3 +1,4 @@
+import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:flutter/material.dart';
 
 class SearchList extends SearchDelegate {
@@ -43,7 +44,7 @@ class SearchList extends SearchDelegate {
         }))
           ListTile(
             title: Text("${item.nombre} ${item.apellido}"),
-            subtitle: Text("${item.fechaNacimiento}"),
+            subtitle: Text(formatDate(item.fechaNacimiento)),
             trailing: Text(item.fotos.length.toString()),
             onTap: () {
               // Mostramos las fotos del cliente
@@ -71,7 +72,7 @@ class SearchList extends SearchDelegate {
         }))
           ListTile(
             title: Text("${item.nombre} ${item.apellido}"),
-            subtitle: Text("${item.fechaNacimiento}"),
+            subtitle: Text(formatDate(item.fechaNacimiento)),
             trailing: Text(item.fotos.length.toString()),
             onTap: () {
               // Mostramos las fotos del cliente

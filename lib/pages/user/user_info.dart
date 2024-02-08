@@ -1,3 +1,4 @@
+import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:flutter/material.dart';
@@ -18,17 +19,8 @@ class _UserScreenState extends State<UserScreen> {
       appBar: AppBar(
         elevation: 10,
         centerTitle: true,
-        //backgroundColor: Color.fromRGBO(35, 93, 113, 1),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-            colors: [
-              Color.fromRGBO(35, 93, 113, 1),
-              Color.fromRGBO(124, 187, 176, 1)
-            ],
-          )),
-        ),
-        title: const Text("P x P h o t o P r o"),
+        flexibleSpace: header(),
+        title: titleApp(),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,5 +1,4 @@
-import 'dart:ffi';
-
+import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/pages/pacient/NewPx.dart';
 import 'package:app_doc/firstpage.dart';
 import 'package:app_doc/features/user_auth/presentation/ResetPassword.dart';
@@ -14,7 +13,6 @@ import 'package:app_doc/features/user_auth/presentation/sign_up.dart';
 import 'package:app_doc/pages/user/user_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 /*------- C O D I G O  D E  C O L O R E S -------*
 EN ESTE ESPACIO DEJARE LOS CODIGOS DE COLORES QUE SE USARAN EN GRAN PARTE DEL PROYECTO
@@ -29,27 +27,6 @@ ESTARAN ORGANIZADO DE OSCURO A CLARO SIGUIENDO EL FORMATO RGBO EN LA PALETA DARK
 (221, 252, 212, 1)
 
 */
-
-MaterialColor colour(Color darkmint1) {
-  final int red = darkmint1.red;
-  final int green = darkmint1.green;
-  final int blue = darkmint1.blue;
-  final int alpha = darkmint1.alpha;
-
-  final Map<int, Color> shades = {
-    50: Color.fromARGB(alpha, red, green, blue),
-    100: Color.fromARGB(alpha, red, green, blue),
-    200: Color.fromARGB(alpha, red, green, blue),
-    300: Color.fromARGB(alpha, red, green, blue),
-    400: Color.fromARGB(alpha, red, green, blue),
-    500: Color.fromARGB(alpha, red, green, blue),
-    600: Color.fromARGB(alpha, red, green, blue),
-    700: Color.fromARGB(alpha, red, green, blue),
-    800: Color.fromARGB(alpha, red, green, blue),
-    900: Color.fromARGB(alpha, red, green, blue),
-  };
-  return MaterialColor(darkmint1.value, shades);
-}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -84,22 +61,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var colorApp = ColorScheme.fromSeed(
+        brightness: MediaQuery.platformBrightnessOf(context),
+        seedColor: const Color.fromARGB(255, 32, 83, 102),
+        background: calculateAverageColor(const LinearGradient(
+          colors: [Color.fromRGBO(7, 54, 69, 1), Color.fromRGBO(13, 13, 13, 1)],
+        ).colors));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'PxPhotoPro',
       //Tema Principal, se usa cuando no está activo el modo oscuro
       theme: ThemeData(
-        //Se indica que el tema tiene un brillo luminoso/claro
-        brightness: Brightness.light,
-        primarySwatch: colour(Color.fromRGBO(35, 93, 113, 1)),
-        secondaryHeaderColor: Color.fromARGB(255, 204, 0, 255),
-      ),
-      //Tema Oscuro, se usa cuando se activa el modo oscuro
-      darkTheme: ThemeData(
-        //Se indica que el tema tiene un brillo oscuro
-        brightness: Brightness.dark,
-        primarySwatch: colour(Color.fromRGBO(35, 93, 113, 1)),
-        secondaryHeaderColor: Color.fromARGB(255, 204, 0, 255),
+        colorScheme: colorApp,
+        scaffoldBackgroundColor: colorApp.background,
       ),
       routes: {
         '/': (context) => SplashScreen(
