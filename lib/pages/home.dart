@@ -1,41 +1,29 @@
-import 'package:app_doc/features/entity/doctor.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
-import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:app_doc/features/model/notify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 
 class HomeScreen extends StatefulWidget {
+  late final EntitysModel? _entitysModel;
+  HomeScreen(EntitysModel entitysModel) {
+    _entitysModel = entitysModel;
+  }
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState(_entitysModel);
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final FirebaseAuthService _authService = FirebaseAuthService();
-  final FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
+  EntitysModel? _entitysModel;
   User? user;
-  Doctor? doctor;
+
+  _HomeScreenState(EntitysModel? entitysModel) {
+    _entitysModel = entitysModel;
+  }
 
   @override
   void initState() {
     super.initState();
-    // Check if the user is authenticated
-    _authService.getAuth()!.authStateChanges().listen((event) {
-      setState(() async {
-        user = event;
-        doctor = Doctor(
-            id: user!.uid,
-            name: "name",
-            lastname: "lastname",
-            dueDate: DateTime.now(),
-            genero: "genero",
-            suscriptionType: "prueba",
-            suscriptionActive: false);
-        if (!await _dbService.fetchOnce("medicos/${user!.uid}")) {
-          _dbService.addItem("medicos", doctor!.toMap(), null, user!.uid);
-        }
-      });
-    });
   }
 
   @override
@@ -160,11 +148,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _openlistPx() {
-    Navigator.pushNamed(context, "/listPx");
+    Navigator.pushNamed(context, "/listPx",
+        arguments: {'model': _entitysModel});
   }
 
   void _openUserInfo() {
-    Navigator.pushNamed(context, "/user-info", arguments: {'user': doctor});
+    Navigator.pushNamed(context, "/user-info",
+        arguments: {'model': _entitysModel});
   }
 }
 

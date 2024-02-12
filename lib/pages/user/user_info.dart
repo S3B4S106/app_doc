@@ -14,7 +14,8 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     Map parameters = ModalRoute.of(context)?.settings.arguments as Map;
-    user = parameters['user'];
+    dynamic myModel = parameters['model'];
+    user = myModel.doctor;
     return Scaffold(
       appBar: AppBar(
         elevation: 10,

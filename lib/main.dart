@@ -1,4 +1,8 @@
+import 'package:app_doc/features/entity/doctor.dart';
+import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/global/commun/transversals.dart';
+import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:app_doc/features/model/notify.dart';
 import 'package:app_doc/pages/pacient/NewPx.dart';
 import 'package:app_doc/firstpage.dart';
 import 'package:app_doc/features/user_auth/presentation/ResetPassword.dart';
@@ -11,7 +15,6 @@ import 'package:app_doc/features/user_auth/presentation/login.dart';
 import 'package:app_doc/features/user_auth/presentation/login_email.dart';
 import 'package:app_doc/features/user_auth/presentation/sign_up.dart';
 import 'package:app_doc/pages/user/user_info.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 /*------- C O D I G O  D E  C O L O R E S -------*
@@ -35,28 +38,49 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  Widget _currentScreen = LoginScreen();
+  FirebaseAuthService auth = FirebaseAuthService();
+  Widget currentScreen;
+  FirebaseRealTimeDbService dbService = FirebaseRealTimeDbService();
+  EntitysModel entitysModel = EntitysModel();
 
-// Verificar si el usuario está logueado
-  User? user = auth.currentUser;
-
-  if (user != null) {
+  // Verificar si el usuario está logueado
+  if (auth.getUser() != null) {
     // El usuario está logueado
-    _currentScreen = HomeScreen();
-    print("El usuario está logueado con el ID ${user.uid}");
+    currentScreen = HomeScreen(entitysModel);
+
+    print("El usuario está logueado con el ID ${auth.getUser()!.uid}");
+
+    entitysModel.doctor = Doctor(
+        id: auth.getUser()!.uid,
+        name: "name",
+        lastname: "lastname",
+        dueDate: DateTime.now(),
+        genero: "genero",
+        suscriptionType: "prueba",
+        suscriptionActive: false);
+    if (!await dbService.fetchContent("medicos/${auth.getUser()!.uid}")) {
+      dbService.addItem(
+          "medicos", entitysModel.doctor!.toMap(), null, auth.getUser()!.uid);
+    }
+
+    var pacientRef =
+        dbService.getReference("clientes", entitysModel.doctor!.id);
+
+    dbService.createSuscription(entitysModel, pacientRef);
   } else {
     // El usuario no está logueado
-    _currentScreen = LoginScreen();
+    currentScreen = const LoginScreen();
     print("El usuario no está logueado");
   }
-  runApp(MyApp(_currentScreen));
+  runApp(MyApp(currentScreen, entitysModel));
 }
 
 class MyApp extends StatelessWidget {
-  Widget _currentScreen = LoginScreen();
-  MyApp(Widget currentScreen) {
+  late final Widget? _currentScreen;
+  late final EntitysModel? _entitysModel;
+  MyApp(Widget currentScreen, EntitysModel entitysModel) {
     _currentScreen = currentScreen;
+    _entitysModel = entitysModel;
   }
 
   @override
@@ -83,7 +107,7 @@ class MyApp extends StatelessWidget {
         '/login-email': (context) => LoginEmailScreen(),
         '/signUp': (context) => SignUpScreen(),
         '/resetPassword': (context) => ResetPasswordScreen(),
-        '/home': (context) => HomeScreen(),
+        '/home': (context) => HomeScreen(_entitysModel!),
         '/newPx': (context) => NewPxScreen(),
         '/firstpage': (context) => firstpage(),
         '/fotos': (context) => PhotosScreen(),
