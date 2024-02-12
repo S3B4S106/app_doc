@@ -78,16 +78,19 @@ class _PacientListState extends State<PacientListScreen> {
     // Devuelve el widget solo cuando el arreglo de pacientes esté lleno
     return Scaffold(
       appBar: AppBar(
-        title: Text("PacientList"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // Mostramos la barra de búsqueda
-              showSearch(context: context, delegate: SearchList(pacientes));
-            },
-          ),
-        ],
+        elevation: 10,
+        centerTitle: true,
+        //backgroundColor: Color.fromRGBO(35, 93, 113, 1),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            colors: [
+              Color.fromRGBO(35, 93, 113, 1),
+              Color.fromRGBO(124, 187, 176, 1)
+            ],
+          )),
+        ),
+        title: const Text("L i s t a   d e   P a c i e n t e s"),
       ),
       body: pacientes.isNotEmpty
           ? ListView(

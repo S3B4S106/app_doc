@@ -90,9 +90,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Column(children: [
                               Ink.image(
                                 image:
-                                    const AssetImage('assets/newpx1edit.png'),
+                                    const AssetImage('assets/Button5Grad.png'),
                                 height: MediaQuery.of(context).size.height / 2 -
-                                    175,
+                                    150,
                                 width: MediaQuery.of(context).size.width - 17,
                                 fit: BoxFit.cover,
                               ),
@@ -100,14 +100,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 1,
                               ),
                               const Text(
-                                'Nuevo Paciente',
+                                'N U E V O   P A C I E N T E',
                                 style: TextStyle(
-                                    fontSize: 28,
+                                    fontSize: 15,
                                     color: Color.fromRGBO(122, 188, 176, 1)),
                               )
                             ]))))),
             Container(
                 child: Material(
+                    color: Color.fromRGBO(18, 62, 89, 1),
                     elevation: 10,
                     borderRadius: BorderRadius.circular(57),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -115,20 +116,32 @@ class _HomeScreenState extends State<HomeScreen> {
                         splashColor: Colors.black87,
                         onTap: _openlistPx,
                         child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            border: Border.all(
-                                color: Color.fromRGBO(17, 63, 89, 1), width: 7),
-                            borderRadius: BorderRadius.circular(57),
-                          ),
-                          child: Ink.image(
-                            image: const AssetImage('assets/Listedit.png'),
-                            height:
-                                MediaQuery.of(context).size.height / 2 - 175,
-                            width: MediaQuery.of(context).size.width - 17,
-                            fit: BoxFit.cover,
-                          ),
-                        )))),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: Color.fromRGBO(17, 63, 89, 1),
+                                  width: 7),
+                              borderRadius: BorderRadius.circular(57),
+                            ),
+                            child: Column(children: [
+                              Ink.image(
+                                image: const AssetImage(
+                                    'assets/BottonlistcleanGrad.png'),
+                                height: MediaQuery.of(context).size.height / 2 -
+                                    150,
+                                width: MediaQuery.of(context).size.width - 17,
+                                fit: BoxFit.cover,
+                              ),
+                              const SizedBox(
+                                height: 1,
+                              ),
+                              const Text(
+                                'L I S T A    D E    P A C I E N T E S',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Color.fromRGBO(122, 188, 176, 1)),
+                              )
+                            ]))))),
           ],
           //color: Colors.black,
         ),

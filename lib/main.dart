@@ -1,5 +1,4 @@
 import 'dart:ffi';
-
 import 'package:app_doc/pages/pacient/NewPx.dart';
 import 'package:app_doc/firstpage.dart';
 import 'package:app_doc/features/user_auth/presentation/ResetPassword.dart';
@@ -15,26 +14,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-/*------- C O D I G O  D E  C O L O R E S -------*
+import 'package:flutter/services.dart';
+
+/* *------- C O D I G O  D E  C O L O R E S -------*
 EN ESTE ESPACIO DEJARE LOS CODIGOS DE COLORES QUE SE USARAN EN GRAN PARTE DEL PROYECTO
 ESTARAN ORGANIZADO DE OSCURO A CLARO SIGUIENDO EL FORMATO RGBO EN LA PALETA DARKMINT:
-
 (18, 62, 89, 1)
 (35, 93, 113, 1)
 (59, 122, 137, 1)
 (86, 156, 158, 1)
 (122, 188, 176, 1)
 (165, 219, 195, 1)
-(221, 252, 212, 1)
-
-*/
+(221, 252, 212, 1)                                          */
 
 MaterialColor colour(Color darkmint1) {
   final int red = darkmint1.red;
   final int green = darkmint1.green;
   final int blue = darkmint1.blue;
   final int alpha = darkmint1.alpha;
-
   final Map<int, Color> shades = {
     50: Color.fromARGB(alpha, red, green, blue),
     100: Color.fromARGB(alpha, red, green, blue),
@@ -52,6 +49,9 @@ MaterialColor colour(Color darkmint1) {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
