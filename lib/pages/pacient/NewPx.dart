@@ -1,10 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
-
-import 'dart:ffi';
-
 import 'package:app_doc/features/global/commun/header_widget.dart';
-import 'package:app_doc/main.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class NewPxScreen extends StatefulWidget {
@@ -56,7 +50,15 @@ class _NewPxScreenState extends State<NewPxScreen> {
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     child: InkWell(
                         splashColor: Colors.white70,
-                        onTap: () {},
+                        onTap: () {
+                          if (formKey.currentState!.validate()) {
+                            // Si el formulario es válido, aquí puedes procesar los datos
+                            // Por ejemplo, enviarlos a una base de datos
+                            print('Nombre: $Username');
+                            print('Edad: $Age');
+                            print('Género: $Phone');
+                          }
+                        },
                         child: Container(
                             decoration: BoxDecoration(
                               color: Colors.transparent,
@@ -108,11 +110,10 @@ class _NewPxScreenState extends State<NewPxScreen> {
           border: OutlineInputBorder(),
         ),
         validator: (value) {
-          if (value!.length > 3) {
+          if (value == null || value.isEmpty) {
             return 'Ingrese Nombres y Apellidos';
-          } else {
-            return null;
           }
+          return null;
         },
         onChanged: (value) => setState(() => Username = value),
       );
@@ -126,9 +127,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
         validator: (value) {
           if (value!.length < 6) {
             return 'Ingrese Numero de ID';
-          } else {
-            return null;
           }
+          return null;
         },
         onChanged: (value) => setState(() => ID = value),
       );
@@ -140,13 +140,12 @@ class _NewPxScreenState extends State<NewPxScreen> {
           border: OutlineInputBorder(),
         ),
         validator: (value) {
-          if (value!.length > 3) {
-            return 'Ingrese Numero de ID';
-          } else {
-            return null;
+          if (value!.length > 3 || value.isEmpty) {
+            return 'Ingrese Edad';
           }
+          return null;
         },
-        onChanged: (value) => setState(() => ID = value),
+        onChanged: (value) => setState(() => Age = value),
       );
 
   Widget buildPhone() => TextFormField(
@@ -158,9 +157,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
         validator: (value) {
           if (value!.length < 9) {
             return 'Ingrese numero de contacto';
-          } else {
-            return null;
           }
+          return null;
         },
         onChanged: (value) => setState(() => Phone = value),
       );
@@ -174,9 +172,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
         validator: (value) {
           if (value!.length < 8) {
             return 'Ingrese Nombres y Apellidos';
-          } else {
-            return null;
           }
+          return null;
         },
         onChanged: (value) => setState(() => Date = value),
       );

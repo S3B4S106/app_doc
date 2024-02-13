@@ -20,7 +20,7 @@ class _PacientListState extends State<PacientListScreen> {
   //funcional methods
 
   void createListener(dynamic model) {
-    pacientes = model.pacientes;
+    pacientes = model.pacientes ?? [];
     pacientes.sort((a, b) => b.fechaNacimiento.compareTo(a.fechaNacimiento));
     model.addListener(() {
       setState(() {});
