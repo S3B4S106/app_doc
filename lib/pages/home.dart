@@ -1,70 +1,49 @@
-import 'dart:io';
-import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
-import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
-import 'package:app_doc/features/global/commun/transversals.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:app_doc/main.dart';
-import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_options.dart';
+import 'package:app_doc/features/global/commun/header_widget.dart';
+import 'package:app_doc/features/model/notify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:app_doc/features/entity/photo.dart';
-import 'package:app_doc/features/photo/photo_collection.dart';
-import 'package:app_doc/features/photo/photo_analysis.dart';
-import 'package:flutter/services.dart';
-import 'package:google_sign_in/testing.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class HomeScreen extends StatefulWidget {
+  late final EntitysModel? _entitysModel;
+  HomeScreen(EntitysModel entitysModel) {
+    _entitysModel = entitysModel;
+  }
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState(_entitysModel);
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  var user;
+  EntitysModel? _entitysModel;
+  User? user;
+
+  _HomeScreenState(EntitysModel? entitysModel) {
+    _entitysModel = entitysModel;
+  }
+
   @override
   void initState() {
     super.initState();
-
-    // Check if the user is authenticated
-
-    auth.authStateChanges().listen((event) {
-      setState(() {
-        user = event ?? FakeUser();
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 10,
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.account_circle_rounded),
-          onPressed: () {},
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.menu_rounded),
-            onPressed: () {},
-          )
-        ],
-        //backgroundColor: Color.fromRGBO(35, 93, 113, 1),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-            colors: [
-              Color.fromRGBO(35, 93, 113, 1),
-              Color.fromRGBO(124, 187, 176, 1)
-            ],
-          )),
-        ),
-        title: const Text("P x P h o t o P r o"),
-      ),
+          elevation: 10,
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.account_circle_rounded),
+            onPressed: _openUserInfo,
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.menu_rounded),
+              onPressed: () {},
+            )
+          ],
+          flexibleSpace: header(),
+          title: titleApp()),
       body: Container(
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -182,7 +161,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _openlistPx() {
-    Navigator.pushNamed(context, "/listPx");
+    Navigator.pushNamed(context, "/listPx",
+        arguments: {'model': _entitysModel});
+  }
+
+  void _openUserInfo() {
+    Navigator.pushNamed(context, "/user-info",
+        arguments: {'model': _entitysModel});
   }
 }
 

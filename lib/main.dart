@@ -1,4 +1,8 @@
-import 'dart:ffi';
+import 'package:app_doc/features/entity/doctor.dart';
+import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
+import 'package:app_doc/features/global/commun/transversals.dart';
+import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:app_doc/features/model/notify.dart';
 import 'package:app_doc/pages/pacient/NewPx.dart';
 import 'package:app_doc/firstpage.dart';
 import 'package:app_doc/features/user_auth/presentation/ResetPassword.dart';
@@ -10,9 +14,8 @@ import 'package:app_doc/pages/pacient/pacient_list.dart';
 import 'package:app_doc/features/user_auth/presentation/login.dart';
 import 'package:app_doc/features/user_auth/presentation/login_email.dart';
 import 'package:app_doc/features/user_auth/presentation/sign_up.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:app_doc/pages/user/user_info.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -25,27 +28,9 @@ ESTARAN ORGANIZADO DE OSCURO A CLARO SIGUIENDO EL FORMATO RGBO EN LA PALETA DARK
 (86, 156, 158, 1)
 (122, 188, 176, 1)
 (165, 219, 195, 1)
-(221, 252, 212, 1)                                          */
+(221, 252, 212, 1)
 
-MaterialColor colour(Color darkmint1) {
-  final int red = darkmint1.red;
-  final int green = darkmint1.green;
-  final int blue = darkmint1.blue;
-  final int alpha = darkmint1.alpha;
-  final Map<int, Color> shades = {
-    50: Color.fromARGB(alpha, red, green, blue),
-    100: Color.fromARGB(alpha, red, green, blue),
-    200: Color.fromARGB(alpha, red, green, blue),
-    300: Color.fromARGB(alpha, red, green, blue),
-    400: Color.fromARGB(alpha, red, green, blue),
-    500: Color.fromARGB(alpha, red, green, blue),
-    600: Color.fromARGB(alpha, red, green, blue),
-    700: Color.fromARGB(alpha, red, green, blue),
-    800: Color.fromARGB(alpha, red, green, blue),
-    900: Color.fromARGB(alpha, red, green, blue),
-  };
-  return MaterialColor(darkmint1.value, shades);
-}
+*/
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,48 +42,66 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  Widget _currentScreen = LoginScreen();
+  FirebaseAuthService auth = FirebaseAuthService();
+  Widget currentScreen;
+  FirebaseRealTimeDbService dbService = FirebaseRealTimeDbService();
+  EntitysModel entitysModel = EntitysModel();
 
-// Verificar si el usuario está logueado
-  User? user = auth.currentUser;
-
-  if (user != null) {
+  // Verificar si el usuario está logueado
+  if (auth.getUser() != null) {
     // El usuario está logueado
-    _currentScreen = HomeScreen();
-    print("El usuario está logueado con el ID ${user.uid}");
+    currentScreen = HomeScreen(entitysModel);
+
+    print("El usuario está logueado con el ID ${auth.getUser()!.uid}");
+
+    entitysModel.doctor = Doctor(
+        id: auth.getUser()!.uid,
+        name: "name",
+        lastname: "lastname",
+        dueDate: DateTime.now(),
+        genero: "genero",
+        suscriptionType: "prueba",
+        suscriptionActive: false);
+    if (!await dbService.fetchContent("medicos/${auth.getUser()!.uid}")) {
+      dbService.addItem(
+          "medicos", entitysModel.doctor!.toMap(), null, auth.getUser()!.uid);
+    }
+
+    var pacientRef =
+        dbService.getReference("clientes", entitysModel.doctor!.id);
+
+    dbService.createSuscription(entitysModel, pacientRef);
   } else {
     // El usuario no está logueado
-    _currentScreen = LoginScreen();
+    currentScreen = const LoginScreen();
     print("El usuario no está logueado");
   }
-  runApp(MyApp(_currentScreen));
+  runApp(MyApp(currentScreen, entitysModel));
 }
 
 class MyApp extends StatelessWidget {
-  Widget _currentScreen = LoginScreen();
-  MyApp(Widget currentScreen) {
+  late final Widget? _currentScreen;
+  late final EntitysModel? _entitysModel;
+  MyApp(Widget currentScreen, EntitysModel entitysModel) {
     _currentScreen = currentScreen;
+    _entitysModel = entitysModel;
   }
 
   @override
   Widget build(BuildContext context) {
+    var colorApp = ColorScheme.fromSeed(
+        brightness: MediaQuery.platformBrightnessOf(context),
+        seedColor: const Color.fromARGB(255, 32, 83, 102),
+        background: calculateAverageColor(const LinearGradient(
+          colors: [Color.fromRGBO(7, 54, 69, 1), Color.fromRGBO(13, 13, 13, 1)],
+        ).colors));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'PxPhotoPro',
       //Tema Principal, se usa cuando no está activo el modo oscuro
       theme: ThemeData(
-        //Se indica que el tema tiene un brillo luminoso/claro
-        brightness: Brightness.light,
-        primarySwatch: colour(Color.fromRGBO(35, 93, 113, 1)),
-        secondaryHeaderColor: Color.fromARGB(255, 204, 0, 255),
-      ),
-      //Tema Oscuro, se usa cuando se activa el modo oscuro
-      darkTheme: ThemeData(
-        //Se indica que el tema tiene un brillo oscuro
-        brightness: Brightness.dark,
-        primarySwatch: colour(Color.fromRGBO(35, 93, 113, 1)),
-        secondaryHeaderColor: Color.fromARGB(255, 204, 0, 255),
+        colorScheme: colorApp,
+        scaffoldBackgroundColor: colorApp.background,
       ),
       routes: {
         '/': (context) => SplashScreen(
@@ -108,11 +111,12 @@ class MyApp extends StatelessWidget {
         '/login-email': (context) => LoginEmailScreen(),
         '/signUp': (context) => SignUpScreen(),
         '/resetPassword': (context) => ResetPasswordScreen(),
-        '/home': (context) => HomeScreen(),
+        '/home': (context) => HomeScreen(_entitysModel!),
         '/newPx': (context) => NewPxScreen(),
         '/firstpage': (context) => firstpage(),
         '/fotos': (context) => PhotosScreen(),
         '/listPx': (context) => PacientListScreen(),
+        '/user-info': (context) => UserScreen(),
       },
     );
   }

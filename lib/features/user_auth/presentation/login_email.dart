@@ -2,13 +2,10 @@ import 'package:app_doc/features/user_auth/presentation/ResetPassword.dart';
 import 'package:app_doc/features/global/commun/toast.dart';
 import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:app_doc/features/user_auth/widgets/form_container_widget.dart';
-import 'package:app_doc/pages/home.dart';
 import 'package:app_doc/features/user_auth/presentation/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sign_in_button/sign_in_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginEmailScreen extends StatefulWidget {
   const LoginEmailScreen({super.key});

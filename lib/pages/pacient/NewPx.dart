@@ -2,14 +2,10 @@
 
 import 'dart:ffi';
 
+import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:app_doc/features/entity/photo.dart';
-import 'package:app_doc/features/photo/photo_collection.dart';
-import 'package:app_doc/features/photo/photo_analysis.dart';
-import 'package:flutter/rendering.dart';
-import 'package:google_sign_in/testing.dart';
 
 class NewPxScreen extends StatefulWidget {
   @override
@@ -31,16 +27,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
         elevation: 10,
         centerTitle: true,
         //backgroundColor: Color.fromRGBO(35, 93, 113, 1),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-            colors: [
-              Color.fromRGBO(35, 93, 113, 1),
-              Color.fromRGBO(124, 187, 176, 1)
-            ],
-          )),
-        ),
-        title: const Text("N u e v o   P a c i e n t e"),
+        flexibleSpace: header(),
+        title: titleApp(),
       ),
       body: Form(
         key: formKey,

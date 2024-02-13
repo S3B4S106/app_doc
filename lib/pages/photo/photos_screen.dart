@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:app_doc/features/entity/pacient.dart';
-import 'package:app_doc/pages/pacient/pacient_list.dart';
-import 'package:app_doc/features/entity/photo.dart';
+import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:flutter/material.dart';
 
 class PhotosScreen extends StatefulWidget {
@@ -12,16 +10,21 @@ class PhotosScreen extends StatefulWidget {
 }
 
 class _PhotosScreenState extends State<PhotosScreen> {
-  final fotos = <Photo>[];
+  var fotos;
   Pacient? paciente;
 
   @override
   Widget build(BuildContext context) {
-    paciente = ModalRoute.of(context)?.settings.arguments as Pacient;
-    fotos.addAll(paciente!.fotos);
+    Map parameters = ModalRoute.of(context)?.settings.arguments as Map;
+    parameters['model'].addListener(() {
+      setState(() {});
+    });
+    fotos = [];
+    fotos.addAll(parameters['pacient']!.fotos);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Fotos"),
+        title: titleApp(),
+        flexibleSpace: header(),
       ),
       body: ListView(
         children: [

@@ -44,4 +44,16 @@ class FirebaseAuthService {
       return e.code;
     }
   }
+
+  User? getUser() {
+    return _auth.currentUser;
+  }
+
+  FirebaseAuth? getAuth() {
+    return _auth;
+  }
+
+  void signOut() {
+    _auth.signOut();
+  }
 }

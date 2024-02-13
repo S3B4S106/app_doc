@@ -2,8 +2,6 @@ import 'package:app_doc/features/global/commun/toast.dart';
 import 'package:app_doc/features/global/commun/validate_email.dart';
 import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:app_doc/features/user_auth/widgets/form_container_widget.dart';
-import 'package:app_doc/features/user_auth/presentation/login.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
