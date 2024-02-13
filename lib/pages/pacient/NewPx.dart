@@ -1,4 +1,9 @@
+import 'package:app_doc/features/entity/pacient.dart';
+import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
+import 'package:app_doc/features/model/notify.dart';
+import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class NewPxScreen extends StatefulWidget {
@@ -7,6 +12,8 @@ class NewPxScreen extends StatefulWidget {
 }
 
 class _NewPxScreenState extends State<NewPxScreen> {
+  final FirebaseAuthService _authService = FirebaseAuthService();
+  final FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
   final formKey = GlobalKey<FormState>();
   String Username = '';
   String Phone = '';
@@ -16,6 +23,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Map parameters = ModalRoute.of(context)?.settings.arguments as Map;
+    EntitysModel entitysModel = parameters['model'];
     return Scaffold(
       appBar: AppBar(
         elevation: 10,
@@ -54,6 +63,19 @@ class _NewPxScreenState extends State<NewPxScreen> {
                           if (formKey.currentState!.validate()) {
                             // Si el formulario es válido, aquí puedes procesar los datos
                             // Por ejemplo, enviarlos a una base de datos
+                            Pacient paciente = Pacient(
+                              id: ID,
+                              userName: Username,
+                              age: Age,
+                              phone: Phone,
+                              bornDate: DateTime.parse(Date),
+                              createDate: DateTime.now(),
+                            );
+
+                            if (!entitysModel.pacientes!.contains(paciente)) {
+                              _dbService.addItem("clientes", paciente,
+                                  _authService.getUser()!.uid);
+                            }
                             print('Nombre: $Username');
                             print('Edad: $Age');
                             print('Género: $Phone');

@@ -1,40 +1,46 @@
 import 'package:app_doc/features/entity/photo.dart';
 
 class Pacient {
+  String? uid;
   String id;
-  String nombre;
-  String apellido;
-  DateTime fechaNacimiento;
-  String genero;
-  List<Photo> fotos = [];
+  String userName;
+  String age;
+  DateTime bornDate;
+  DateTime? createDate;
+  String phone;
+  List<Photo>? fotos;
 
   Pacient(
-      {required this.id,
-      required this.nombre,
-      required this.apellido,
-      required this.fechaNacimiento,
-      required this.genero,
-      required this.fotos});
+      {this.uid,
+      required this.id,
+      required this.userName,
+      required this.age,
+      required this.bornDate,
+      required this.phone,
+      this.fotos,
+      required this.createDate});
 
   factory Pacient.fromMap(Map<String, dynamic> map) {
     return Pacient(
-      id: map['id'],
-      nombre: map['nombre'],
-      apellido: map['apellido'],
-      fechaNacimiento: map['fechaNacimiento'],
-      genero: map['genero'],
-      fotos: map['fotos'].map((foto) => Photo.fromMap(foto)).toList(),
-    );
+        uid: map['uid'],
+        id: map['id'],
+        userName: map['userName'],
+        age: map['age'],
+        bornDate: map['bornDate'],
+        phone: map['phone'],
+        fotos: map['fotos'].map((foto) => Photo.fromMap(foto)).toList(),
+        createDate: DateTime.now());
   }
 
   Map<String, dynamic> toMap() {
     return {
+      'uid': uid,
       'id': id,
-      'nombre': nombre,
-      'apellido': apellido,
-      'fechaNacimiento': fechaNacimiento,
-      'genero': genero,
-      'fotos': fotos.map((foto) => foto.toMap()).toList(),
+      'userName': userName,
+      'age': age,
+      'bornDate': bornDate.toIso8601String(),
+      'phone': phone,
+      'createDate': createDate!.toIso8601String()
     };
   }
 }

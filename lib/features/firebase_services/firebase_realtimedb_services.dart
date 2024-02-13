@@ -35,7 +35,8 @@ class FirebaseRealTimeDbService {
 
     if (idItem == null) {
       final key = _realtimeDb.ref(ref).push().key;
-      item.id = key;
+      item.uid = key;
+      item = item.toMap();
       dbRef = _realtimeDb.ref('$ref/$idParent/$key');
     } else {
       dbRef = _realtimeDb.ref('$ref/$idItem');
@@ -77,10 +78,11 @@ class FirebaseRealTimeDbService {
       dynamic pacient = child.value;
       paciente = Pacient(
           id: pacient["id"],
-          nombre: pacient["nombre"],
-          apellido: pacient["apellido"],
-          fechaNacimiento: DateTime.parse(pacient["fechaNacimiento"]),
-          genero: pacient["genero"],
+          userName: pacient["userName"],
+          age: pacient["age"],
+          bornDate: DateTime.parse(pacient["bornDate"]),
+          createDate: DateTime.parse(pacient["createDate"]),
+          phone: pacient["phone"],
           fotos: []);
       pacientes.add(paciente);
     }

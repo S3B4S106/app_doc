@@ -64,7 +64,7 @@ void main() async {
         suscriptionActive: false);
     if (!await dbService.fetchContent("medicos/${auth.getUser()!.uid}")) {
       dbService.addItem(
-          "medicos", entitysModel.doctor!.toMap(), null, auth.getUser()!.uid);
+          "medicos", entitysModel.doctor, null, auth.getUser()!.uid);
     }
 
     var pacientRef =

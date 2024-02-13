@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }*/
 
   void _openNewPx() {
-    Navigator.pushNamed(context, "/newPx");
+    Navigator.pushNamed(context, "/newPx", arguments: {'model': _entitysModel});
   }
 
   void _openlistPx() {

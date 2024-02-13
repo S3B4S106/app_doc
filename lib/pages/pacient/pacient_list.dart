@@ -21,7 +21,7 @@ class _PacientListState extends State<PacientListScreen> {
 
   void createListener(dynamic model) {
     pacientes = model.pacientes ?? [];
-    pacientes.sort((a, b) => b.fechaNacimiento.compareTo(a.fechaNacimiento));
+    pacientes.sort((a, b) => b.createDate!.compareTo(a.createDate!));
     model.addListener(() {
       setState(() {});
     });
@@ -55,9 +55,9 @@ class _PacientListState extends State<PacientListScreen> {
                 // Listamos los clientes
                 for (final paciente in pacientes)
                   ListTile(
-                    title: Text("${paciente.nombre} ${paciente.apellido}"),
-                    subtitle: Text(formatDate(paciente.fechaNacimiento)),
-                    trailing: Text(paciente.fotos.length.toString()),
+                    title: Text("${paciente.userName}"),
+                    subtitle: Text(formatDate(paciente.createDate!)),
+                    trailing: Text(paciente.fotos!.length.toString()),
                     onTap: () {
                       // Mostramos las fotos del cliente
                       Navigator.pushNamed(
