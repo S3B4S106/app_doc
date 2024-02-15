@@ -18,6 +18,8 @@ import 'package:app_doc/pages/user/user_info.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:app_doc/generated/l10n.dart';
 
 /* *------- C O D I G O  D E  C O L O R E S -------*
 EN ESTE ESPACIO DEJARE LOS CODIGOS DE COLORES QUE SE USARAN EN GRAN PARTE DEL PROYECTO
@@ -118,6 +120,13 @@ class MyApp extends StatelessWidget {
         '/listPx': (context) => PacientListScreen(),
         '/user-info': (context) => UserScreen(),
       },
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        S.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
     );
   }
 }

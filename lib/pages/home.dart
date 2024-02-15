@@ -2,6 +2,7 @@ import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/model/notify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:app_doc/generated/l10n.dart';
 
 class HomeScreen extends StatefulWidget {
   late final EntitysModel? _entitysModel;
@@ -78,9 +79,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               const SizedBox(
                                 height: 1,
                               ),
-                              const Text(
-                                'N U E V O   P A C I E N T E',
-                                style: TextStyle(
+                              Text(
+                                S.of(context).newPacient,
+                                style: const TextStyle(
                                     fontSize: 15,
                                     color: Color.fromRGBO(122, 188, 176, 1)),
                               )
@@ -114,9 +115,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               const SizedBox(
                                 height: 1,
                               ),
-                              const Text(
-                                'L I S T A    D E    P A C I E N T E S',
-                                style: TextStyle(
+                              Text(
+                                S.of(context).pacientsList,
+                                style: const TextStyle(
                                     fontSize: 15,
                                     color: Color.fromRGBO(122, 188, 176, 1)),
                               )
