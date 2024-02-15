@@ -91,7 +91,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
                             ),
                             child: Row(children: [
                               Ink.image(
-                                image: const AssetImage('assets/Botton2.png'),
+                                image: const AssetImage('assets/Darkmint.png'),
                                 height: MediaQuery.of(context).size.height / 2 -
                                     353,
                                 width: MediaQuery.of(context).size.width - 85,
@@ -121,6 +121,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
 
   Widget buildUsername() => TextFormField(
         decoration: InputDecoration(
+          filled: true,
+          fillColor: Color.fromRGBO(165, 219, 195, 1),
           prefixIcon: Icon(Icons.person),
           suffixIcon: IconButton(
             icon: Icon(Icons.close),
@@ -142,6 +144,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
 
   Widget buildID() => TextFormField(
         decoration: const InputDecoration(
+          filled: true,
+          fillColor: Color.fromRGBO(165, 219, 195, 1),
           prefixIcon: Icon(Icons.numbers),
           labelText: 'ID',
           border: OutlineInputBorder(),
@@ -157,6 +161,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
 
   Widget buildAge() => TextFormField(
         decoration: const InputDecoration(
+          filled: true,
+          fillColor: Color.fromRGBO(165, 219, 195, 1),
           prefixIcon: Icon(Icons.onetwothree),
           labelText: 'Age',
           border: OutlineInputBorder(),
@@ -172,6 +178,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
 
   Widget buildPhone() => TextFormField(
         decoration: const InputDecoration(
+          filled: true,
+          fillColor: Color.fromRGBO(165, 219, 195, 1),
           prefixIcon: Icon(Icons.phone_iphone),
           labelText: 'Phone',
           border: OutlineInputBorder(),
@@ -187,13 +195,15 @@ class _NewPxScreenState extends State<NewPxScreen> {
 
   Widget buildDate() => TextFormField(
         decoration: const InputDecoration(
+          filled: true,
+          fillColor: Color.fromRGBO(165, 219, 195, 1),
           prefixIcon: Icon(Icons.date_range_outlined),
           labelText: 'Date',
           border: OutlineInputBorder(),
         ),
         validator: (value) {
           if (value!.length < 8) {
-            return 'Ingrese Nombres y Apellidos';
+            return 'Ingrese Fecha de Nacimiento';
           }
           return null;
         },
