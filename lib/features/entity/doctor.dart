@@ -32,7 +32,7 @@ class Doctor {
       'id': id,
       'nombre': name,
       'apellido': lastname,
-      'fechaVencimiento': dueDate,
+      'fechaVencimiento': dueDate.toIso8601String(),
       'genero': genero,
       'tipoSuscripcion': suscriptionType,
       'suscipcionActiva': suscriptionActive

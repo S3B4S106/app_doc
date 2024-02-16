@@ -39,6 +39,7 @@ class FirebaseRealTimeDbService {
       item = item.toMap();
       dbRef = _realtimeDb.ref('$ref/$idParent/$key');
     } else {
+      item = item.toMap();
       dbRef = _realtimeDb.ref('$ref/$idItem');
     }
 
@@ -72,6 +73,7 @@ class FirebaseRealTimeDbService {
   List<Pacient> getAllPacients(dynamic event) {
     List<Pacient> pacientes = [];
     Pacient paciente;
+    if (event == null) return pacientes;
     // Actualiza el arreglo de pacientes
     for (var child in event.entries) {
       // Obtén el objeto foto

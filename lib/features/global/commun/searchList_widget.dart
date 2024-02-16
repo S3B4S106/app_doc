@@ -38,13 +38,12 @@ class SearchList extends SearchDelegate {
       children: [
         // Listamos los items que coinciden con la búsqueda
         for (final item in _list.where((item) {
-          return item.nombre.toLowerCase().contains(query.toLowerCase()) ||
-              item.fechaNacimiento.toIso8601String().contains(query) ||
-              item.apellido.toLowerCase().contains(query.toLowerCase());
+          return item.userName.toLowerCase().contains(query.toLowerCase()) ||
+              item.id.contains(query);
         }))
           ListTile(
-            title: Text("${item.nombre} ${item.apellido}"),
-            subtitle: Text(formatDate(item.fechaNacimiento)),
+            title: Text("${item.userName}"),
+            subtitle: Text(formatDate(item.createDate)),
             trailing: Text(item.fotos.length.toString()),
             onTap: () {
               // Mostramos las fotos del cliente
@@ -66,13 +65,12 @@ class SearchList extends SearchDelegate {
       children: [
         // Listamos las sugerencias de búsqueda
         for (final item in _list.where((item) {
-          return item.nombre.toLowerCase().contains(query.toLowerCase()) ||
-              item.fechaNacimiento.toIso8601String().contains(query) ||
-              item.apellido.toLowerCase().contains(query.toLowerCase());
+          return item.userName.toLowerCase().contains(query.toLowerCase()) ||
+              item.id.contains(query);
         }))
           ListTile(
-            title: Text("${item.nombre} ${item.apellido}"),
-            subtitle: Text(formatDate(item.fechaNacimiento)),
+            title: Text("${item.userName}"),
+            subtitle: Text(formatDate(item.createDate)),
             trailing: Text(item.fotos.length.toString()),
             onTap: () {
               // Mostramos las fotos del cliente

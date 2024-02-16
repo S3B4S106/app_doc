@@ -72,7 +72,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
                               createDate: DateTime.now(),
                             );
 
-                            if (!entitysModel.pacientes!.contains(paciente)) {
+                            if (!validateId(
+                                entitysModel.pacientes!, paciente.id)) {
                               _dbService.addItem("clientes", paciente,
                                   _authService.getUser()!.uid);
                             }
@@ -209,4 +210,11 @@ class _NewPxScreenState extends State<NewPxScreen> {
         },
         onChanged: (value) => setState(() => Date = value),
       );
+
+  bool validateId(pacientes, id) {
+    for (final item in pacientes!) {
+      if (item.id == id) return true;
+    }
+    return false;
+  }
 }
