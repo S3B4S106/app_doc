@@ -1,11 +1,12 @@
-import 'package:app_doc/features/user_auth/presentation/ResetPassword.dart';
+import 'package:app_doc/features/global/commun/header_widget.dart';
+import 'package:app_doc/pages/login/resetPassword.dart';
 import 'package:app_doc/features/global/commun/toast.dart';
-import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:app_doc/features/user_auth/widgets/form_container_widget.dart';
-import 'package:app_doc/features/user_auth/presentation/sign_up.dart';
+import 'package:app_doc/pages/login/sign_up.dart';
+import 'package:app_doc/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginEmailScreen extends StatefulWidget {
   const LoginEmailScreen({super.key});
@@ -16,10 +17,9 @@ class LoginEmailScreen extends StatefulWidget {
 class _LoginEmailScreenState extends State<LoginEmailScreen> {
   bool _isSigning = false;
   final FirebaseAuthService _auth = FirebaseAuthService();
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  dynamic entitysModel;
   @override
   void dispose() {
     _emailController.dispose();
@@ -29,10 +29,14 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Map parameters = ModalRoute.of(context)?.settings.arguments as Map;
+    entitysModel = parameters['model'];
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("Login"),
+        elevation: 10,
+        centerTitle: true,
+        title: titleApp(),
+        flexibleSpace: header(),
       ),
       body: Center(
         child: Padding(
@@ -41,15 +45,16 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Login",
-                style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                S.of(context).labelLogin,
+                style:
+                    const TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               FormContainerWidget(
                 controller: _emailController,
-                hintText: "Email",
+                hintText: S.of(context).labelEmail,
                 isPasswordField: false,
               ),
               SizedBox(
@@ -57,7 +62,7 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
               ),
               FormContainerWidget(
                 controller: _passwordController,
-                hintText: "Password",
+                hintText: S.of(context).labelPassword,
                 isPasswordField: true,
               ),
               SizedBox(
@@ -66,7 +71,7 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Forgot your password?"),
+                  Text(S.of(context).copyResetPassword),
                   SizedBox(
                     width: 5,
                   ),
@@ -80,9 +85,9 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
                       );
                     },
                     child: Text(
-                      "Reset",
+                      S.of(context).labelReset,
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: Color.fromRGBO(124, 187, 176, 1),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -100,7 +105,12 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
                   width: double.infinity,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(35, 93, 113, 1),
+                        Color.fromRGBO(124, 187, 176, 1)
+                      ],
+                    ),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -109,7 +119,7 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
                             color: Colors.white,
                           )
                         : Text(
-                            "Login",
+                            S.of(context).labelLogin,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -124,7 +134,7 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don't have an account?"),
+                  Text(S.of(context).copyCreateAccount),
                   SizedBox(
                     width: 5,
                   ),
@@ -132,14 +142,16 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
                     onTap: () {
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUpScreen()),
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                SignUpScreen(entitysModel: entitysModel)),
                         (route) => false,
                       );
                     },
                     child: Text(
-                      "Sign Up",
+                      S.of(context).labelSignUp,
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: Color.fromRGBO(124, 187, 176, 1),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -161,7 +173,8 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    User? user = await _auth.signInWithEmailAndPassword(email, password);
+    User? user =
+        await _auth.signInWithEmailAndPassword(email, password, entitysModel);
 
     setState(() {
       _isSigning = false;
@@ -172,30 +185,6 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
       Navigator.pushNamed(context, "/home");
     } else {
       showToast(message: "some error occured");
-    }
-  }
-
-  _signInWithGoogle() async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
-
-    try {
-      final GoogleSignInAccount? googleSignInAccount =
-          await _googleSignIn.signIn();
-
-      if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication =
-            await googleSignInAccount.authentication;
-
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          idToken: googleSignInAuthentication.idToken,
-          accessToken: googleSignInAuthentication.accessToken,
-        );
-
-        await _firebaseAuth.signInWithCredential(credential);
-        Navigator.pushNamed(context, "/home");
-      }
-    } catch (e) {
-      showToast(message: "some error occured $e");
     }
   }
 }

@@ -23,7 +23,11 @@ class _PacientListState extends State<PacientListScreen> {
     pacientes = model.pacientes ?? [];
     pacientes.sort((a, b) => b.createDate!.compareTo(a.createDate!));
     model.addListener(() {
-      setState(() {});
+      if (this.mounted) {
+        setState(() {
+          // Your state change code goes here
+        });
+      }
     });
   }
 

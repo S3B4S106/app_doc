@@ -1,7 +1,9 @@
+import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
+import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/commun/toast.dart';
 import 'package:app_doc/features/global/commun/validate_email.dart';
-import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:app_doc/features/user_auth/widgets/form_container_widget.dart';
+import 'package:app_doc/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -28,8 +30,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("Reset Password"),
+        elevation: 10,
+        centerTitle: true,
+        title: titleApp(),
+        flexibleSpace: header(),
       ),
       body: Center(
         child: Padding(
@@ -38,7 +42,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Reset Password",
+                "${S.of(context).labelReset} ${S.of(context).labelPassword}",
                 style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
               ),
               SizedBox(
@@ -46,7 +50,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               ),
               FormContainerWidget(
                 controller: _emailController,
-                hintText: "Email",
+                hintText: S.of(context).labelEmail,
                 isPasswordField: false,
               ),
               SizedBox(
@@ -60,7 +64,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   width: double.infinity,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(35, 93, 113, 1),
+                        Color.fromRGBO(124, 187, 176, 1)
+                      ],
+                    ),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -69,7 +78,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               color: Colors.white,
                             )
                           : Text(
-                              "Send Mail",
+                              "${S.of(context).labelSend} ${S.of(context).labelEmail}",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),

@@ -1,19 +1,19 @@
-import 'package:app_doc/features/global/commun/toast.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:app_doc/features/global/commun/header_widget.dart';
+import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_in_button/sign_in_button.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:app_doc/generated/l10n.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  dynamic entitysModel;
+  LoginScreen({super.key, this.entitysModel});
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuthService _authService = FirebaseAuthService();
 
-  User? user;
 /*
   @override
   void initState() {
@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     // Check if the user is authenticated
 
-    _firebaseAuth.authStateChanges().listen((event) {
+    _authService.authStateChanges().listen((event) {
       setState(() {
         user = event;
       });
@@ -32,8 +32,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text("PxPhotoPro"),
+        elevation: 10,
+        centerTitle: true,
+        title: titleApp(),
+        flexibleSpace: header(),
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -43,11 +45,11 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisSize: MainAxisSize.max,
           children: [
             _googleSignInButton(),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            _facebookSignInButton(),
-            SizedBox(
+            _appleSignInButton(),
+            const SizedBox(
               height: 10,
             ),
             _emailSignInButton()
@@ -61,9 +63,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return Center(
       child: SizedBox(
         height: 50,
+        width: (MediaQuery.of(context).size.width -
+            MediaQuery.of(context).size.width * 0.1),
         child: SignInButton(
           Buttons.email,
-          text: "Sign up With Email",
+          text: S.of(context).loginWith("Email"),
           onPressed: _handleEmailSignIn,
         ),
       ),
@@ -74,64 +78,49 @@ class _LoginScreenState extends State<LoginScreen> {
     return Center(
       child: SizedBox(
         height: 50,
+        width: (MediaQuery.of(context).size.width -
+            MediaQuery.of(context).size.width * 0.1),
         child: SignInButton(
           Buttons.google,
-          text: "Sign up With Google",
+          text: S.of(context).loginWith("Google"),
           onPressed: _handleGoogleSignIn,
         ),
       ),
     );
   }
 
-  Widget _facebookSignInButton() {
+  Widget _appleSignInButton() {
     return Center(
       child: SizedBox(
         height: 50,
+        width: (MediaQuery.of(context).size.width -
+            MediaQuery.of(context).size.width * 0.1),
         child: SignInButton(
-          Buttons.facebook,
-          text: "Sign up With Facebook",
-          onPressed: _handleFacebookSignIn,
+          Buttons.appleDark,
+          text: S.of(context).loginWith("Apple"),
+          onPressed: _handleAppleSignIn,
         ),
       ),
     );
   }
 
-  void _handleFacebookSignIn() {
+  void _handleAppleSignIn() {
     Navigator.pushNamed(context, "/home");
 
     /*try {
       FacebookAuthProvider _facebookAuthProvider = FacebookAuthProvider();
-      _firebaseAuth.signInWithProvider(_facebookAuthProvider);
+      _authService.signInWithProvider(_facebookAuthProvider);
     } catch (error) {
       print(error);
     }*/
   }
 
   void _handleGoogleSignIn() async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
-
-    try {
-      final GoogleSignInAccount? googleSignInAccount =
-          await _googleSignIn.signIn();
-
-      if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication =
-            await googleSignInAccount.authentication;
-
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          idToken: googleSignInAuthentication.idToken,
-          accessToken: googleSignInAuthentication.accessToken,
-        );
-
-        await _firebaseAuth.signInWithCredential(credential);
-        Navigator.pushNamed(context, "/home");
-      }
-    } catch (e) {
-      showToast(message: "some error occured $e");
-    }
+    await _authService.loginWithGoogle(context, widget.entitysModel);
   }
 
   void _handleEmailSignIn() {
-    Navigator.pushNamed(context, "/login-email");
+    Navigator.pushNamed(context, "/login-email",
+        arguments: {'model': widget.entitysModel});
   }
 }

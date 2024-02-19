@@ -23,7 +23,9 @@ dependencies:
   video_player: ^2.8.2
   provider: ^6.1.1
   firebase_database: ^10.4.0
-
+  camera: ^0.10.5+9
+  flutter_layout_grid: ^2.0.5
+  dotted_border: ^2.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
