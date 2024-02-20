@@ -12,10 +12,11 @@ class FirebaseAuthService {
   final FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
 
   Future<User?> signUpWithEmailAndPassword(
-      String email, String password, entitysModel) async {
+      String email, String password, String name, entitysModel) async {
     try {
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      await credential.user!.updateDisplayName(name);
       await injectDependencies(entitysModel);
       return credential.user;
     } on FirebaseAuthException catch (e) {
@@ -92,7 +93,6 @@ class FirebaseAuthService {
 
         await _auth.signInWithCredential(credential);
         await injectDependencies(entitysModel);
-        entitysModel.notify();
         Navigator.pushNamed(context, "/home");
       }
     } catch (e) {
@@ -103,11 +103,11 @@ class FirebaseAuthService {
   Future<void> injectDependencies(entitysModel) async {
     entitysModel.doctor = Doctor(
         id: getUser()!.uid,
-        name: "name",
-        lastname: "lastname",
-        dueDate: DateTime.now(),
-        genero: "genero",
-        suscriptionType: "prueba",
+        name: getUser()!.displayName != "" && getUser()!.displayName != null
+            ? getUser()!.displayName
+            : getUser()!.providerData.first.displayName,
+        dueDate: null,
+        suscriptionType: "basic",
         suscriptionActive: false);
     if (!await _dbService.fetchContent("medicos/${getUser()!.uid}")) {
       _dbService.addItem("medicos", entitysModel.doctor, null, getUser()!.uid);

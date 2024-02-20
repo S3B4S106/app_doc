@@ -35,7 +35,9 @@ class _UserScreenState extends State<UserScreen> {
                     height: 100,
                     width: 100,
                   ),
-                  Text(formatDate(user!.dueDate)),
+                  Text(user.dueDate != null
+                      ? formatDate(user!.dueDate)
+                      : "Basico"),
                   Text(user!.name ?? ""),
                   MaterialButton(
                     color: Color.fromARGB(255, 0, 141, 110),

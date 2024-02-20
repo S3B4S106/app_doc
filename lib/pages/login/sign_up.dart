@@ -147,9 +147,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     // String username = _usernameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
+    String name = _usernameController.text;
 
     User? user = await _auth.signUpWithEmailAndPassword(
-        email, password, widget.entitysModel);
+        email, password, name, widget.entitysModel);
 
     setState(() {
       isSigningUp = false;
