@@ -1,7 +1,7 @@
-import 'package:app_doc/pages/photo/camera_screen.dart';
+import 'package:app_doc/features/entity/photo.dart';
+import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/entity/pacient.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 class PhotosScreen extends StatefulWidget {
@@ -12,31 +12,91 @@ class PhotosScreen extends StatefulWidget {
 }
 
 class _PhotosScreenState extends State<PhotosScreen> {
-  var fotos;
+  var fotos = [];
   Pacient? paciente;
+  late Map<DateTime, List<Photo>> _groupedImages;
+
+  void createListener(dynamic model, dynamic pacient) {
+    fotos = pacient.fotos ?? [];
+    _groupedImages = {};
+    for (final foto in fotos) {
+      final date = DateTime.parse(formatDate(foto.fecha, order: 2));
+      if (!_groupedImages.containsKey(date)) {
+        _groupedImages[date] = [foto];
+      } else {
+        _groupedImages[date]!.add(foto);
+      }
+    }
+    _groupedImages.forEach((date, images) {
+      images.sort((a, b) => b.fecha.compareTo(a.fecha));
+    });
+    _groupedImages.keys.toList()..sort((a, b) => b.compareTo(a));
+    model.addListener(() {
+      if (this.mounted) {
+        setState(() {
+          // Your state change code goes here
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     Map parameters = ModalRoute.of(context)?.settings.arguments as Map;
-    parameters['model'].addListener(() {
-      setState(() {});
-    });
-    fotos = [];
-    fotos.addAll(parameters['pacient']!.fotos);
+    createListener(parameters['model'], parameters['pacient']);
     return Scaffold(
       appBar: AppBar(
         title: titleApp(),
         flexibleSpace: header(),
       ),
-      body: ListView(
-        children: [
-          // Listamos las fotos
-          for (final foto in fotos)
-            Image.network(
-              foto.ruta,
-              fit: BoxFit.cover,
-            ),
-        ],
+      body: ListView.builder(
+        padding: const EdgeInsets.all(8.0),
+        itemCount: _groupedImages.length,
+        itemBuilder: (context, index) {
+          final date = _groupedImages.keys.toList()[index];
+          final images = _groupedImages[date]!;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                formatDate(date),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              SizedBox(height: 8),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(8.0),
+                itemCount: images.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 1.0,
+                  crossAxisSpacing: 8.0,
+                  mainAxisSpacing: 8.0,
+                ),
+                itemBuilder: (context, index) {
+                  final image = images[index];
+                  return GridTile(
+                    child: Image.network(
+                      image.ruta,
+                      fit: BoxFit.cover,
+                    ),
+                    footer: GridTileBar(
+                      backgroundColor: Colors.black54,
+                      title: Text(
+                        formatDate(image.fecha),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: "add",
