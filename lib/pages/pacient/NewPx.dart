@@ -18,11 +18,6 @@ class _NewPxScreenState extends State<NewPxScreen> {
   final FirebaseAuthService _authService = FirebaseAuthService();
   final FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
   final formKey = GlobalKey<FormState>();
-  String Username = '';
-  String Phone = '';
-  String ID = '';
-  String Date = '';
-  String Age = '';
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +62,11 @@ class _NewPxScreenState extends State<NewPxScreen> {
                             // Si el formulario es válido, aquí puedes procesar los datos
                             // Por ejemplo, enviarlos a una base de datos
                             Pacient paciente = Pacient(
-                              id: ID,
-                              userName: Username,
-                              age: Age,
-                              phone: Phone,
-                              bornDate: DateTime.parse(Date),
+                              id: idtextcontroller.text,
+                              userName: usertextcontroller.text,
+                              age: agetextcontroller.text,
+                              phone: null,
+                              bornDate: DateTime.parse(dobtextcontroller.text),
                               createDate: DateTime.now(),
                             );
 
@@ -80,9 +75,6 @@ class _NewPxScreenState extends State<NewPxScreen> {
                               _dbService.addItem("clientes", paciente,
                                   _authService.getUser()!.uid);
                             }
-                            print('Nombre: $Username');
-                            print('Edad: $Age');
-                            print('Género: $Phone');
                           }
                         },
                         child: Container(
@@ -148,7 +140,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
           }
           return null;
         },
-        onChanged: (value) => setState(() => Username = value),
+        onChanged: (value) => setState(() => usertextcontroller.text = value),
       );
 
   Widget buildID() => TextFormField(
@@ -170,7 +162,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
           }
           return null;
         },
-        onChanged: (value) => setState(() => ID = value),
+        onChanged: (value) => setState(() => idtextcontroller.text = value),
       );
 
   Widget buildAge() => TextFormField(
@@ -192,7 +184,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
           }
           return null;
         },
-        onChanged: (value) => setState(() => Age = value),
+        onChanged: (value) => setState(() => agetextcontroller.text = value),
       );
 
   Widget buildPhone() => TextFormField(
@@ -214,7 +206,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
           }
           return null;
         },
-        onChanged: (value) => setState(() => Phone = value),
+        onChanged: (value) => setState(() => value),
       );
 
   Widget buildDate() => TextFormField(
@@ -240,7 +232,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
           }
           return null;
         },
-        onChanged: (value) => setState(() => Date = value),
+        onChanged: (value) => setState(() => dobtextcontroller.text = value),
       );
 
   bool validateId(pacientes, id) {

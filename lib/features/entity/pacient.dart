@@ -7,7 +7,7 @@ class Pacient {
   String age;
   DateTime bornDate;
   DateTime? createDate;
-  String phone;
+  String? phone;
   List<Photo>? fotos;
 
   Pacient(
