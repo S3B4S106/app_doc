@@ -7,10 +7,15 @@ class EntitysModel with ChangeNotifier {
   Doctor? doctor;
   List<Pacient>? pacientes;
   List<Photo>? fotos;
-  MyModel() {}
+  EntitysModel() {
+    doctor = null;
+    pacientes = [];
+    fotos = null;
+  }
   Doctor? get getDoctor => doctor;
   List<Pacient>? get getPacients => pacientes;
   List<Photo>? get getPhotos => fotos;
+
   // void setDoctor(var newva) {
   //   doctor = newva;
   //   notifyListeners();
@@ -25,6 +30,12 @@ class EntitysModel with ChangeNotifier {
   //   fotos = newva;
   //   notifyListeners();
   // }
+  void reset() {
+    doctor = null;
+    pacientes = [];
+    fotos = null;
+    notify();
+  }
 
   void notify() {
     notifyListeners();

@@ -1,19 +1,17 @@
-import 'package:app_doc/features/entity/doctor.dart';
-import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/global/commun/transversals.dart';
-import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:app_doc/features/model/notify.dart';
 import 'package:app_doc/pages/pacient/NewPx.dart';
 import 'package:app_doc/firstpage.dart';
-import 'package:app_doc/features/user_auth/presentation/ResetPassword.dart';
+import 'package:app_doc/pages/login/resetPassword.dart';
 import 'package:app_doc/features/app/splash_screen/splash_screen.dart';
-import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_options.dart';
+import 'package:app_doc/features/firebase_services/firebase_options.dart';
 import 'package:app_doc/pages/photo/photos_screen.dart';
 import 'package:app_doc/pages/home.dart';
 import 'package:app_doc/pages/pacient/pacient_list.dart';
-import 'package:app_doc/features/user_auth/presentation/login.dart';
-import 'package:app_doc/features/user_auth/presentation/login_email.dart';
-import 'package:app_doc/features/user_auth/presentation/sign_up.dart';
+import 'package:app_doc/pages/login/login.dart';
+import 'package:app_doc/pages/login/login_email.dart';
+import 'package:app_doc/pages/login/sign_up.dart';
 import 'package:app_doc/pages/user/user_info.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +44,6 @@ void main() async {
 
   FirebaseAuthService auth = FirebaseAuthService();
   Widget currentScreen;
-  FirebaseRealTimeDbService dbService = FirebaseRealTimeDbService();
   EntitysModel entitysModel = EntitysModel();
 
   // Verificar si el usuario está logueado
@@ -56,26 +53,10 @@ void main() async {
 
     print("El usuario está logueado con el ID ${auth.getUser()!.uid}");
 
-    entitysModel.doctor = Doctor(
-        id: auth.getUser()!.uid,
-        name: "name",
-        lastname: "lastname",
-        dueDate: DateTime.now(),
-        genero: "genero",
-        suscriptionType: "prueba",
-        suscriptionActive: false);
-    if (!await dbService.fetchContent("medicos/${auth.getUser()!.uid}")) {
-      dbService.addItem(
-          "medicos", entitysModel.doctor, null, auth.getUser()!.uid);
-    }
-
-    var pacientRef =
-        dbService.getReference("clientes", entitysModel.doctor!.id);
-
-    dbService.createSuscription(entitysModel, pacientRef);
+    auth.injectDependencies(entitysModel);
   } else {
     // El usuario no está logueado
-    currentScreen = const LoginScreen();
+    currentScreen = LoginScreen(entitysModel: entitysModel);
     print("El usuario no está logueado");
   }
   runApp(MyApp(currentScreen, entitysModel));
@@ -83,7 +64,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   late final Widget? _currentScreen;
-  late final EntitysModel? _entitysModel;
+  static EntitysModel? _entitysModel;
   MyApp(Widget currentScreen, EntitysModel entitysModel) {
     _currentScreen = currentScreen;
     _entitysModel = entitysModel;

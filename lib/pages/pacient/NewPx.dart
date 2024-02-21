@@ -2,10 +2,7 @@ import 'package:app_doc/features/entity/pacient.dart';
 import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/model/notify.dart';
-import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
-import 'package:app_doc/generated/l10n.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:flutter/material.dart';
 
 class NewPxScreen extends StatefulWidget {

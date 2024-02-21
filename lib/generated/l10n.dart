@@ -53,7 +53,7 @@ class S {
   /// `P A C I E N T S     L I S T`
   String get pacientsList {
     return Intl.message(
-      'P A C I E N T S   L I S T',
+      'P A C I E N T S     L I S T',
       name: 'pacientsList',
       desc: '',
       args: [],
@@ -63,40 +63,130 @@ class S {
   /// `N E W    P A C I E N T`
   String get newPacient {
     return Intl.message(
-      'N E W   P A C I E N T',
+      'N E W    P A C I E N T',
       name: 'newPacient',
       desc: '',
       args: [],
     );
   }
 
-  /// `Age`
-  String get age {
+  /// `Login`
+  String get labelLogin {
     return Intl.message(
-      'Age',
-      name: 'age',
+      'Login',
+      name: 'labelLogin',
       desc: '',
       args: [],
     );
   }
 
-  /// `Date of Bird`
-  String get dob {
+  /// `Sign Out`
+  String get labelSignOut {
     return Intl.message(
-      'Date of Bird',
-      name: 'dob',
+      'Sign Out',
+      name: 'labelSignOut',
       desc: '',
       args: [],
     );
   }
 
-  /// `ID`
-  String get id {
+  /// `Email`
+  String get labelEmail {
     return Intl.message(
-      'ID',
-      name: 'id',
+      'Email',
+      name: 'labelEmail',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Password`
+  String get labelPassword {
+    return Intl.message(
+      'Password',
+      name: 'labelPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset`
+  String get labelReset {
+    return Intl.message(
+      'Reset',
+      name: 'labelReset',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign Up`
+  String get labelSignUp {
+    return Intl.message(
+      'Sign Up',
+      name: 'labelSignUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send`
+  String get labelSend {
+    return Intl.message(
+      'Send',
+      name: 'labelSend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get labelUserName {
+    return Intl.message(
+      'Name',
+      name: 'labelUserName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alredy have an account?`
+  String get copyHaveAccount {
+    return Intl.message(
+      'Alredy have an account?',
+      name: 'copyHaveAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot your password?`
+  String get copyResetPassword {
+    return Intl.message(
+      'Forgot your password?',
+      name: 'copyResetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't have an account?`
+  String get copyCreateAccount {
+    return Intl.message(
+      'Don\'t have an account?',
+      name: 'copyCreateAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login With {provider}`
+  String loginWith(Object provider) {
+    return Intl.message(
+      'Login With $provider',
+      name: 'loginWith',
+      desc: '',
+      args: [provider],
     );
   }
 

@@ -1,12 +1,15 @@
+import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/commun/toast.dart';
-import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:app_doc/features/user_auth/widgets/form_container_widget.dart';
-import 'package:app_doc/features/user_auth/presentation/login.dart';
+import 'package:app_doc/pages/login/login.dart';
+import 'package:app_doc/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+  dynamic entitysModel;
+  SignUpScreen({super.key, this.entitysModel});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -33,8 +36,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("SignUp"),
+        elevation: 10,
+        centerTitle: true,
+        title: titleApp(),
+        flexibleSpace: header(),
       ),
       body: Center(
         child: Padding(
@@ -43,7 +48,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Sign Up",
+                S.of(context).labelSignUp,
                 style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
               ),
               SizedBox(
@@ -51,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               FormContainerWidget(
                 controller: _usernameController,
-                hintText: "Username",
+                hintText: S.of(context).labelUserName,
                 isPasswordField: false,
               ),
               SizedBox(
@@ -59,7 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               FormContainerWidget(
                 controller: _emailController,
-                hintText: "Email",
+                hintText: S.of(context).labelEmail,
                 isPasswordField: false,
               ),
               SizedBox(
@@ -67,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               FormContainerWidget(
                 controller: _passwordController,
-                hintText: "Password",
+                hintText: S.of(context).labelPassword,
                 isPasswordField: true,
               ),
               SizedBox(
@@ -81,7 +86,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   width: double.infinity,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(35, 93, 113, 1),
+                        Color.fromRGBO(124, 187, 176, 1)
+                      ],
+                    ),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -90,7 +100,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               color: Colors.white,
                             )
                           : Text(
-                              "Sign Up",
+                              S.of(context).labelSignUp,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
@@ -103,7 +113,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Already have an account?"),
+                  Text(S.of(context).copyHaveAccount),
                   SizedBox(
                     width: 5,
                   ),
@@ -116,9 +126,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             (route) => false);
                       },
                       child: Text(
-                        "Login",
-                        style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
+                        S.of(context).labelLogin,
+                        style:
+                            TextStyle(color: Color.fromRGBO(124, 187, 176, 1)),
                       ))
                 ],
               )
@@ -137,8 +147,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     // String username = _usernameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
+    String name = _usernameController.text;
 
-    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+    User? user = await _auth.signUpWithEmailAndPassword(
+        email, password, name, widget.entitysModel);
 
     setState(() {
       isSigningUp = false;

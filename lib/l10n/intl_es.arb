@@ -1,8 +1,18 @@
 {
     "pacientsList":"L I S T A    D E    P A C I E N T E S",
     "newPacient":"N U E V O   P A C I E N T E",
-    "age":"Edad",
-    "dob":"Fecha de Nacimiento",
-    "id":"Numero de identificacion",
+    "labelLogin":"Ingreso",
+    "labelSignOut":"Cerrar Sesión",
+    "labelEmail":"Correo",
+    "labelPassword":"Contraseña",
+    "labelReset":"Restablecer",
+    "labelSignUp":"Crear",
+    "labelSend":"Enviar",
+    "labelUserName":"Nombre",
+    "copyHaveAccount":"¿Ya tienes una cuenta?",
+    "copyResetPassword":"¿Olvidaste tu contraseña?",
+    "copyCreateAccount":"¿No tienes una cuenta?",
+    "loginWith" : "Iniciar sesión {provider}",
     "submit":"Confirmar"
+
 }

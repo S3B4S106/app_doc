@@ -49,6 +49,46 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  camera:
+    dependency: "direct main"
+    description:
+      name: camera
+      sha256: "9499cbc2e51d8eb0beadc158b288380037618ce4e30c9acbc4fae1ac3ecb5797"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.5+9"
+  camera_android:
+    dependency: transitive
+    description:
+      name: camera_android
+      sha256: "351429510121d179b9aac5a2e8cb525c3cd6c39f4d709c5f72dfb21726e52371"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.8+16"
+  camera_avfoundation:
+    dependency: transitive
+    description:
+      name: camera_avfoundation
+      sha256: "608b56b0880722f703871329c4d7d4c2f379c8e2936940851df7fc041abc6f51"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.13+10"
+  camera_platform_interface:
+    dependency: transitive
+    description:
+      name: camera_platform_interface
+      sha256: fceb2c36038b6392317b1d5790c6ba9e6ca9f1da3031181b8bea03882bf9387a
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.7.3"
+  camera_web:
+    dependency: transitive
+    description:
+      name: camera_web
+      sha256: f18ccfb33b2a7c49a52ad5aa3f07330b7422faaecbdfd9b9fe8e51182f6ad67d
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.2+4"
   characters:
     dependency: transitive
     description:
@@ -105,6 +145,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  cross_file:
+    dependency: transitive
+    description:
+      name: cross_file
+      sha256: "2f9d2cbccb76127ba28528cb3ae2c2326a122446a83de5a056aaa3880d3882c5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.3+7"
   crypto:
     dependency: transitive
     description:
@@ -121,6 +169,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  dotted_border:
+    dependency: "direct main"
+    description:
+      name: dotted_border
+      sha256: "108837e11848ca776c53b30bc870086f84b62ed6e01c503ed976e8f8c7df9c04"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   fake_async:
     dependency: transitive
     description:
@@ -246,6 +302,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_layout_grid:
+    dependency: "direct main"
+    description:
+      name: flutter_layout_grid
+      sha256: "3529b7aa7ed2cb9861a0bbaa5c14d4be2beaf5a070ce0176077159f80c5de094"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -259,6 +323,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      sha256: b068ffc46f82a55844acfa4fdbb61fad72fa2aef0905548419d97f0f95c456da
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.17"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -445,6 +517,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.3"
+  path_drawing:
+    dependency: transitive
+    description:
+      name: path_drawing
+      sha256: bbb1934c0cbb03091af082a6389ca2080345291ef07a5fa6d6e078ba8682f977
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      sha256: e3e67b1629e6f7e8100b367d3db6ba6af4b1f0bb80f64db18ef1fbabd2fa9ccf
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   path_provider:
     dependency: transitive
     description:
@@ -586,6 +674,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  stream_transform:
+    dependency: transitive
+    description:
+      name: stream_transform
+      sha256: "14a00e794c7c11aa145a170587321aedce29769c08d7f58b1d141da75e3b1c6f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   string_scanner:
     dependency: transitive
     description:

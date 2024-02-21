@@ -7,6 +7,7 @@ import 'package:firebase_database/firebase_database.dart';
 class FirebaseRealTimeDbService {
   // Crear una referencia al almacenamiento
   late FirebaseDatabase _realtimeDb;
+  dynamic suscriptionController;
 
   FirebaseRealTimeDbService() {
     _realtimeDb = FirebaseDatabase.instance;
@@ -92,7 +93,7 @@ class FirebaseRealTimeDbService {
   }
 
   void createSuscription(entitysModel, DatabaseReference pacientRef) {
-    pacientRef.onValue.listen((event) {
+    suscriptionController = pacientRef.onValue.listen((event) {
       final data = event.snapshot.value;
       entitysModel.pacientes = getAllPacients(data);
       if (entitysModel.pacientes != null) {
@@ -107,5 +108,13 @@ class FirebaseRealTimeDbService {
         });
       }
     });
+  }
+
+  void cancelSuscription() {
+    try {
+      suscriptionController.cancel();
+    } catch (e) {
+      print(e);
+    }
   }
 }

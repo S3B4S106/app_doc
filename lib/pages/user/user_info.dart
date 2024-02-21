@@ -1,6 +1,7 @@
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/commun/transversals.dart';
-import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
+import 'package:app_doc/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -12,10 +13,11 @@ class UserScreen extends StatefulWidget {
 class _UserScreenState extends State<UserScreen> {
   FirebaseAuthService _authService = FirebaseAuthService();
   var user;
+  dynamic myModel;
   @override
   Widget build(BuildContext context) {
     Map parameters = ModalRoute.of(context)?.settings.arguments as Map;
-    dynamic myModel = parameters['model'];
+    myModel = parameters['model'];
     user = myModel.doctor;
     return Scaffold(
       appBar: AppBar(
@@ -53,15 +55,15 @@ class _UserScreenState extends State<UserScreen> {
                 fontSize: 30, color: Color.fromRGBO(122, 188, 176, 1)),
           ),
           Text(
-            formatDate(user!.dueDate),
+            user.dueDate != null ? formatDate(user!.dueDate) : "Basico",
             style: const TextStyle(
                 fontSize: 17, color: Color.fromRGBO(122, 188, 176, 1)),
           ),
           MaterialButton(
             color: Color.fromARGB(255, 0, 141, 110),
             onPressed: _handleSignOut,
-            child: const Text(
-              "Sign Out",
+            child: Text(
+              S.of(context).labelSignOut,
               style: TextStyle(
                   fontSize: 32, color: Color.fromRGBO(221, 252, 212, 1)),
             ),
@@ -72,7 +74,6 @@ class _UserScreenState extends State<UserScreen> {
   }
 
   void _handleSignOut() {
-    _authService.signOut();
-    Navigator.pushNamed(context, "/login");
+    _authService.signOut(context, myModel);
   }
 }
