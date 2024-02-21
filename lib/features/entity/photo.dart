@@ -1,12 +1,12 @@
 class Photo {
-  String? id;
+  String? uid;
   String nombre;
   DateTime fecha;
   String tipo;
   String ruta;
 
   Photo({
-    this.id,
+    this.uid,
     required this.nombre,
     required this.fecha,
     required this.tipo,
@@ -15,7 +15,7 @@ class Photo {
 
   factory Photo.fromMap(Map<String, dynamic> map) {
     return Photo(
-      id: map['id'],
+      uid: map['uid'],
       nombre: map['nombre'],
       fecha: map['fecha'],
       tipo: map['tipo'],
@@ -25,9 +25,9 @@ class Photo {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'uid': uid,
       'nombre': nombre,
-      'fecha': fecha,
+      'fecha': fecha.toIso8601String(),
       'tipo': tipo,
       'ruta': ruta,
     };

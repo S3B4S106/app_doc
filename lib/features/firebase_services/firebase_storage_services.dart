@@ -9,12 +9,13 @@ class FirebaseStorageService {
     this._storage = FirebaseStorage.instance;
   }
   // Subir la foto
-  Future<Reference> uploadFile(File file, String name) async {
+  Future<String> uploadFile(File file, String name) async {
     final fotoRef = _storage.ref().child('fotos/$name');
     await fotoRef.putFile(file).whenComplete(() {
       print('La foto se subió correctamente.');
     });
-    return fotoRef;
+    String url = await getUrl(fotoRef);
+    return url;
   }
 
   // Obtener ruta imagen

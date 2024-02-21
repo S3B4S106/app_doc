@@ -56,10 +56,10 @@ class FirebaseRealTimeDbService {
       // Obtén el objeto foto
       dynamic photo = child.value;
       var foto = Photo(
-        id: photo["id"],
-        nombre: "Fotografia",
-        fecha: DateTime.now(),
-        tipo: photo["clienteId"],
+        uid: photo["uid"],
+        nombre: photo["nombre"],
+        fecha: DateTime.parse(photo['fecha']),
+        tipo: photo["tipo"],
         ruta: photo["ruta"],
       );
       photos.add(foto);
@@ -81,6 +81,7 @@ class FirebaseRealTimeDbService {
       dynamic pacient = child.value;
       paciente = Pacient(
           id: pacient["id"],
+          uid: pacient["uid"],
           userName: pacient["userName"],
           age: pacient["age"],
           bornDate: DateTime.parse(pacient["bornDate"]),
@@ -98,7 +99,7 @@ class FirebaseRealTimeDbService {
       entitysModel.pacientes = getAllPacients(data);
       if (entitysModel.pacientes != null) {
         entitysModel.pacientes!.forEach((element) {
-          var photoRef = getReference("fotos", element.id);
+          var photoRef = getReference("fotos", element.uid);
 
           photoRef.onValue.listen((event) {
             final data = event.snapshot.children;

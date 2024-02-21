@@ -6,13 +6,16 @@ import 'package:app_doc/firstpage.dart';
 import 'package:app_doc/pages/login/resetPassword.dart';
 import 'package:app_doc/features/app/splash_screen/splash_screen.dart';
 import 'package:app_doc/features/firebase_services/firebase_options.dart';
+import 'package:app_doc/pages/photo/camera_screen.dart';
 import 'package:app_doc/pages/photo/photos_screen.dart';
 import 'package:app_doc/pages/home.dart';
 import 'package:app_doc/pages/pacient/pacient_list.dart';
 import 'package:app_doc/pages/login/login.dart';
 import 'package:app_doc/pages/login/login_email.dart';
 import 'package:app_doc/pages/login/sign_up.dart';
+import 'package:app_doc/pages/photo/preview_photo.dart';
 import 'package:app_doc/pages/user/user_info.dart';
+import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,6 +48,7 @@ void main() async {
   FirebaseAuthService auth = FirebaseAuthService();
   Widget currentScreen;
   EntitysModel entitysModel = EntitysModel();
+  List<CameraDescription> cameras = [];
 
   // Verificar si el usuario está logueado
   if (auth.getUser() != null) {
@@ -52,20 +56,25 @@ void main() async {
     currentScreen = HomeScreen(entitysModel);
 
     print("El usuario está logueado con el ID ${auth.getUser()!.uid}");
-
     auth.injectDependencies(entitysModel);
+    WidgetsFlutterBinding.ensureInitialized();
+    cameras = await availableCameras();
   } else {
     // El usuario no está logueado
     currentScreen = LoginScreen(entitysModel: entitysModel);
     print("El usuario no está logueado");
   }
-  runApp(MyApp(currentScreen, entitysModel));
+
+  runApp(MyApp(currentScreen, entitysModel, camera: cameras.first));
 }
 
 class MyApp extends StatelessWidget {
   late final Widget? _currentScreen;
   static EntitysModel? _entitysModel;
-  MyApp(Widget currentScreen, EntitysModel entitysModel) {
+  final CameraDescription? camera;
+
+  MyApp(Widget currentScreen, EntitysModel entitysModel,
+      {this.camera, super.key}) {
     _currentScreen = currentScreen;
     _entitysModel = entitysModel;
   }
@@ -100,6 +109,8 @@ class MyApp extends StatelessWidget {
         '/fotos': (context) => PhotosScreen(),
         '/listPx': (context) => PacientListScreen(),
         '/user-info': (context) => UserScreen(),
+        '/camera': (context) => CameraScreen(camera: camera),
+        '/preview-photo': (context) => PreviewPageScreen()
       },
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
