@@ -230,6 +230,10 @@ class _NewPxScreenState extends State<NewPxScreen> {
           labelText: 'Date',
           border: OutlineInputBorder(),
         ),
+        readOnly: true,
+        onTap: () {
+          _selectDate();
+        },
         validator: (value) {
           if (value!.length < 8) {
             return 'Ingrese Fecha de Nacimiento';
@@ -244,5 +248,18 @@ class _NewPxScreenState extends State<NewPxScreen> {
       if (item.id == id) return true;
     }
     return false;
+  }
+
+  Future<void> _selectDate() async {
+    DateTime? _picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1910),
+        lastDate: DateTime.now());
+    if (_picked != null) {
+      setState(() {
+        dobtextcontroller.text = _picked.toString().split(" ")[0];
+      });
+    }
   }
 }

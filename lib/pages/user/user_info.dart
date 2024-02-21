@@ -32,8 +32,23 @@ class _UserScreenState extends State<UserScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  Text(
+                    user!.name ?? "",
+                    style: const TextStyle(
+                        fontSize: 30, color: Color.fromRGBO(122, 188, 176, 1)),
+                  ),
+                  Text(
+                    user.dueDate != null ? formatDate(user!.dueDate) : "Basico",
+                    style: const TextStyle(
+                        fontSize: 17, color: Color.fromRGBO(122, 188, 176, 1)),
+                  ),
+                  Container(
+                    height: 100,
+                    width: 100,
+                  ),
                   CircularPercentIndicator(
                     animation: true,
+                    animationDuration: 2750,
                     radius: 200,
                     lineWidth: 20,
                     percent: 0.75,
@@ -52,15 +67,19 @@ class _UserScreenState extends State<UserScreen> {
                     height: 100,
                     width: 100,
                   ),
-                  Text(
-                    user!.name ?? "",
-                    style: const TextStyle(
-                        fontSize: 30, color: Color.fromRGBO(122, 188, 176, 1)),
+                  MaterialButton(
+                    color: Color.fromARGB(255, 0, 141, 110),
+                    onPressed: _handleSignOut,
+                    child: Text(
+                      S.of(context).labelSignOut,
+                      style: TextStyle(
+                          fontSize: 32,
+                          color: Color.fromRGBO(221, 252, 212, 1)),
+                    ),
                   ),
-                  Text(
-                    user.dueDate != null ? formatDate(user!.dueDate) : "Basico",
-                    style: const TextStyle(
-                        fontSize: 17, color: Color.fromRGBO(122, 188, 176, 1)),
+                  Container(
+                    height: 50,
+                    width: 100,
                   ),
                   MaterialButton(
                     color: Color.fromARGB(255, 0, 141, 110),
