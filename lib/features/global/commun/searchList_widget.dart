@@ -69,6 +69,8 @@ class SearchList extends SearchDelegate {
               item.id.contains(query);
         }))
           ListTile(
+            textColor: Color.fromRGBO(165, 219, 195, 1),
+            tileColor: Color.fromRGBO(167, 221, 197, 235),
             title: Text("${item.userName}"),
             subtitle: Text(formatDate(item.createDate)),
             trailing: Text(item.fotos.length.toString()),

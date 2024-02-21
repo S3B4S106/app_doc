@@ -53,7 +53,7 @@ class S {
   /// `P A C I E N T S     L I S T`
   String get pacientsList {
     return Intl.message(
-      'P A C I E N T S     L I S T',
+      'P A C I E N T S   L I S T',
       name: 'pacientsList',
       desc: '',
       args: [],
@@ -63,8 +63,48 @@ class S {
   /// `N E W    P A C I E N T`
   String get newPacient {
     return Intl.message(
-      'N E W    P A C I E N T',
+      'N E W   P A C I E N T',
       name: 'newPacient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Age`
+  String get age {
+    return Intl.message(
+      'Age',
+      name: 'age',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date of Bird`
+  String get dob {
+    return Intl.message(
+      'Date of Bird',
+      name: 'dob',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ID`
+  String get id {
+    return Intl.message(
+      'ID',
+      name: 'id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SUBMIT`
+  String get submit {
+    return Intl.message(
+      'SUBMIT',
+      name: 'submit',
       desc: '',
       args: [],
     );

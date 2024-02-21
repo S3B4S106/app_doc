@@ -1,5 +1,8 @@
 {
-    "pacientsList":"P A C I E N T S     L I S T",
-    "newPacient":"N E W    P A C I E N T"
-    
+    "pacientsList":"P A C I E N T S   L I S T",
+    "newPacient":"N E W   P A C I E N T"
+    "age":"Age",
+    "dob":"Date of Bird",
+    "id":"ID",
+    "submit":"SUBMIT"
 }

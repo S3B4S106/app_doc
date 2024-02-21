@@ -3,6 +3,8 @@ import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/model/notify.dart';
 import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:app_doc/generated/l10n.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +14,10 @@ class NewPxScreen extends StatefulWidget {
 }
 
 class _NewPxScreenState extends State<NewPxScreen> {
+  final usertextcontroller = TextEditingController();
+  final idtextcontroller = TextEditingController();
+  final agetextcontroller = TextEditingController();
+  final dobtextcontroller = TextEditingController();
   final FirebaseAuthService _authService = FirebaseAuthService();
   final FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
   final formKey = GlobalKey<FormState>();
@@ -47,8 +53,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
             const SizedBox(height: 20),
             buildAge(),
             const SizedBox(height: 20),
-            buildPhone(),
-            const SizedBox(height: 20),
+            //buildPhone(),
+            //const SizedBox(height: 20),
             buildDate(),
             const SizedBox(height: 30),
             Container(
@@ -86,26 +92,32 @@ class _NewPxScreenState extends State<NewPxScreen> {
                             decoration: BoxDecoration(
                               color: Colors.transparent,
                               border: Border.all(
-                                  color: Color.fromRGBO(17, 63, 89, 1),
-                                  width: 7),
+                                  color: Color.fromRGBO(59, 122, 137, 1),
+                                  width: 3),
                               borderRadius: BorderRadius.circular(150),
                             ),
-                            child: Row(children: [
-                              Ink.image(
+                            child: const Column(children: [
+                              Text(
+                                'SUBMIT',
+                                style: TextStyle(
+                                    fontSize: 28,
+                                    color: Color.fromRGBO(221, 252, 212, 1)),
+                              ),
+                              /*Ink.image(
                                 image: const AssetImage('assets/Darkmint.png'),
                                 height: MediaQuery.of(context).size.height / 2 -
                                     353,
                                 width: MediaQuery.of(context).size.width - 85,
                                 fit: BoxFit.cover,
-                              ),
-                              const SizedBox(
+                              ),*/
+                              /*SizedBox(
                                 height: 1,
                               ),
-                              const Icon(
+                              Icon(
                                 Icons.check_circle_outline_outlined,
                                 size: 50,
                                 color: Color.fromRGBO(221, 252, 212, 1),
-                              )
+                              )*/
                             ]))))),
 
             /*child: ElevatedButton(
@@ -121,15 +133,14 @@ class _NewPxScreenState extends State<NewPxScreen> {
   }
 
   Widget buildUsername() => TextFormField(
+        controller: usertextcontroller,
         decoration: InputDecoration(
           filled: true,
           fillColor: Color.fromRGBO(165, 219, 195, 1),
           prefixIcon: Icon(Icons.person),
           suffixIcon: IconButton(
             icon: Icon(Icons.close),
-            onPressed: () {
-              (value) => setState(() => Username = '');
-            },
+            onPressed: () => usertextcontroller.clear(),
           ),
           labelText: 'Username',
           border: OutlineInputBorder(),
@@ -144,10 +155,15 @@ class _NewPxScreenState extends State<NewPxScreen> {
       );
 
   Widget buildID() => TextFormField(
-        decoration: const InputDecoration(
+        controller: idtextcontroller,
+        decoration: InputDecoration(
           filled: true,
           fillColor: Color.fromRGBO(165, 219, 195, 1),
-          prefixIcon: Icon(Icons.numbers),
+          prefixIcon: Icon(Icons.numbers_sharp),
+          suffixIcon: IconButton(
+            icon: Icon(Icons.close),
+            onPressed: () => idtextcontroller.clear(),
+          ),
           labelText: 'ID',
           border: OutlineInputBorder(),
         ),
@@ -161,10 +177,15 @@ class _NewPxScreenState extends State<NewPxScreen> {
       );
 
   Widget buildAge() => TextFormField(
-        decoration: const InputDecoration(
+        controller: agetextcontroller,
+        decoration: InputDecoration(
           filled: true,
           fillColor: Color.fromRGBO(165, 219, 195, 1),
           prefixIcon: Icon(Icons.onetwothree),
+          suffixIcon: IconButton(
+            icon: Icon(Icons.close),
+            onPressed: () => agetextcontroller.clear(),
+          ),
           labelText: 'Age',
           border: OutlineInputBorder(),
         ),
@@ -178,10 +199,15 @@ class _NewPxScreenState extends State<NewPxScreen> {
       );
 
   Widget buildPhone() => TextFormField(
-        decoration: const InputDecoration(
+        controller: usertextcontroller,
+        decoration: InputDecoration(
           filled: true,
           fillColor: Color.fromRGBO(165, 219, 195, 1),
-          prefixIcon: Icon(Icons.phone_iphone),
+          prefixIcon: Icon(Icons.phone_iphone_rounded),
+          suffixIcon: IconButton(
+            icon: Icon(Icons.close),
+            onPressed: () => usertextcontroller.clear(),
+          ),
           labelText: 'Phone',
           border: OutlineInputBorder(),
         ),
@@ -195,10 +221,15 @@ class _NewPxScreenState extends State<NewPxScreen> {
       );
 
   Widget buildDate() => TextFormField(
-        decoration: const InputDecoration(
+        controller: dobtextcontroller,
+        decoration: InputDecoration(
           filled: true,
           fillColor: Color.fromRGBO(165, 219, 195, 1),
           prefixIcon: Icon(Icons.date_range_outlined),
+          suffixIcon: IconButton(
+            icon: Icon(Icons.close),
+            onPressed: () => dobtextcontroller.clear(),
+          ),
           labelText: 'Date',
           border: OutlineInputBorder(),
         ),

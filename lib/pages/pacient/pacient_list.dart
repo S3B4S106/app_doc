@@ -55,6 +55,7 @@ class _PacientListState extends State<PacientListScreen> {
                 // Listamos los clientes
                 for (final paciente in pacientes)
                   ListTile(
+                    textColor: Color.fromRGBO(165, 219, 195, 1),
                     title: Text("${paciente.userName}"),
                     subtitle: Text(formatDate(paciente.createDate!)),
                     trailing: Text(paciente.fotos!.length.toString()),

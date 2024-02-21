@@ -2,6 +2,7 @@ import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class UserScreen extends StatefulWidget {
   @override
@@ -25,19 +26,45 @@ class _UserScreenState extends State<UserScreen> {
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.max,
         children: [
+          CircularPercentIndicator(
+            animation: true,
+            radius: 200,
+            lineWidth: 20,
+            percent: 0.75,
+            backgroundColor: Color.fromRGBO(35, 93, 113, 1), //35, 93, 113, 1
+            progressColor: Color.fromRGBO(165, 219, 195, 1), //165, 219, 195, 1
+            circularStrokeCap: CircularStrokeCap.round,
+            center: const Icon(
+              Icons.storage_outlined,
+              color: Color.fromRGBO(165, 219, 195, 1),
+              size: 100,
+            ),
+          ),
           Container(
             height: 100,
             width: 100,
           ),
-          Text(formatDate(user!.dueDate)),
-          Text(user!.name ?? ""),
+          Text(
+            user!.name ?? "",
+            style: const TextStyle(
+                fontSize: 30, color: Color.fromRGBO(122, 188, 176, 1)),
+          ),
+          Text(
+            formatDate(user!.dueDate),
+            style: const TextStyle(
+                fontSize: 17, color: Color.fromRGBO(122, 188, 176, 1)),
+          ),
           MaterialButton(
             color: Color.fromARGB(255, 0, 141, 110),
             onPressed: _handleSignOut,
-            child: const Text("Sign Out"),
+            child: const Text(
+              "Sign Out",
+              style: TextStyle(
+                  fontSize: 32, color: Color.fromRGBO(221, 252, 212, 1)),
+            ),
           )
         ],
       ),

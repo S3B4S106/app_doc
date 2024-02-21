@@ -1,4 +1,8 @@
 {
     "pacientsList":"L I S T A    D E    P A C I E N T E S",
-    "newPacient":"N U E V O   P A C I E N T E"
+    "newPacient":"N U E V O   P A C I E N T E",
+    "age":"Edad",
+    "dob":"Fecha de Nacimiento",
+    "id":"Numero de identificacion",
+    "submit":"Confirmar"
 }
