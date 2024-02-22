@@ -1,6 +1,7 @@
 import 'package:app_doc/features/entity/pacient.dart';
 import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
+import 'package:app_doc/features/global/commun/toast.dart';
 import 'package:app_doc/features/model/notify.dart';
 import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +75,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
                                 entitysModel.pacientes!, paciente.id)) {
                               _dbService.addItem("clientes", paciente,
                                   _authService.getUser()!.uid);
+                            } else {
+                              showToast(message: "Pacieny alredy exist");
                             }
                           }
                         },

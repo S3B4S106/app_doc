@@ -3,6 +3,7 @@ import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/entity/pacient.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class PhotosScreen extends StatefulWidget {
   PhotosScreen();
@@ -80,16 +81,17 @@ class _PhotosScreenState extends State<PhotosScreen> {
                 itemBuilder: (context, index) {
                   final image = images[index];
                   return GridTile(
-                    child: Image.network(
-                      image.ruta,
-                      fit: BoxFit.cover,
-                    ),
                     footer: GridTileBar(
                       backgroundColor: Colors.black54,
                       title: Text(
                         formatDate(image.fecha),
                         textAlign: TextAlign.center,
                       ),
+                    ),
+                    child: FadeInImage.memoryNetwork(
+                      image: image.ruta,
+                      fit: BoxFit.cover,
+                      placeholder: kTransparentImage,
                     ),
                   );
                 },
