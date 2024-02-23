@@ -1,9 +1,8 @@
 import 'dart:io';
 
+import 'package:app_doc/features/global/camera_widgets.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:dotted_border/dotted_border.dart';
 
 class CameraScreen extends StatefulWidget {
   final dynamic camera;
@@ -15,8 +14,8 @@ class CameraScreen extends StatefulWidget {
 
 class _CameraScreenState extends State<CameraScreen> {
   CameraController? _cameraController;
-  bool _mostrarGrilla3x3 = true;
-  bool _frames = false;
+  String _category = 'G';
+  final PageController _pageController = PageController();
 
   @override
   void initState() {
@@ -41,6 +40,43 @@ class _CameraScreenState extends State<CameraScreen> {
     super.dispose();
   }
 
+  Widget buildCategory(context, title, icons, category) {
+    return Container(
+        margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.10),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(color: Color.fromRGBO(124, 187, 176, 1)),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                for (final icon in icons)
+                  IconButton(
+                    icon: Icon(icon),
+                    color: Color.fromRGBO(124, 187, 176, 1),
+                    onPressed: () {
+                      setState(() {
+                        _category = category;
+                      });
+                      _showTemplate(icons.indexOf(icon));
+                    },
+                  ),
+              ],
+            ),
+          ],
+        ));
+  }
+
+  void _showTemplate(int template) {
+    _pageController.animateToPage(template,
+        duration: Duration(milliseconds: 400), curve: Curves.easeInOut);
+  }
+
   @override
   Widget build(BuildContext context) {
     Map parameters = ModalRoute.of(context)?.settings.arguments as Map;
@@ -48,39 +84,16 @@ class _CameraScreenState extends State<CameraScreen> {
       return Container();
     }
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height / 2 +
-                  (MediaQuery.of(context).size.height * 0.15),
-              width: MediaQuery.of(context).size.width,
-              child: CameraPreview(_cameraController!,
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height / 2 +
-                            (MediaQuery.of(context).size.height * 0.15),
-                        width: MediaQuery.of(context).size.width,
-                        child: _frames ? _mostrarGrilla() : null,
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.05,
-                            top: MediaQuery.of(context).size.height * 0.05),
-                        child: FloatingActionButton(
-                            heroTag: "close",
-                            mini: true,
-                            backgroundColor: Color.fromARGB(111, 213, 209, 209),
-                            child: Icon(Icons.close),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            }),
-                      )
-                    ],
-                  )),
-            ),
+                height: MediaQuery.of(context).size.height / 2 +
+                    (MediaQuery.of(context).size.height * 0.15),
+                width: MediaQuery.of(context).size.width,
+                child: cameraWidget(
+                    _cameraController, context, _category, _pageController)),
             Container(
               color: Color.fromRGBO(35, 93, 113, 1),
               height: MediaQuery.of(context).size.height / 2 -
@@ -88,56 +101,24 @@ class _CameraScreenState extends State<CameraScreen> {
               width: MediaQuery.of(context).size.width,
               child: ListView(
                 children: <Widget>[
-                  for (int i = 0; i < 15; i++)
-                    Container(
-                        margin: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.10),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  "General",
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(124, 187, 176, 1)),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                IconButton(
-                                  icon: Icon(Icons.square_outlined),
-                                  color: Color.fromRGBO(124, 187, 176, 1),
-                                  onPressed: () {
-                                    setState(() {
-                                      _frames = false;
-                                    });
-                                  },
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.grid_3x3),
-                                  color: Color.fromRGBO(124, 187, 176, 1),
-                                  onPressed: () {
-                                    setState(() {
-                                      _frames = true;
-                                      _mostrarGrilla3x3 = true;
-                                    });
-                                  },
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.grid_4x4),
-                                  color: Color.fromRGBO(124, 187, 176, 1),
-                                  onPressed: () {
-                                    setState(() {
-                                      _frames = true;
-                                      _mostrarGrilla3x3 = false;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
-                        )),
+                  buildCategory(
+                      context,
+                      'Basic',
+                      [
+                        Icons.square_outlined,
+                        Icons.grid_3x3,
+                        Icons.grid_4x4_outlined
+                      ],
+                      "G"),
+                  buildCategory(
+                      context,
+                      'Avanced',
+                      [
+                        Icons.square_outlined,
+                        Icons.square_outlined,
+                        Icons.face_4_outlined
+                      ],
+                      "A")
                 ],
               ),
             )
@@ -159,158 +140,5 @@ class _CameraScreenState extends State<CameraScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
-  }
-
-  Widget _mostrarGrilla() {
-    if (_mostrarGrilla3x3) {
-      Path customPath = Path()
-        ..lineTo(0, 200)
-        ..moveTo(137, 0)
-        ..lineTo(137, 200);
-
-      return LayoutGrid(
-        columnSizes: [1.fr, 1.fr, 1.fr],
-        rowSizes: [1.fr, 1.fr, 1.fr],
-        children: [
-          Container(),
-          DottedBorder(
-            customPath: (size) => customPath,
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          Container(),
-          DottedBorder(
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          Container(),
-          DottedBorder(
-            customPath: (size) => customPath,
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          Container(),
-        ],
-      );
-    } else {
-      Path customPath = Path()..lineTo(0, 150);
-
-      return LayoutGrid(
-        columnSizes: [1.fr, 1.fr, 1.fr, 1.fr],
-        rowSizes: [1.fr, 1.fr, 1.fr, 1.fr],
-        children: [
-          Container(),
-          DottedBorder(
-            customPath: (size) => customPath,
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            customPath: (size) => customPath,
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            customPath: (size) => customPath,
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          Container(),
-          DottedBorder(
-            customPath: (size) => customPath,
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            customPath: (size) => customPath,
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-          DottedBorder(
-            customPath: (size) => customPath,
-            dashPattern: [8],
-            color: Colors.grey,
-            strokeWidth: 1,
-            child: Container(),
-          ),
-        ],
-      );
-    }
   }
 }
