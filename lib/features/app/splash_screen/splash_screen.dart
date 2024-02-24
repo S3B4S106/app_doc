@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   late VideoPlayerController _controller;
   @override
   void initState() {
-    _controller = VideoPlayerController.asset("assets/PxPhotoProBG.mp4");
+    _controller = VideoPlayerController.asset("assets/Opening.mp4");
     _controller.initialize().then((_) {
       _controller.play();
     });
