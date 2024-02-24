@@ -5,7 +5,14 @@ import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 final Map<String, List<Widget>> _allTemplates = {
   "G": [Container(), grid3X3(), grid4X4()],
-  "A": [Container(), Image.asset("assets/Contorno.png"), Container()]
+  "A": [
+    Container(),
+    Image.asset(
+      "assets/FrontFace.png",
+      opacity: AlwaysStoppedAnimation(.25),
+    ),
+    Container()
+  ]
 };
 
 Widget cameraWidget(cameraController, context, templates, pageController) {
