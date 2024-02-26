@@ -1,13 +1,20 @@
+import 'dart:collection';
+import 'dart:io';
+
 import 'package:app_doc/features/entity/photo.dart';
+import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
+import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
 import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/entity/pacient.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class PhotosScreen extends StatefulWidget {
-  PhotosScreen();
-
+  PhotosScreen({super.key});
+  FirebaseStorageService _storageService = FirebaseStorageService();
+  FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
   @override
   _PhotosScreenState createState() => _PhotosScreenState();
 }
@@ -31,7 +38,8 @@ class _PhotosScreenState extends State<PhotosScreen> {
     _groupedImages.forEach((date, images) {
       images.sort((a, b) => b.fecha.compareTo(a.fecha));
     });
-    _groupedImages.keys.toList()..sort((a, b) => b.compareTo(a));
+    _groupedImages = SplayTreeMap<DateTime, List<Photo>>.from(
+        _groupedImages, (a, b) => b.compareTo(a));
     model.addListener(() {
       if (this.mounted) {
         setState(() {
@@ -120,7 +128,24 @@ class _PhotosScreenState extends State<PhotosScreen> {
                         },
                         icon: Icon(Icons.add_a_photo_outlined)),
                     SizedBox(width: 40),
-                    Icon(Icons.add_photo_alternate_outlined),
+                    IconButton(
+                        onPressed: () async {
+                          var picker = ImagePicker();
+                          dynamic image = await picker.pickImage(
+                              source: ImageSource.gallery, imageQuality: 50);
+                          image = File(image.path);
+                          String urlImage = await widget._storageService
+                              .uploadFile(
+                                  image!, DateTime.now().toIso8601String());
+                          Photo newPhoto = Photo(
+                              nombre: "nombre",
+                              fecha: DateTime.now(),
+                              tipo: "tipo",
+                              ruta: urlImage);
+                          widget._dbService.addItem(
+                              "fotos", newPhoto, parameters['pacient'].uid);
+                        },
+                        icon: Icon(Icons.add_photo_alternate_outlined)),
                     SizedBox(
                       width: 40,
                     ),

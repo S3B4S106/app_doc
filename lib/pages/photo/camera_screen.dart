@@ -115,7 +115,7 @@ class _CameraScreenState extends State<CameraScreen> {
                       'Avanced',
                       [
                         Icons.square_outlined,
-                        Icons.square_outlined,
+                        Icons.face_2_outlined,
                         Icons.face_4_outlined
                       ],
                       "A")
