@@ -13,8 +13,8 @@ import 'package:transparent_image/transparent_image.dart';
 
 class PhotosScreen extends StatefulWidget {
   PhotosScreen({super.key});
-  FirebaseStorageService _storageService = FirebaseStorageService();
-  FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
+  final FirebaseStorageService _storageService = FirebaseStorageService();
+  final FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
   @override
   _PhotosScreenState createState() => _PhotosScreenState();
 }

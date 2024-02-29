@@ -1,11 +1,11 @@
 import 'package:app_doc/features/global/commun/transversals.dart';
+import 'package:app_doc/features/model/notify.dart';
 import 'package:flutter/material.dart';
 
 class SearchList extends SearchDelegate {
   List<dynamic> _list = [];
-  SearchList(List<dynamic> list) {
-    this._list = list;
-  }
+  late final EntitysModel _model;
+  SearchList(this._list, this._model);
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -47,11 +47,8 @@ class SearchList extends SearchDelegate {
             trailing: Text(item.fotos.length.toString()),
             onTap: () {
               // Mostramos las fotos del cliente
-              Navigator.pushNamed(
-                context,
-                "/fotos",
-                arguments: item,
-              );
+              Navigator.pushNamed(context, "/fotos",
+                  arguments: {'pacient': item, 'model': _model});
             },
           ),
       ],
@@ -76,11 +73,8 @@ class SearchList extends SearchDelegate {
             trailing: Text(item.fotos.length.toString()),
             onTap: () {
               // Mostramos las fotos del cliente
-              Navigator.pushNamed(
-                context,
-                "/fotos",
-                arguments: item,
-              );
+              Navigator.pushNamed(context, "/fotos",
+                  arguments: {'pacient': item, 'model': _model});
             },
           ),
       ],

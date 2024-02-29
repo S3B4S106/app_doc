@@ -48,7 +48,9 @@ class _PacientListState extends State<PacientListScreen> {
             icon: Icon(Icons.search),
             onPressed: () {
               // Mostramos la barra de búsqueda
-              showSearch(context: context, delegate: SearchList(pacientes));
+              showSearch(
+                  context: context,
+                  delegate: SearchList(pacientes, parameters['model']));
             },
           ),
         ],

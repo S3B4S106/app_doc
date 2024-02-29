@@ -5,7 +5,7 @@ import 'package:sign_in_button/sign_in_button.dart';
 import 'package:app_doc/generated/l10n.dart';
 
 class LoginScreen extends StatefulWidget {
-  dynamic entitysModel;
+  final dynamic entitysModel;
   LoginScreen({super.key, this.entitysModel});
   @override
   State<LoginScreen> createState() => _LoginScreenState();

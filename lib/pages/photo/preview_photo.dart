@@ -6,7 +6,7 @@ import 'package:app_doc/features/firebase_services/firebase_storage_services.dar
 import 'package:flutter/material.dart';
 
 class PreviewPageScreen extends StatefulWidget {
-  File? image;
+  late final File? image;
 
   final FirebaseStorageService _storageService = FirebaseStorageService();
   final FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();

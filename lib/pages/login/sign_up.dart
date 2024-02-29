@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
-  dynamic entitysModel;
+  final dynamic entitysModel;
   SignUpScreen({super.key, this.entitysModel});
 
   @override
