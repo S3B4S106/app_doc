@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:app_doc/features/entity/photo.dart';
 import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:flutter/material.dart';
 
 class PreviewPageScreen extends StatefulWidget {
-  late final File? image;
+  File? image;
 
   final FirebaseStorageService _storageService = FirebaseStorageService();
   final FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
@@ -18,6 +19,11 @@ class PreviewPageScreen extends StatefulWidget {
 
 class _PreviewPageScreenState extends State<PreviewPageScreen> {
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Map parameters = ModalRoute.of(context)?.settings.arguments as Map;
     widget.image = parameters['image'];
@@ -26,13 +32,13 @@ class _PreviewPageScreenState extends State<PreviewPageScreen> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height / 2,
-            width: MediaQuery.of(context).size.width - 10,
+            height: GlobalConfig.heightPercentage(.50),
+            width: GlobalConfig.widthPercentage(.9),
             child: Image.file(widget.image!),
           ),
           Container(
-            height: MediaQuery.of(context).size.height / 2,
-            width: MediaQuery.of(context).size.width - 10,
+            height: GlobalConfig.heightPercentage(.50),
+            width: GlobalConfig.widthPercentage(90),
             child: TextButton(
               child: Text('Save'),
               onPressed: () async {

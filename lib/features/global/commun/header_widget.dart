@@ -1,13 +1,11 @@
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:flutter/material.dart';
 
 Widget header() {
   return Container(
-    decoration: const BoxDecoration(
+    decoration: BoxDecoration(
         gradient: LinearGradient(
-      colors: [
-        Color.fromRGBO(35, 93, 113, 1),
-        Color.fromRGBO(124, 187, 176, 1)
-      ],
+      colors: [GlobalConfig.primaryColorApp, Color.fromRGBO(124, 187, 176, 1)],
     )),
   );
 }

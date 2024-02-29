@@ -1,4 +1,5 @@
 import 'package:app_doc/features/global/commun/header_widget.dart';
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:app_doc/pages/login/resetPassword.dart';
 import 'package:app_doc/features/global/commun/toast.dart';
 import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
@@ -107,7 +108,7 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Color.fromRGBO(35, 93, 113, 1),
+                        GlobalConfig.primaryColorApp,
                         Color.fromRGBO(124, 187, 176, 1)
                       ],
                     ),

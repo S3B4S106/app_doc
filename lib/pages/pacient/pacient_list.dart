@@ -1,6 +1,7 @@
 import 'package:app_doc/features/entity/pacient.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/commun/transversals.dart';
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:flutter/material.dart';
 import 'package:app_doc/features/global/commun/searchList_widget.dart';
 
@@ -61,7 +62,7 @@ class _PacientListState extends State<PacientListScreen> {
                 // Listamos los clientes
                 for (final paciente in pacientes)
                   ListTile(
-                    textColor: Color.fromRGBO(165, 219, 195, 1),
+                    textColor: GlobalConfig.textColor,
                     title: Text("${paciente.userName}"),
                     subtitle: Text(formatDate(paciente.createDate!)),
                     trailing: Text(paciente.fotos!.length.toString()),

@@ -2,6 +2,7 @@ import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/commun/toast.dart';
 import 'package:app_doc/features/global/commun/validate_email.dart';
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:app_doc/features/user_auth/widgets/form_container_widget.dart';
 import 'package:app_doc/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Color.fromRGBO(35, 93, 113, 1),
+                        GlobalConfig.primaryColorApp,
                         Color.fromRGBO(124, 187, 176, 1)
                       ],
                     ),

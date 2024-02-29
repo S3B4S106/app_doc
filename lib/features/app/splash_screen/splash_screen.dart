@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
         //TextStyle(
         //fontSize: 31,
-        //color: Color.fromRGBO(35, 93, 113, 1),
+        //color: GlobalConfig.primaryColorApp,
         //fontWeight: FontWeight.w500,
         //GoogleFonts.getFont('Lato'),
         //),

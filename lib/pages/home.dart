@@ -1,4 +1,5 @@
 import 'package:app_doc/features/global/commun/header_widget.dart';
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:app_doc/features/model/notify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -46,13 +47,13 @@ class _HomeScreenState extends State<HomeScreen> {
           flexibleSpace: header(),
           title: titleApp()),
       body: Container(
-        width: MediaQuery.of(context).size.width,
+        width: GlobalConfig.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
                 child: Material(
-                    color: Color.fromRGBO(18, 62, 89, 1),
+                    color: GlobalConfig.backgroundButtonColor,
                     elevation: 13,
                     borderRadius: BorderRadius.circular(57),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -63,17 +64,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               color: Colors.transparent,
                               border: Border.all(
-                                  color: Color.fromRGBO(17, 63, 89, 1),
-                                  width: 7),
+                                  color: GlobalConfig.borderColor, width: 7),
                               borderRadius: BorderRadius.circular(57),
                             ),
                             child: Column(children: [
                               Ink.image(
                                 image:
                                     const AssetImage('assets/Button5Grad.png'),
-                                height: MediaQuery.of(context).size.height / 2 -
-                                    150,
-                                width: MediaQuery.of(context).size.width - 17,
+                                height: GlobalConfig.height / 2 - 150,
+                                width: GlobalConfig.width - 17,
                                 fit: BoxFit.cover,
                               ),
                               const SizedBox(
@@ -81,14 +80,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Text(
                                 S.of(context).newPacient,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 15,
-                                    color: Color.fromRGBO(122, 188, 176, 1)),
+                                    color: GlobalConfig.textColor),
                               )
                             ]))))),
             Container(
                 child: Material(
-                    color: Color.fromRGBO(18, 62, 89, 1),
+                    color: GlobalConfig.backgroundButtonColor,
                     elevation: 10,
                     borderRadius: BorderRadius.circular(57),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -99,17 +98,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               color: Colors.transparent,
                               border: Border.all(
-                                  color: Color.fromRGBO(17, 63, 89, 1),
-                                  width: 7),
+                                  color: GlobalConfig.borderColor, width: 7),
                               borderRadius: BorderRadius.circular(57),
                             ),
                             child: Column(children: [
                               Ink.image(
                                 image: const AssetImage(
                                     'assets/BottonlistcleanGrad.png'),
-                                height: MediaQuery.of(context).size.height / 2 -
-                                    150,
-                                width: MediaQuery.of(context).size.width - 17,
+                                height: GlobalConfig.height / 2 - 150,
+                                width: GlobalConfig.width - 17,
                                 fit: BoxFit.cover,
                               ),
                               const SizedBox(
@@ -117,9 +114,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Text(
                                 S.of(context).pacientsList,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 15,
-                                    color: Color.fromRGBO(122, 188, 176, 1)),
+                                    color: GlobalConfig.textColor),
                               )
                             ]))))),
           ],

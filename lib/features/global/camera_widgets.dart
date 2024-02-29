@@ -1,3 +1,4 @@
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:camera/camera.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,6 @@ Widget cameraWidget(cameraController, context, templates, pageController) {
       child: Stack(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height / 2 +
-                (MediaQuery.of(context).size.height * 0.15),
-            width: MediaQuery.of(context).size.width,
             child: PageView(
               controller: pageController,
               children: _allTemplates[templates]!,
@@ -30,8 +28,8 @@ Widget cameraWidget(cameraController, context, templates, pageController) {
           ),
           Container(
             margin: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.05,
-                top: MediaQuery.of(context).size.height * 0.05),
+                left: GlobalConfig.widthPercentage(.05),
+                top: GlobalConfig.heightPercentage(.05)),
             child: FloatingActionButton(
                 heroTag: "close",
                 mini: true,

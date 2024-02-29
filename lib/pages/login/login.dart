@@ -1,5 +1,6 @@
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 import 'package:app_doc/generated/l10n.dart';
@@ -38,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
         flexibleSpace: header(),
       ),
       body: SizedBox(
-        width: MediaQuery.of(context).size.width,
+        width: GlobalConfig.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,8 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Center(
       child: SizedBox(
         height: 50,
-        width: (MediaQuery.of(context).size.width -
-            MediaQuery.of(context).size.width * 0.1),
+        width: GlobalConfig.widthPercentage(.9),
         child: SignInButton(
           Buttons.email,
           text: S.of(context).loginWith("Email"),
@@ -78,8 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Center(
       child: SizedBox(
         height: 50,
-        width: (MediaQuery.of(context).size.width -
-            MediaQuery.of(context).size.width * 0.1),
+        width: GlobalConfig.widthPercentage(.9),
         child: SignInButton(
           Buttons.google,
           text: S.of(context).loginWith("Google"),
@@ -93,8 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Center(
       child: SizedBox(
         height: 50,
-        width: (MediaQuery.of(context).size.width -
-            MediaQuery.of(context).size.width * 0.1),
+        width: GlobalConfig.widthPercentage(.9),
         child: SignInButton(
           Buttons.appleDark,
           text: S.of(context).loginWith("Apple"),

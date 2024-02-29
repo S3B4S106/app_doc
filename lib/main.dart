@@ -1,4 +1,4 @@
-import 'package:app_doc/features/global/commun/transversals.dart';
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:app_doc/features/model/notify.dart';
 import 'package:app_doc/pages/pacient/NewPx.dart';
@@ -49,6 +49,7 @@ void main() async {
   Widget currentScreen;
   EntitysModel entitysModel = EntitysModel();
   List<CameraDescription> cameras = [];
+  cameras = await availableCameras();
 
   // Verificar si el usuario está logueado
   if (auth.getUser() != null) {
@@ -57,8 +58,6 @@ void main() async {
 
     print("El usuario está logueado con el ID ${auth.getUser()!.uid}");
     auth.injectDependencies(entitysModel);
-    WidgetsFlutterBinding.ensureInitialized();
-    cameras = await availableCameras();
   } else {
     // El usuario no está logueado
     currentScreen = LoginScreen(entitysModel: entitysModel);
@@ -81,19 +80,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var colorApp = ColorScheme.fromSeed(
-        brightness: MediaQuery.platformBrightnessOf(context),
-        seedColor: const Color.fromARGB(255, 32, 83, 102),
-        background: calculateAverageColor(const LinearGradient(
-          colors: [Color.fromRGBO(7, 54, 69, 1), Color.fromRGBO(13, 13, 13, 1)],
-        ).colors));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'PxPhotoPro',
       //Tema Principal, se usa cuando no está activo el modo oscuro
       theme: ThemeData(
-        colorScheme: colorApp,
-        scaffoldBackgroundColor: colorApp.background,
+        colorScheme: GlobalConfig.colorApp,
+        scaffoldBackgroundColor: GlobalConfig.backgroundColor,
       ),
       routes: {
         '/': (context) => SplashScreen(

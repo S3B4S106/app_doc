@@ -2,6 +2,7 @@ import 'package:app_doc/features/entity/pacient.dart';
 import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/commun/toast.dart';
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:app_doc/features/model/notify.dart';
 import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
       appBar: AppBar(
         elevation: 10,
         centerTitle: true,
-        //backgroundColor: Color.fromRGBO(35, 93, 113, 1),
+        //backgroundColor: GlobalConfig.primaryColorApp,
         flexibleSpace: header(),
         title: titleApp(),
       ),
@@ -52,7 +53,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
             const SizedBox(height: 30),
             Container(
                 child: Material(
-                    color: Color.fromRGBO(18, 62, 89, 1),
+                    color: GlobalConfig.backgroundButtonColor,
                     elevation: 13,
                     borderRadius: BorderRadius.circular(150),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -84,8 +85,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
                             decoration: BoxDecoration(
                               color: Colors.transparent,
                               border: Border.all(
-                                  color: Color.fromRGBO(59, 122, 137, 1),
-                                  width: 3),
+                                  color: GlobalConfig.borderColor, width: 3),
                               borderRadius: BorderRadius.circular(150),
                             ),
                             child: const Column(children: [
@@ -97,8 +97,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
                               ),
                               /*Ink.image(
                                 image: const AssetImage('assets/Darkmint.png'),
-                                height: MediaQuery.of(context).size.height / 2 -
-                                    353,
+                                height: GlobalConfig.heightPercentage(.50),
                                 width: MediaQuery.of(context).size.width - 85,
                                 fit: BoxFit.cover,
                               ),*/
@@ -128,7 +127,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
         controller: usertextcontroller,
         decoration: InputDecoration(
           filled: true,
-          fillColor: Color.fromRGBO(165, 219, 195, 1),
+          fillColor: GlobalConfig.textColor,
           prefixIcon: Icon(Icons.person),
           suffixIcon: IconButton(
             icon: Icon(Icons.close),
@@ -150,7 +149,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
         controller: idtextcontroller,
         decoration: InputDecoration(
           filled: true,
-          fillColor: Color.fromRGBO(165, 219, 195, 1),
+          fillColor: GlobalConfig.textColor,
           prefixIcon: Icon(Icons.numbers_sharp),
           suffixIcon: IconButton(
             icon: Icon(Icons.close),
@@ -172,7 +171,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
         controller: agetextcontroller,
         decoration: InputDecoration(
           filled: true,
-          fillColor: Color.fromRGBO(165, 219, 195, 1),
+          fillColor: GlobalConfig.textColor,
           prefixIcon: Icon(Icons.onetwothree),
           suffixIcon: IconButton(
             icon: Icon(Icons.close),
@@ -194,7 +193,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
         controller: usertextcontroller,
         decoration: InputDecoration(
           filled: true,
-          fillColor: Color.fromRGBO(165, 219, 195, 1),
+          fillColor: GlobalConfig.textColor,
           prefixIcon: Icon(Icons.phone_iphone_rounded),
           suffixIcon: IconButton(
             icon: Icon(Icons.close),
@@ -216,7 +215,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
         controller: dobtextcontroller,
         decoration: InputDecoration(
           filled: true,
-          fillColor: Color.fromRGBO(165, 219, 195, 1),
+          fillColor: GlobalConfig.textColor,
           prefixIcon: Icon(Icons.date_range_outlined),
           suffixIcon: IconButton(
             icon: Icon(Icons.close),

@@ -1,6 +1,7 @@
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:app_doc/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -34,13 +35,13 @@ class _UserScreenState extends State<UserScreen> {
                 children: [
                   Text(
                     user!.name ?? "",
-                    style: const TextStyle(
-                        fontSize: 30, color: Color.fromRGBO(122, 188, 176, 1)),
+                    style:
+                        TextStyle(fontSize: 30, color: GlobalConfig.textColor),
                   ),
                   Text(
                     user.dueDate != null ? formatDate(user!.dueDate) : "Basico",
-                    style: const TextStyle(
-                        fontSize: 17, color: Color.fromRGBO(122, 188, 176, 1)),
+                    style:
+                        TextStyle(fontSize: 17, color: GlobalConfig.textColor),
                   ),
                   Container(
                     height: 100,
@@ -53,7 +54,7 @@ class _UserScreenState extends State<UserScreen> {
                     lineWidth: 20,
                     percent: 0.75,
                     backgroundColor:
-                        Color.fromRGBO(35, 93, 113, 1), //35, 93, 113, 1
+                        GlobalConfig.primaryColorApp, //35, 93, 113, 1
                     progressColor:
                         Color.fromRGBO(165, 219, 195, 1), //165, 219, 195, 1
                     circularStrokeCap: CircularStrokeCap.round,

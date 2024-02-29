@@ -1,4 +1,5 @@
 import 'package:app_doc/features/global/commun/transversals.dart';
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:app_doc/features/model/notify.dart';
 import 'package:flutter/material.dart';
 
@@ -66,7 +67,7 @@ class SearchList extends SearchDelegate {
               item.id.contains(query);
         }))
           ListTile(
-            textColor: Color.fromRGBO(165, 219, 195, 1),
+            textColor: GlobalConfig.textColor,
             tileColor: Color.fromRGBO(167, 221, 197, 235),
             title: Text("${item.userName}"),
             subtitle: Text(formatDate(item.createDate)),

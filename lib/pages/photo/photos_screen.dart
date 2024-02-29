@@ -7,6 +7,7 @@ import 'package:app_doc/features/firebase_services/firebase_storage_services.dar
 import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/entity/pacient.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -117,7 +118,7 @@ class _PhotosScreenState extends State<PhotosScreen> {
             builder: (context) => BottomSheet(
               onClosing: () {},
               builder: (context) => Container(
-                height: MediaQuery.of(context).size.height * 0.10,
+                height: GlobalConfig.heightPercentage(.1),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[

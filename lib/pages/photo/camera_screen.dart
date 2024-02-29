@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:app_doc/features/global/camera_widgets.dart';
+import 'package:app_doc/features/global/gobal_config.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
@@ -42,14 +43,14 @@ class _CameraScreenState extends State<CameraScreen> {
 
   Widget buildCategory(context, title, icons, category) {
     return Container(
-        margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.10),
+        margin: EdgeInsets.only(left: GlobalConfig.widthPercentage(.1)),
         child: Column(
           children: [
             Row(
               children: [
                 Text(
                   title,
-                  style: TextStyle(color: Color.fromRGBO(124, 187, 176, 1)),
+                  style: TextStyle(color: GlobalConfig.textColor),
                 )
               ],
             ),
@@ -58,7 +59,7 @@ class _CameraScreenState extends State<CameraScreen> {
                 for (final icon in icons)
                   IconButton(
                     icon: Icon(icon),
-                    color: Color.fromRGBO(124, 187, 176, 1),
+                    color: GlobalConfig.textColor,
                     onPressed: () {
                       setState(() {
                         _category = category;
@@ -85,20 +86,18 @@ class _CameraScreenState extends State<CameraScreen> {
     }
     return Scaffold(
       body: SizedBox(
-        width: MediaQuery.of(context).size.width,
+        width: GlobalConfig.width,
         child: Column(
           children: [
             Container(
-                height: MediaQuery.of(context).size.height / 2 +
-                    (MediaQuery.of(context).size.height * 0.15),
-                width: MediaQuery.of(context).size.width,
+                height: GlobalConfig.heightPercentage(.65),
+                width: GlobalConfig.width,
                 child: cameraWidget(
                     _cameraController, context, _category, _pageController)),
             Container(
-              color: Color.fromRGBO(35, 93, 113, 1),
-              height: MediaQuery.of(context).size.height / 2 -
-                  (MediaQuery.of(context).size.height * 0.15),
-              width: MediaQuery.of(context).size.width,
+              color: GlobalConfig.primaryColorApp,
+              height: GlobalConfig.heightPercentage(.35),
+              width: GlobalConfig.width,
               child: ListView(
                 children: <Widget>[
                   buildCategory(
