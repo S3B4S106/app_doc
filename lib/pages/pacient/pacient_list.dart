@@ -1,7 +1,7 @@
 import 'package:app_doc/features/entity/pacient.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/commun/transversals.dart';
-import 'package:app_doc/features/global/gobal_config.dart';
+import 'package:app_doc/features/global/global_config.dart';
 import 'package:flutter/material.dart';
 import 'package:app_doc/features/global/commun/searchList_widget.dart';
 

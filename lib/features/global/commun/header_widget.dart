@@ -1,4 +1,4 @@
-import 'package:app_doc/features/global/gobal_config.dart';
+import 'package:app_doc/features/global/global_config.dart';
 import 'package:flutter/material.dart';
 
 Widget header() {

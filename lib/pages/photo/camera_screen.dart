@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:app_doc/features/global/camera_widgets.dart';
-import 'package:app_doc/features/global/gobal_config.dart';
+import 'package:app_doc/features/global/global_config.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 

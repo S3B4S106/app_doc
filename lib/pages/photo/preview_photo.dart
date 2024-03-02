@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:app_doc/features/entity/photo.dart';
 import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
-import 'package:app_doc/features/global/gobal_config.dart';
+import 'package:app_doc/features/global/global_config.dart';
 import 'package:flutter/material.dart';
 
 class PreviewPageScreen extends StatefulWidget {

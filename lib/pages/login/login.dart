@@ -1,6 +1,6 @@
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
-import 'package:app_doc/features/global/gobal_config.dart';
+import 'package:app_doc/features/global/global_config.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 import 'package:app_doc/generated/l10n.dart';
