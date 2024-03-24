@@ -150,30 +150,30 @@ class S {
     );
   }
 
-  /// `Alredy have an account?`
+  /// `Do you alredy have an account?`
   String get copyHaveAccount {
     return Intl.message(
-      'Alredy have an account?',
+      'Do you alredy have an account?',
       name: 'copyHaveAccount',
       desc: '',
       args: [],
     );
   }
 
-  /// `Forgot your password?`
+  /// `Can not remember your password?`
   String get copyResetPassword {
     return Intl.message(
-      'Forgot your password?',
+      'Can not remember your password?',
       name: 'copyResetPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `Don't have an account?`
+  /// `Don't you have an account?`
   String get copyCreateAccount {
     return Intl.message(
-      'Don\'t have an account?',
+      'Don\'t you have an account?',
       name: 'copyCreateAccount',
       desc: '',
       args: [],
@@ -199,6 +199,46 @@ class S {
       args: [],
     );
   }
+
+  /// `FullName`
+  String get fullName {
+    return Intl.message(
+      'FullName',
+      name: 'fullName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Identification Number`
+  String get id {
+    return Intl.message(
+      'Identification Number',
+      name: 'id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Age`
+  String get age {
+    return Intl.message(
+      'Age',
+      name: 'age',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date of Bird`
+  String get date {
+    return Intl.message(
+      'Date of Bird',
+      name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -208,6 +248,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'es'),
+      Locale.fromSubtags(languageCode: 'pr'),
     ];
   }
 

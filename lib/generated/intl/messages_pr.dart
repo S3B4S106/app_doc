@@ -1,0 +1,53 @@
+// DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
+// This is a library that provides messages for a pr locale. All the
+// messages from the main program should be duplicated here with the same
+// function name.
+
+// Ignore issues from commonly used lints in this file.
+// ignore_for_file:unnecessary_brace_in_string_interps, unnecessary_new
+// ignore_for_file:prefer_single_quotes,comment_references, directives_ordering
+// ignore_for_file:annotate_overrides,prefer_generic_function_type_aliases
+// ignore_for_file:unused_import, file_names, avoid_escaping_inner_quotes
+// ignore_for_file:unnecessary_string_interpolations, unnecessary_string_escapes
+
+import 'package:intl/intl.dart';
+import 'package:intl/message_lookup_by_library.dart';
+
+final messages = new MessageLookup();
+
+typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
+
+class MessageLookup extends MessageLookupByLibrary {
+  String get localeName => 'pr';
+
+  static String m0(provider) => "Entrar com ${provider}";
+
+  final messages = _notInlinedMessages(_notInlinedMessages);
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "age": MessageLookupByLibrary.simpleMessage("Idade"),
+        "copyCreateAccount":
+            MessageLookupByLibrary.simpleMessage("Não tem uma conta?"),
+        "copyHaveAccount":
+            MessageLookupByLibrary.simpleMessage("Já tem uma conta?"),
+        "copyResetPassword":
+            MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
+        "date": MessageLookupByLibrary.simpleMessage("Data de Nascimento"),
+        "fullName": MessageLookupByLibrary.simpleMessage("Nome Completo"),
+        "id": MessageLookupByLibrary.simpleMessage("Número de Identificação"),
+        "labelEmail": MessageLookupByLibrary.simpleMessage("E-mail"),
+        "labelLogin": MessageLookupByLibrary.simpleMessage("Entrar"),
+        "labelPassword": MessageLookupByLibrary.simpleMessage("Senha"),
+        "labelReset": MessageLookupByLibrary.simpleMessage("Redefinir"),
+        "labelSend": MessageLookupByLibrary.simpleMessage("Enviar"),
+        "labelSignOut": MessageLookupByLibrary.simpleMessage("Sair"),
+        "labelSignUp": MessageLookupByLibrary.simpleMessage("Registrar-se"),
+        "labelUserName":
+            MessageLookupByLibrary.simpleMessage("Nome de Usuário"),
+        "loginWith": m0,
+        "newPacient":
+            MessageLookupByLibrary.simpleMessage("N O V O   P A C I E N T E"),
+        "pacientsList": MessageLookupByLibrary.simpleMessage(
+            "L I S T A    D E    P A C I E N T E S"),
+        "submit": MessageLookupByLibrary.simpleMessage("Enviar")
+      };
+}

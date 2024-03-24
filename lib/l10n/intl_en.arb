@@ -9,9 +9,13 @@
     "labelSignUp":"Sign Up",
     "labelSend":"Send",
     "labelUserName":"Name",
-    "copyHaveAccount":"Alredy have an account?",
-    "copyResetPassword":"Forgot your password?",
-    "copyCreateAccount":"Don't have an account?",
+    "copyHaveAccount":"Do you alredy have an account?",
+    "copyResetPassword":"Can not remember your password?",
+    "copyCreateAccount":"Don't you have an account?",
     "loginWith" : "Login With {provider}",
-    "submit":"SUBMIT"
+    "submit":"SUBMIT",
+    "fullName":"FullName",
+    "id":"Identification Number",
+    "age":"Age",
+    "date":"Date of Bird"    
 }

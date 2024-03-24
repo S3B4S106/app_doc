@@ -1,0 +1,21 @@
+{
+    "pacientsList":"L I S T A    D E    P A C I E N T E S",
+    "newPacient":"N O V O   P A C I E N T E",
+    "labelLogin":"Entrar",
+    "labelSignOut":"Sair",
+    "labelEmail":"E-mail",
+    "labelPassword":"Senha",
+    "labelReset":"Redefinir",
+    "labelSignUp":"Registrar-se",
+    "labelSend":"Enviar",
+    "labelUserName":"Nome de Usuário",
+    "copyHaveAccount":"Já tem uma conta?",
+    "copyResetPassword":"Esqueceu sua senha?",
+    "copyCreateAccount":"Não tem uma conta?",
+    "loginWith" : "Entrar com {provider}",
+    "submit":"Enviar",
+    "fullName":"Nome Completo",
+    "id":"Número de Identificação",
+    "age":"Idade",
+    "date":"Data de Nascimento"
+}

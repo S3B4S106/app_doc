@@ -7,12 +7,30 @@ import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 final Map<String, List<Widget>> _allTemplates = {
   "G": [Container(), grid3X3(), grid4X4()],
   "A": [
-    Container(),
     Image.asset(
-      "assets/FrontFace.png",
+      "assets/1.png",
       opacity: AlwaysStoppedAnimation(.25),
     ),
-    Container()
+    Image.asset(
+      "assets/2.png",
+      opacity: AlwaysStoppedAnimation(.25),
+    ),
+    Image.asset(
+      "assets/3.png",
+      opacity: AlwaysStoppedAnimation(.25),
+    ),
+    Image.asset(
+      "assets/4.png",
+      opacity: AlwaysStoppedAnimation(.25),
+    ),
+    Image.asset(
+      "assets/5.png",
+      opacity: AlwaysStoppedAnimation(.25),
+    ),
+    Image.asset(
+      "assets/6.png",
+      opacity: AlwaysStoppedAnimation(.25),
+    ),
   ]
 };
 

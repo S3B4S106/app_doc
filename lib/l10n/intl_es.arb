@@ -13,6 +13,9 @@
     "copyResetPassword":"¿Olvidaste tu contraseña?",
     "copyCreateAccount":"¿No tienes una cuenta?",
     "loginWith" : "Iniciar sesión {provider}",
-    "submit":"Confirmar"
-
+    "submit":"Confirmar",
+    "fullName":"Nombre Completo",
+    "id":"Numero Identificacion",
+    "age":"Edad",
+    "date":"Fecha de Nacimiento"    
 }

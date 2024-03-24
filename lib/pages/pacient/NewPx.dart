@@ -5,6 +5,7 @@ import 'package:app_doc/features/global/commun/toast.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:app_doc/features/model/notify.dart';
 import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
+import 'package:app_doc/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class NewPxScreen extends StatefulWidget {
@@ -88,27 +89,13 @@ class _NewPxScreenState extends State<NewPxScreen> {
                                   color: GlobalConfig.borderColor, width: 3),
                               borderRadius: BorderRadius.circular(150),
                             ),
-                            child: const Column(children: [
+                            child: Column(children: [
                               Text(
-                                'SUBMIT',
+                                S.of(context).submit,
                                 style: TextStyle(
                                     fontSize: 28,
                                     color: Color.fromRGBO(221, 252, 212, 1)),
                               ),
-                              /*Ink.image(
-                                image: const AssetImage('assets/Darkmint.png'),
-                                height: GlobalConfig.heightPercentage(.50),
-                                width: MediaQuery.of(context).size.width - 85,
-                                fit: BoxFit.cover,
-                              ),*/
-                              /*SizedBox(
-                                height: 1,
-                              ),
-                              Icon(
-                                Icons.check_circle_outline_outlined,
-                                size: 50,
-                                color: Color.fromRGBO(221, 252, 212, 1),
-                              )*/
                             ]))))),
 
             /*child: ElevatedButton(
@@ -133,7 +120,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
             icon: Icon(Icons.close),
             onPressed: () => usertextcontroller.clear(),
           ),
-          labelText: 'Username',
+          labelText: S.of(context).fullName,
           border: OutlineInputBorder(),
         ),
         validator: (value) {
@@ -155,7 +142,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
             icon: Icon(Icons.close),
             onPressed: () => idtextcontroller.clear(),
           ),
-          labelText: 'ID',
+          labelText: S.of(context).id,
           border: OutlineInputBorder(),
         ),
         validator: (value) {
@@ -177,7 +164,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
             icon: Icon(Icons.close),
             onPressed: () => agetextcontroller.clear(),
           ),
-          labelText: 'Age',
+          labelText: S.of(context).age,
           border: OutlineInputBorder(),
         ),
         validator: (value) {
@@ -221,7 +208,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
             icon: Icon(Icons.close),
             onPressed: () => dobtextcontroller.clear(),
           ),
-          labelText: 'Date',
+          labelText: S.of(context).date,
           border: OutlineInputBorder(),
         ),
         readOnly: true,

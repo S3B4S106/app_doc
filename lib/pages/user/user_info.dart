@@ -68,30 +68,56 @@ class _UserScreenState extends State<UserScreen> {
                     height: 100,
                     width: 100,
                   ),
-                  MaterialButton(
-                    color: Color.fromARGB(255, 0, 141, 110),
-                    onPressed: _handleSignOut,
-                    child: Text(
-                      S.of(context).labelSignOut,
-                      style: TextStyle(
-                          fontSize: 32,
-                          color: Color.fromRGBO(221, 252, 212, 1)),
-                    ),
-                  ),
+                  Material(
+                      color: GlobalConfig.backgroundButtonColor,
+                      elevation: 13,
+                      borderRadius: BorderRadius.circular(150),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: InkWell(
+                          splashColor: Colors.white70,
+                          onTap: () {},
+                          child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                border: Border.all(
+                                    color: GlobalConfig.borderColor, width: 3),
+                                borderRadius: BorderRadius.circular(150),
+                              ),
+                              child: Column(children: [
+                                Text(
+                                  'Cambiar Suscripcion',
+                                  style: TextStyle(
+                                      fontSize: 28,
+                                      color: Color.fromRGBO(221, 252, 212, 1)),
+                                ),
+                              ])))),
                   Container(
-                    height: 50,
+                    height: 35,
                     width: 100,
                   ),
-                  MaterialButton(
-                    color: Color.fromARGB(255, 0, 141, 110),
-                    onPressed: _handleSignOut,
-                    child: Text(
-                      S.of(context).labelSignOut,
-                      style: TextStyle(
-                          fontSize: 32,
-                          color: Color.fromRGBO(221, 252, 212, 1)),
-                    ),
-                  )
+                  Material(
+                      color: GlobalConfig.backgroundButtonColor,
+                      elevation: 13,
+                      borderRadius: BorderRadius.circular(150),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: InkWell(
+                          splashColor: Colors.white70,
+                          onTap: _handleSignOut,
+                          child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                border: Border.all(
+                                    color: GlobalConfig.borderColor, width: 3),
+                                borderRadius: BorderRadius.circular(150),
+                              ),
+                              child: Column(children: [
+                                Text(
+                                  S.of(context).labelSignOut,
+                                  style: TextStyle(
+                                      fontSize: 28,
+                                      color: Color.fromRGBO(221, 252, 212, 1)),
+                                ),
+                              ]))))
                 ],
               )
             : Container());
