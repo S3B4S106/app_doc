@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:app_doc/features/global/camera_widgets.dart';
 import 'package:app_doc/features/global/global_config.dart';
+import 'package:app_doc/generated/l10n.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
@@ -102,7 +103,7 @@ class _CameraScreenState extends State<CameraScreen> {
                 children: <Widget>[
                   buildCategory(
                       context,
-                      'Basic',
+                      S.of(context).basic,
                       [
                         Icons.square_outlined,
                         Icons.grid_3x3,
@@ -111,7 +112,7 @@ class _CameraScreenState extends State<CameraScreen> {
                       "G"),
                   buildCategory(
                       context,
-                      'Avanced',
+                      S.of(context).advanced,
                       [
                         Icons.sensor_occupied_outlined,
                         Icons.south_west_rounded,
@@ -129,6 +130,7 @@ class _CameraScreenState extends State<CameraScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: "camera",
+        backgroundColor: Color.fromRGBO(18, 62, 89, 1),
         child: Icon(Icons.camera_alt_outlined, size: 40),
         onPressed: () async {
           final image = await _cameraController!.takePicture();

@@ -239,6 +239,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Basic`
+  String get basic {
+    return Intl.message(
+      'Basic',
+      name: 'basic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `advanced`
+  String get advanced {
+    return Intl.message(
+      'advanced',
+      name: 'advanced',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change subscription`
+  String get changeSubscrip {
+    return Intl.message(
+      'Change subscription',
+      name: 'changeSubscrip',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

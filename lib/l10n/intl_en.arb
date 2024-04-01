@@ -17,5 +17,8 @@
     "fullName":"FullName",
     "id":"Identification Number",
     "age":"Age",
-    "date":"Date of Bird"    
+    "date":"Date of Bird",
+    "basic":"Basic",
+    "advanced":"advanced",
+    "changeSubscrip":"Change subscription"      
 }

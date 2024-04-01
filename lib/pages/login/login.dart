@@ -1,6 +1,7 @@
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:app_doc/features/global/global_config.dart';
+import 'package:app_doc/pages/login/terms_of_use.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 import 'package:app_doc/generated/l10n.dart';
@@ -45,6 +46,12 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
+            const Image(
+              image: AssetImage('assets/imagotipoColor.png'),
+            ),
+            const SizedBox(
+              height: 0,
+            ),
             _googleSignInButton(),
             const SizedBox(
               height: 10,
@@ -53,7 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 10,
             ),
-            _emailSignInButton()
+            _emailSignInButton(),
+            const SizedBox(
+              height: 30,
+            ),
+            const TermsOfUse(),
           ],
         ),
       ),

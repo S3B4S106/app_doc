@@ -15,8 +15,9 @@ ESTARAN ORGANIZADO DE OSCURO A CLARO SIGUIENDO EL FORMATO RGBO EN LA PALETA DARK
 (221, 252, 212, 1)
 
 
+*------- I C O N O  DE  L A  A P P -------*
+EL ICONO DE LA APP SE PODRA CAMBIAR REALIZANDO LOS SIGUIENTES PASOS:
 
-Icono de la App 
 -Cambiar imagen en pubspec.yaml/ flutter_icons / image_path
 -Guardar
 -ejecutar en terminal: 

@@ -17,5 +17,8 @@
     "fullName":"Nome Completo",
     "id":"Número de Identificação",
     "age":"Idade",
-    "date":"Data de Nascimento"
+    "date":"Data de Nascimento",
+    "basic":"básico",
+    "advanced":"avançado",
+    "changeSubscrip":"Modificar inscrição"
 }

@@ -15,7 +15,10 @@
     "loginWith" : "Iniciar sesión {provider}",
     "submit":"Confirmar",
     "fullName":"Nombre Completo",
-    "id":"Numero Identificacion",
+    "id":"Número Identificación",
     "age":"Edad",
-    "date":"Fecha de Nacimiento"    
+    "date":"Fecha de Nacimiento",
+    "basic":"Basico",
+    "advanced":"Avanzado",
+    "changeSubscrip":"Modificar suscripción"     
 }

@@ -85,7 +85,7 @@ class _UserScreenState extends State<UserScreen> {
                               ),
                               child: Column(children: [
                                 Text(
-                                  'Cambiar Suscripcion',
+                                  S.of(context).changeSubscrip,
                                   style: TextStyle(
                                       fontSize: 28,
                                       color: Color.fromRGBO(221, 252, 212, 1)),
