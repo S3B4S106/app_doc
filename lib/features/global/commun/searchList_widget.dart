@@ -1,4 +1,3 @@
-import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:app_doc/features/model/notify.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +43,7 @@ class SearchList extends SearchDelegate {
         }))
           ListTile(
             title: Text("${item.userName}"),
-            subtitle: Text(formatDate(item.createDate)),
+            subtitle: Text(item.id),
             trailing: Text(item.fotos.length.toString()),
             onTap: () {
               // Mostramos las fotos del cliente
@@ -70,7 +69,7 @@ class SearchList extends SearchDelegate {
             textColor: GlobalConfig.textColor,
             tileColor: Color.fromRGBO(167, 221, 197, 235),
             title: Text("${item.userName}"),
-            subtitle: Text(formatDate(item.createDate)),
+            subtitle: Text(item.id),
             trailing: Text(item.fotos.length.toString()),
             onTap: () {
               // Mostramos las fotos del cliente

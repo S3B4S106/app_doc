@@ -1,6 +1,5 @@
 import 'package:app_doc/features/entity/pacient.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
-import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:flutter/material.dart';
 import 'package:app_doc/features/global/commun/searchList_widget.dart';
@@ -22,7 +21,7 @@ class _PacientListState extends State<PacientListScreen> {
 
   void createListener(dynamic model) {
     pacientes = model.pacientes ?? [];
-    pacientes.sort((a, b) => b.createDate!.compareTo(a.createDate!));
+    pacientes.sort((a, b) => a.userName.compareTo(b.userName));
     model.addListener(() {
       if (this.mounted) {
         setState(() {
@@ -63,8 +62,8 @@ class _PacientListState extends State<PacientListScreen> {
                 for (final paciente in pacientes)
                   ListTile(
                     textColor: GlobalConfig.textColor,
-                    title: Text("${paciente.userName}"),
-                    subtitle: Text(formatDate(paciente.createDate!)),
+                    title: Text(paciente.userName),
+                    subtitle: Text(paciente.id),
                     trailing: Text(paciente.fotos!.length.toString()),
                     onTap: () {
                       // Mostramos las fotos del cliente

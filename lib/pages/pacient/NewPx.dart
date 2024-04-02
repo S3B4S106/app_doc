@@ -77,6 +77,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
                                 entitysModel.pacientes!, paciente.id)) {
                               _dbService.addItem("clientes", paciente,
                                   _authService.getUser()!.uid);
+                              Navigator.pushNamed(context, "/listPx",
+                                  arguments: {'model': entitysModel});
                             } else {
                               showToast(message: "Pacieny alredy exist");
                             }
