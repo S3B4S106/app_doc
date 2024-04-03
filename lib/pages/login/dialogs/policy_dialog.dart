@@ -38,8 +38,8 @@ class PolicyDialog extends StatelessWidget {
                 }),
           ),
           ElevatedButton(
-            onPressed: () {},
-            child: null,
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Cerrar'),
           )
         ],
       ),

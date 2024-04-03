@@ -1,3 +1,4 @@
+import 'package:app_doc/pages/login/dialogs/policy_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,16 @@ class TermsOfUse extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontStyle: FontStyle.italic,
                       color: Color.fromRGBO(221, 252, 212, 1)),
-                  recognizer: TapGestureRecognizer()..onTap = () {},
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return PolicyDialog(
+                              mdFileName: 'terms_and_conditions.md',
+                            );
+                          });
+                    },
                 ),
                 const TextSpan(text: "& "),
                 TextSpan(
@@ -30,7 +40,16 @@ class TermsOfUse extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontStyle: FontStyle.italic,
                       color: Color.fromRGBO(221, 252, 212, 1)),
-                  recognizer: TapGestureRecognizer()..onTap = () {},
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return PolicyDialog(
+                              mdFileName: 'privacy_policy.md',
+                            );
+                          });
+                    },
                 )
               ]),
         ));
