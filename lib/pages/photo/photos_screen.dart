@@ -90,19 +90,25 @@ class _PhotosScreenState extends State<PhotosScreen> {
                 itemBuilder: (context, index) {
                   final image = images[index];
                   return GridTile(
-                    footer: GridTileBar(
-                      backgroundColor: Colors.black54,
-                      title: Text(
-                        formatDate(image.fecha),
-                        textAlign: TextAlign.center,
+                      footer: GridTileBar(
+                        backgroundColor: Colors.black54,
+                        title: Text(
+                          formatDate(image.fecha),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
-                    ),
-                    child: FadeInImage.memoryNetwork(
-                      image: image.ruta,
-                      fit: BoxFit.cover,
-                      placeholder: kTransparentImage,
-                    ),
-                  );
+                      child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/photo-info',
+                                arguments: {
+                                  'image': image.ruta,
+                                });
+                          },
+                          child: FadeInImage.memoryNetwork(
+                            image: image.ruta,
+                            fit: BoxFit.cover,
+                            placeholder: kTransparentImage,
+                          )));
                 },
               ),
             ],
@@ -150,7 +156,12 @@ class _PhotosScreenState extends State<PhotosScreen> {
                     SizedBox(
                       width: 40,
                     ),
-                    Icon(Icons.compare)
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/collage",
+                              arguments: {"images": _groupedImages});
+                        },
+                        icon: Icon(Icons.compare))
                   ],
                 ),
               ),

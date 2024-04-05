@@ -1,3 +1,4 @@
+import 'package:app_doc/comparative.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:app_doc/features/model/notify.dart';
@@ -7,6 +8,8 @@ import 'package:app_doc/pages/login/resetPassword.dart';
 import 'package:app_doc/features/app/splash_screen/splash_screen.dart';
 import 'package:app_doc/features/firebase_services/firebase_options.dart';
 import 'package:app_doc/pages/photo/camera_screen.dart';
+import 'package:app_doc/pages/photo/collage_screen.dart';
+import 'package:app_doc/pages/photo/photo_info.dart';
 import 'package:app_doc/pages/photo/photos_screen.dart';
 import 'package:app_doc/pages/home.dart';
 import 'package:app_doc/pages/pacient/pacient_list.dart';
@@ -90,7 +93,10 @@ class MyApp extends StatelessWidget {
         '/listPx': (context) => PacientListScreen(),
         '/user-info': (context) => UserScreen(),
         '/camera': (context) => CameraScreen(camera: camera),
-        '/preview-photo': (context) => PreviewPageScreen()
+        '/preview-photo': (context) => PreviewPageScreen(),
+        '/photo-info': (context) => PhotoInfoPageScreen(),
+        '/collage': (context) => CollageScreen(),
+        '/comparative': (context) => ComparativeScreen()
       },
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
