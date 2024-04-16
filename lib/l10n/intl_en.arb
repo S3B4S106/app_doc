@@ -20,5 +20,7 @@
     "date":"Date of Bird",
     "basic":"Basic",
     "advanced":"advanced",
-    "changeSubscrip":"Change subscription"      
+    "changeSubscrip":"Change subscription",
+    "selectPhoto":"Select a photo:",
+    "selectAnotherPhoto":"Select another photo:"
 }

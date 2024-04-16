@@ -269,6 +269,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Select a photo:`
+  String get selectPhoto {
+    return Intl.message(
+      'Select a photo:',
+      name: 'selectPhoto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select another photo:`
+  String get selectAnotherPhoto {
+    return Intl.message(
+      'Select another photo:',
+      name: 'selectAnotherPhoto',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -278,7 +298,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'es'),
-      Locale.fromSubtags(languageCode: 'pr'),
+      Locale.fromSubtags(languageCode: 'pt'),
     ];
   }
 

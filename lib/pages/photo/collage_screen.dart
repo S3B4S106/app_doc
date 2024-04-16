@@ -4,10 +4,9 @@ import 'package:app_doc/features/firebase_services/firebase_storage_services.dar
 import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/global_config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:app_doc/generated/l10n.dart';
 
 class CollageScreen extends StatefulWidget {
   CollageScreen({super.key});
@@ -47,7 +46,7 @@ class _CollageScreenState extends State<CollageScreen> {
                             placeholder: kTransparentImage,
                           ),
                         ),
-                        const Text("Select another photo:")
+                        Text(S.of(context).selectAnotherPhoto)
                       ],
                     )
                   : Column(
@@ -60,7 +59,7 @@ class _CollageScreenState extends State<CollageScreen> {
                               Icons.square,
                               color: GlobalConfig.backgroundButtonColor,
                             )),
-                        const Text("Select a photo:")
+                        Text(S.of(context).selectPhoto)
                       ],
                     ),
               Container(

@@ -20,5 +20,7 @@
     "date":"Data de Nascimento",
     "basic":"básico",
     "advanced":"avançado",
-    "changeSubscrip":"Modificar inscrição"
+    "changeSubscrip":"Modificar inscrição",
+    "selectPhoto":"Selecione uma foto:",
+    "selectAnotherPhoto":"Selecione outra foto:"
 }

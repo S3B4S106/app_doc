@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a pr locale. All the
+// This is a library that provides messages for a pt locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -18,7 +18,7 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'pr';
+  String get localeName => 'pt';
 
   static String m0(provider) => "Entrar com ${provider}";
 
@@ -52,6 +52,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("N O V O   P A C I E N T E"),
         "pacientsList": MessageLookupByLibrary.simpleMessage(
             "L I S T A    D E    P A C I E N T E S"),
+        "selectAnotherPhoto":
+            MessageLookupByLibrary.simpleMessage("Selecione outra foto:"),
+        "selectPhoto":
+            MessageLookupByLibrary.simpleMessage("Selecione uma foto:"),
         "submit": MessageLookupByLibrary.simpleMessage("Enviar")
       };
 }

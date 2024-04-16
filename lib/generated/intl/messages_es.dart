@@ -51,6 +51,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("N U E V O   P A C I E N T E"),
         "pacientsList": MessageLookupByLibrary.simpleMessage(
             "L I S T A    D E    P A C I E N T E S"),
+        "selectAnotherPhoto":
+            MessageLookupByLibrary.simpleMessage("Seleccione otra foto:"),
+        "selectPhoto":
+            MessageLookupByLibrary.simpleMessage("Seleccione una foto:"),
         "submit": MessageLookupByLibrary.simpleMessage("Confirmar")
       };
 }

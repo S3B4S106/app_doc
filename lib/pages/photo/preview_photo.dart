@@ -5,6 +5,7 @@ import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.
 import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:flutter/material.dart';
+import 'package:app_doc/generated/l10n.dart';
 
 class PreviewPageScreen extends StatefulWidget {
   File? image;
@@ -40,7 +41,7 @@ class _PreviewPageScreenState extends State<PreviewPageScreen> {
             height: GlobalConfig.heightPercentage(.50),
             width: GlobalConfig.widthPercentage(90),
             child: TextButton(
-              child: Text('Save'),
+              child: Text(S.of(context).submit),
               onPressed: () async {
                 String urlImage = await widget._storageService.uploadFile(
                     widget.image!, DateTime.now().toIso8601String());
