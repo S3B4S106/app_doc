@@ -68,11 +68,15 @@ class _PhotosScreenState extends State<PhotosScreen> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                formatDate(date),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+              Container(
+                margin: EdgeInsets.only(left: GlobalConfig.width * 0.02),
+                child: Text(
+                  formatDate(date),
+                  style: TextStyle(
+                    color: GlobalConfig.alternativeComplementaryColorApp,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
               ),
               SizedBox(height: 8),
@@ -93,6 +97,9 @@ class _PhotosScreenState extends State<PhotosScreen> {
                       footer: GridTileBar(
                         backgroundColor: Colors.black54,
                         title: Text(
+                          style: TextStyle(
+                              color: GlobalConfig
+                                  .alternativeComplementaryColorApp),
                           formatDate(image.fecha),
                           textAlign: TextAlign.center,
                         ),
@@ -116,12 +123,14 @@ class _PhotosScreenState extends State<PhotosScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: GlobalConfig.primaryColorApp,
         heroTag: "add",
-        child: Icon(Icons.add),
+        child: Icon(color: GlobalConfig.backgroundColor, Icons.add),
         onPressed: () {
           showModalBottomSheet(
             context: context,
             builder: (context) => BottomSheet(
+              backgroundColor: GlobalConfig.backgroundColor,
               onClosing: () {},
               builder: (context) => Container(
                 height: GlobalConfig.heightPercentage(.1),
@@ -133,7 +142,10 @@ class _PhotosScreenState extends State<PhotosScreen> {
                           Navigator.pushNamed(context, "/camera",
                               arguments: {'pacient': parameters['pacient']});
                         },
-                        icon: Icon(Icons.add_a_photo_outlined)),
+                        icon: Icon(
+                            color:
+                                GlobalConfig.alternativeComplementaryColorApp,
+                            Icons.add_a_photo_outlined)),
                     SizedBox(width: 40),
                     IconButton(
                         onPressed: () async {
@@ -152,7 +164,10 @@ class _PhotosScreenState extends State<PhotosScreen> {
                           widget._dbService.addItem(
                               "fotos", newPhoto, parameters['pacient'].uid);
                         },
-                        icon: Icon(Icons.add_photo_alternate_outlined)),
+                        icon: Icon(
+                            color:
+                                GlobalConfig.alternativeComplementaryColorApp,
+                            Icons.add_photo_alternate_outlined)),
                     SizedBox(
                       width: 40,
                     ),
@@ -161,7 +176,10 @@ class _PhotosScreenState extends State<PhotosScreen> {
                           Navigator.pushNamed(context, "/collage",
                               arguments: {"images": _groupedImages});
                         },
-                        icon: Icon(Icons.compare))
+                        icon: Icon(
+                            color:
+                                GlobalConfig.alternativeComplementaryColorApp,
+                            Icons.compare))
                   ],
                 ),
               ),

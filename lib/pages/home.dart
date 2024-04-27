@@ -35,12 +35,16 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 10,
           centerTitle: true,
           leading: IconButton(
-            icon: Icon(Icons.account_circle_rounded),
+            icon: Icon(
+                color: GlobalConfig.alternativeComplementaryColorApp,
+                Icons.account_circle_rounded),
             onPressed: _openUserInfo,
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.menu_rounded),
+              icon: Icon(
+                  color: GlobalConfig.alternativeComplementaryColorApp,
+                  Icons.menu_rounded),
               onPressed: () {},
             )
           ],

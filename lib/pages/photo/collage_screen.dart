@@ -46,7 +46,11 @@ class _CollageScreenState extends State<CollageScreen> {
                             placeholder: kTransparentImage,
                           ),
                         ),
-                        Text(S.of(context).selectAnotherPhoto)
+                        Text(
+                            style: TextStyle(
+                                color: GlobalConfig
+                                    .alternativeComplementaryColorApp),
+                            S.of(context).selectAnotherPhoto)
                       ],
                     )
                   : Column(
@@ -59,7 +63,11 @@ class _CollageScreenState extends State<CollageScreen> {
                               Icons.square,
                               color: GlobalConfig.backgroundButtonColor,
                             )),
-                        Text(S.of(context).selectPhoto)
+                        Text(
+                            style: TextStyle(
+                                color: GlobalConfig
+                                    .alternativeComplementaryColorApp),
+                            S.of(context).selectPhoto)
                       ],
                     ),
               Container(
@@ -74,11 +82,17 @@ class _CollageScreenState extends State<CollageScreen> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          formatDate(date),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: GlobalConfig.widthPercentage(0.02)),
+                          child: Text(
+                            formatDate(date),
+                            style: TextStyle(
+                              color:
+                                  GlobalConfig.alternativeComplementaryColorApp,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                         SizedBox(height: 8),
@@ -124,6 +138,9 @@ class _CollageScreenState extends State<CollageScreen> {
                                   footer: GridTileBar(
                                     backgroundColor: Colors.black54,
                                     title: Text(
+                                      style: TextStyle(
+                                          color: GlobalConfig
+                                              .alternativeComplementaryColorApp),
                                       formatDate(image.fecha),
                                       textAlign: TextAlign.center,
                                     ),

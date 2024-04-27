@@ -14,7 +14,13 @@ class GlobalConfig {
   static Color borderColor = const Color.fromRGBO(59, 122, 137, 1);
   static Color backgroundButtonColor = const Color.fromRGBO(18, 62, 89, 1);
   static Color textColor = const Color.fromRGBO(122, 188, 176, 1);
-  static Color primaryColorApp = const Color.fromRGBO(35, 93, 113, 1);
+  static Color primaryColorApp = const Color.fromRGBO(86, 156, 158, 1);
+  static Color secundaryColorApp = const Color.fromRGBO(35, 93, 113, 1);
+  static Color terciaryColorApp = const Color.fromRGBO(59, 122, 137, 1);
+  static Color focusColorApp = const Color.fromRGBO(122, 188, 176, 1);
+  static Color complementaryColorApp = const Color.fromRGBO(165, 219, 195, 1);
+  static Color alternativeComplementaryColorApp =
+      const Color.fromRGBO(221, 252, 212, 1);
 
   static ColorScheme colorApp = ColorScheme.fromSeed(
       brightness: PlatformDispatcher.instance.platformBrightness,

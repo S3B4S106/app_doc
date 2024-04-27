@@ -11,5 +11,7 @@ Widget header() {
 }
 
 Widget titleApp() {
-  return const Text("P x P h o t o P r o");
+  return Text(
+      style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),
+      "P x P h o t o P r o");
 }

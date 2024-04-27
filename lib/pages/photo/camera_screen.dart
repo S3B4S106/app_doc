@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:app_doc/features/global/camera_widgets.dart';
+import 'package:app_doc/features/global/commun/iconsapp_icons.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:app_doc/generated/l10n.dart';
 import 'package:camera/camera.dart';
@@ -55,21 +56,28 @@ class _CameraScreenState extends State<CameraScreen> {
                 )
               ],
             ),
-            Row(
-              children: [
-                for (final icon in icons)
-                  IconButton(
-                    icon: Icon(icon),
-                    color: GlobalConfig.textColor,
-                    onPressed: () {
-                      setState(() {
-                        _category = category;
-                      });
-                      _showTemplate(icons.indexOf(icon));
-                    },
-                  ),
-              ],
-            ),
+            SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Container(
+                    width: GlobalConfig.width,
+                    child: Row(
+                      children: [
+                        for (final icon in icons)
+                          IconButton(
+                            icon: Icon(icon),
+                            color:
+                                GlobalConfig.alternativeComplementaryColorApp,
+                            highlightColor: GlobalConfig.secundaryColorApp,
+                            iconSize: GlobalConfig.heightPercentage(0.06),
+                            onPressed: () {
+                              setState(() {
+                                _category = category;
+                              });
+                              _showTemplate(icons.indexOf(icon));
+                            },
+                          ),
+                      ],
+                    ))),
           ],
         ));
   }
@@ -96,7 +104,7 @@ class _CameraScreenState extends State<CameraScreen> {
                 child: cameraWidget(
                     _cameraController, context, _category, _pageController)),
             Container(
-              color: GlobalConfig.primaryColorApp,
+              color: GlobalConfig.backgroundColor,
               height: GlobalConfig.heightPercentage(.35),
               width: GlobalConfig.width,
               child: ListView(
@@ -114,12 +122,12 @@ class _CameraScreenState extends State<CameraScreen> {
                       context,
                       S.of(context).advanced,
                       [
-                        Icons.sensor_occupied_outlined,
-                        Icons.south_west_rounded,
-                        Icons.south_east_rounded,
-                        Icons.west_rounded,
-                        Icons.east_rounded,
-                        Icons.sensor_occupied_rounded
+                        Iconsapp.front,
+                        Iconsapp.draftL,
+                        Iconsapp.draftR,
+                        Iconsapp.left,
+                        Iconsapp.right,
+                        Iconsapp.back,
                       ],
                       "A")
                 ],
@@ -130,8 +138,11 @@ class _CameraScreenState extends State<CameraScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: "camera",
-        backgroundColor: Color.fromRGBO(18, 62, 89, 1),
-        child: Icon(Icons.camera_alt_outlined, size: 40),
+        backgroundColor: GlobalConfig.primaryColorApp,
+        child: Icon(
+            color: GlobalConfig.backgroundColor,
+            Icons.camera_alt_outlined,
+            size: GlobalConfig.heightPercentage(0.05)),
         onPressed: () async {
           final image = await _cameraController!.takePicture();
           Navigator.pushNamed(context, '/preview-photo', arguments: {

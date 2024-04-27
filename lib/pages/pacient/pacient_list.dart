@@ -45,7 +45,9 @@ class _PacientListState extends State<PacientListScreen> {
         title: titleApp(),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(
+                color: GlobalConfig.alternativeComplementaryColorApp,
+                Icons.search),
             onPressed: () {
               // Mostramos la barra de búsqueda
               showSearch(
