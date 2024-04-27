@@ -4,10 +4,11 @@ import 'package:app_doc/features/entity/photo.dart';
 import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
 import 'package:app_doc/features/global/global_config.dart';
+import 'package:app_doc/pages/photo/photos_screen.dart';
 import 'package:flutter/material.dart';
 
 class PhotoInfoPageScreen extends StatefulWidget {
-  String? image;
+  Photo? image;
 
   final FirebaseStorageService _storageService = FirebaseStorageService();
   final FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
@@ -32,24 +33,69 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
-            height: GlobalConfig.heightPercentage(.50),
+            margin: EdgeInsets.only(
+              left: GlobalConfig.widthPercentage(0.1),
+              right: GlobalConfig.widthPercentage(0.1),
+              top: GlobalConfig.heightPercentage(0.09),
+            ),
+            height: GlobalConfig.heightPercentage(.6),
             width: GlobalConfig.widthPercentage(.9),
-            child: Image.network(widget.image!),
+            child: Image.network(widget.image!.ruta!),
           ),
           Container(
-            height: GlobalConfig.heightPercentage(.50),
-            width: GlobalConfig.widthPercentage(90),
-            child: TextButton(
-              child: Text('info'),
-              onPressed: () async {},
-            ),
+            margin: EdgeInsets.only(top: GlobalConfig.heightPercentage(.1)),
+            width: GlobalConfig.widthPercentage(.9),
+            height: GlobalConfig.heightPercentage(.1),
+            color: GlobalConfig.primaryColorApp,
+            child: Container(
+                margin: EdgeInsets.symmetric(
+                    horizontal: GlobalConfig.widthPercentage(.2)),
+                child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Container(
+                        width: GlobalConfig.width,
+                        child: Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, "/collage",
+                                      arguments: {
+                                        "image": widget.image,
+                                        "images": parameters['images']
+                                      });
+                                },
+                                icon: Icon(
+                                    color: GlobalConfig
+                                        .alternativeComplementaryColorApp,
+                                    Icons.compare)),
+                            IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                    color: GlobalConfig
+                                        .alternativeComplementaryColorApp,
+                                    Icons.ios_share_rounded)),
+                            IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                    color: GlobalConfig
+                                        .alternativeComplementaryColorApp,
+                                    Icons.photo_library_outlined)),
+                            IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                    color: GlobalConfig
+                                        .alternativeComplementaryColorApp,
+                                    Icons.delete))
+                          ],
+                        )))),
           )
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.transparent,
         heroTag: "close",
         mini: true,
-        child: Icon(Icons.close_rounded),
+        child: Icon(color: GlobalConfig.primaryColorApp, Icons.close_rounded),
         onPressed: () async {
           setState(() {
             Navigator.pop(context);

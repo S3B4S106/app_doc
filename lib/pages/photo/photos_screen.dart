@@ -108,7 +108,8 @@ class _PhotosScreenState extends State<PhotosScreen> {
                           onTap: () {
                             Navigator.pushNamed(context, '/photo-info',
                                 arguments: {
-                                  'image': image.ruta,
+                                  'images': _groupedImages,
+                                  'image': image,
                                 });
                           },
                           child: FadeInImage.memoryNetwork(

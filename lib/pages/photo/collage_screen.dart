@@ -24,6 +24,11 @@ class _CollageScreenState extends State<CollageScreen> {
   Widget build(BuildContext context) {
     Map parameters = ModalRoute.of(context)?.settings.arguments as Map;
     _groupedImages = parameters['images'];
+
+    if (parameters['image'] != null) {
+      collage.add(parameters['image']);
+      print("si entra");
+    }
     return Scaffold(
         appBar: AppBar(
           title: titleApp(),
