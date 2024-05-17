@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:app_doc/features/entity/photo.dart';
 import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
 import 'package:app_doc/features/global/global_config.dart';
-import 'package:app_doc/pages/photo/photos_screen.dart';
 import 'package:flutter/material.dart';
 
 class PhotoInfoPageScreen extends StatefulWidget {
@@ -40,7 +37,7 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
             ),
             height: GlobalConfig.heightPercentage(.6),
             width: GlobalConfig.widthPercentage(.9),
-            child: Image.network(widget.image!.ruta!),
+            child: Image.network(widget.image!.ruta),
           ),
           Container(
             margin: EdgeInsets.only(top: GlobalConfig.heightPercentage(.1)),
@@ -61,7 +58,8 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
                                   Navigator.pushNamed(context, "/collage",
                                       arguments: {
                                         "image": widget.image,
-                                        "images": parameters['images']
+                                        "images": parameters['images'],
+                                        'pacient': parameters['pacient']
                                       });
                                 },
                                 icon: Icon(
@@ -81,7 +79,15 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
                                         .alternativeComplementaryColorApp,
                                     Icons.photo_library_outlined)),
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  widget._dbService.removeItem(
+                                      'fotos',
+                                      parameters['pacient'].uid,
+                                      widget.image!.uid!);
+                                  widget._storageService.removeFile(
+                                      name:
+                                          '${parameters['pacient'].id}/${widget.image!.fecha.toIso8601String()}');
+                                },
                                 icon: Icon(
                                     color: GlobalConfig
                                         .alternativeComplementaryColorApp,

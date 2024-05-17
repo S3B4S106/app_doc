@@ -99,13 +99,15 @@ class _CameraScreenState extends State<CameraScreen> {
         child: Column(
           children: [
             Container(
-                height: GlobalConfig.heightPercentage(.65),
+                margin: EdgeInsets.symmetric(
+                    horizontal: GlobalConfig.widthPercentage(.05)),
+                height: GlobalConfig.heightPercentage(.70),
                 width: GlobalConfig.width,
                 child: cameraWidget(
                     _cameraController, context, _category, _pageController)),
             Container(
               color: GlobalConfig.backgroundColor,
-              height: GlobalConfig.heightPercentage(.35),
+              height: GlobalConfig.heightPercentage(.20),
               width: GlobalConfig.width,
               child: ListView(
                 children: <Widget>[

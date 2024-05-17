@@ -56,6 +56,8 @@ class _PhotosScreenState extends State<PhotosScreen> {
     createListener(parameters['model'], parameters['pacient']);
     return Scaffold(
       appBar: AppBar(
+        iconTheme:
+            IconThemeData(color: GlobalConfig.alternativeComplementaryColorApp),
         title: titleApp(),
         flexibleSpace: header(),
       ),
@@ -110,6 +112,7 @@ class _PhotosScreenState extends State<PhotosScreen> {
                                 arguments: {
                                   'images': _groupedImages,
                                   'image': image,
+                                  'pacient': parameters['pacient']
                                 });
                           },
                           child: FadeInImage.memoryNetwork(
@@ -154,13 +157,14 @@ class _PhotosScreenState extends State<PhotosScreen> {
                           dynamic image = await picker.pickImage(
                               source: ImageSource.gallery, imageQuality: 50);
                           image = File(image.path);
-                          String urlImage = await widget._storageService
-                              .uploadFile(
-                                  image!, DateTime.now().toIso8601String());
+                          DateTime currentDate = DateTime.now();
+                          String urlImage = await widget._storageService.uploadFile(
+                              image!,
+                              '${parameters["pacient"].id}/${currentDate.toIso8601String()}');
                           Photo newPhoto = Photo(
-                              nombre: "nombre",
-                              fecha: DateTime.now(),
-                              tipo: "tipo",
+                              nombre: currentDate.toIso8601String(),
+                              fecha: currentDate,
+                              tipo: "image",
                               ruta: urlImage);
                           widget._dbService.addItem(
                               "fotos", newPhoto, parameters['pacient'].uid);
@@ -174,8 +178,10 @@ class _PhotosScreenState extends State<PhotosScreen> {
                     ),
                     IconButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, "/collage",
-                              arguments: {"images": _groupedImages});
+                          Navigator.pushNamed(context, "/collage", arguments: {
+                            "images": _groupedImages,
+                            'pacient': parameters['pacient']
+                          });
                         },
                         icon: Icon(
                             color:

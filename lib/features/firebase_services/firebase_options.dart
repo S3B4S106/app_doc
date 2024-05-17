@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:208888599076:android:8705e8e365ef739ba3beb1',
     messagingSenderId: '208888599076',
     projectId: 'appdoc-1d1b6',
+    databaseURL: 'https://appdoc-1d1b6-default-rtdb.firebaseio.com',
     storageBucket: 'appdoc-1d1b6.appspot.com',
   );
 
@@ -62,8 +63,12 @@ class DefaultFirebaseOptions {
     appId: '1:208888599076:ios:b2a327d5c82e505ba3beb1',
     messagingSenderId: '208888599076',
     projectId: 'appdoc-1d1b6',
+    databaseURL: 'https://appdoc-1d1b6-default-rtdb.firebaseio.com',
     storageBucket: 'appdoc-1d1b6.appspot.com',
-    iosClientId: '208888599076-u21kn8obrlffqnks20h8imhlc5b6f0qh.apps.googleusercontent.com',
+    androidClientId:
+        '208888599076-bfnj3l1u5htv20hrn0mo96mt59m8bfla.apps.googleusercontent.com',
+    iosClientId:
+        '208888599076-u21kn8obrlffqnks20h8imhlc5b6f0qh.apps.googleusercontent.com',
     iosBundleId: 'com.example.appDoc',
   );
 }

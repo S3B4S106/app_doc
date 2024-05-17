@@ -28,6 +28,8 @@ class _NewPxScreenState extends State<NewPxScreen> {
     EntitysModel entitysModel = parameters['model'];
     return Scaffold(
       appBar: AppBar(
+        iconTheme:
+            IconThemeData(color: GlobalConfig.alternativeComplementaryColorApp),
         elevation: 10,
         centerTitle: true,
         //backgroundColor: GlobalConfig.primaryColorApp,
@@ -113,16 +115,26 @@ class _NewPxScreenState extends State<NewPxScreen> {
   }
 
   Widget buildUsername() => TextFormField(
+        cursorColor: GlobalConfig.alternativeComplementaryColorApp,
         controller: usertextcontroller,
+        style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),
         decoration: InputDecoration(
           filled: true,
-          fillColor: GlobalConfig.textColor,
-          prefixIcon: Icon(Icons.person),
+          fillColor: GlobalConfig.primaryColorApp,
+          prefixIcon: Icon(
+            Icons.person,
+            color: GlobalConfig.alternativeComplementaryColorApp,
+          ),
           suffixIcon: IconButton(
-            icon: Icon(Icons.close),
+            icon: Icon(
+              Icons.close,
+              color: GlobalConfig.alternativeComplementaryColorApp,
+            ),
             onPressed: () => usertextcontroller.clear(),
           ),
           labelText: S.of(context).fullName,
+          labelStyle:
+              TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),
           border: OutlineInputBorder(),
         ),
         validator: (value) {
@@ -136,15 +148,20 @@ class _NewPxScreenState extends State<NewPxScreen> {
 
   Widget buildID() => TextFormField(
         controller: idtextcontroller,
+        style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),
         decoration: InputDecoration(
           filled: true,
-          fillColor: GlobalConfig.textColor,
-          prefixIcon: Icon(Icons.numbers_sharp),
+          fillColor: GlobalConfig.primaryColorApp,
+          prefixIcon: Icon(Icons.numbers_sharp,
+              color: GlobalConfig.alternativeComplementaryColorApp),
           suffixIcon: IconButton(
-            icon: Icon(Icons.close),
+            icon: Icon(Icons.close,
+                color: GlobalConfig.alternativeComplementaryColorApp),
             onPressed: () => idtextcontroller.clear(),
           ),
           labelText: S.of(context).id,
+          labelStyle:
+              TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),
           border: OutlineInputBorder(),
         ),
         validator: (value) {
@@ -158,15 +175,20 @@ class _NewPxScreenState extends State<NewPxScreen> {
 
   Widget buildAge() => TextFormField(
         controller: agetextcontroller,
+        style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),
         decoration: InputDecoration(
           filled: true,
-          fillColor: GlobalConfig.textColor,
-          prefixIcon: Icon(Icons.onetwothree),
+          fillColor: GlobalConfig.primaryColorApp,
+          prefixIcon: Icon(Icons.onetwothree,
+              color: GlobalConfig.alternativeComplementaryColorApp),
           suffixIcon: IconButton(
-            icon: Icon(Icons.close),
+            icon: Icon(Icons.close,
+                color: GlobalConfig.alternativeComplementaryColorApp),
             onPressed: () => agetextcontroller.clear(),
           ),
           labelText: S.of(context).age,
+          labelStyle:
+              TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),
           border: OutlineInputBorder(),
         ),
         validator: (value) {
@@ -180,15 +202,20 @@ class _NewPxScreenState extends State<NewPxScreen> {
 
   Widget buildPhone() => TextFormField(
         controller: usertextcontroller,
+        style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),
         decoration: InputDecoration(
           filled: true,
-          fillColor: GlobalConfig.textColor,
-          prefixIcon: Icon(Icons.phone_iphone_rounded),
+          fillColor: GlobalConfig.primaryColorApp,
+          prefixIcon: Icon(Icons.phone_iphone_rounded,
+              color: GlobalConfig.alternativeComplementaryColorApp),
           suffixIcon: IconButton(
-            icon: Icon(Icons.close),
+            icon: Icon(Icons.close,
+                color: GlobalConfig.alternativeComplementaryColorApp),
             onPressed: () => usertextcontroller.clear(),
           ),
           labelText: 'Phone',
+          labelStyle:
+              TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),
           border: OutlineInputBorder(),
         ),
         validator: (value) {
@@ -202,15 +229,20 @@ class _NewPxScreenState extends State<NewPxScreen> {
 
   Widget buildDate() => TextFormField(
         controller: dobtextcontroller,
+        style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),
         decoration: InputDecoration(
           filled: true,
-          fillColor: GlobalConfig.textColor,
-          prefixIcon: Icon(Icons.date_range_outlined),
+          fillColor: GlobalConfig.primaryColorApp,
+          prefixIcon: Icon(Icons.date_range_outlined,
+              color: GlobalConfig.alternativeComplementaryColorApp),
           suffixIcon: IconButton(
-            icon: Icon(Icons.close),
+            icon: Icon(Icons.close,
+                color: GlobalConfig.alternativeComplementaryColorApp),
             onPressed: () => dobtextcontroller.clear(),
           ),
           labelText: S.of(context).date,
+          labelStyle:
+              TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),
           border: OutlineInputBorder(),
         ),
         readOnly: true,

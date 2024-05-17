@@ -23,5 +23,8 @@ class FirebaseStorageService {
     return await image.getDownloadURL();
   }
 
-  void removeFile({required File file}) async {}
+  void removeFile({required String name}) async {
+    final fotoRef = _storage.ref().child('fotos/$name');
+    await fotoRef.delete();
+  }
 }
