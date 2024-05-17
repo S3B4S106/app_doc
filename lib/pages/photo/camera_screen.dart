@@ -59,7 +59,8 @@ class _CameraScreenState extends State<CameraScreen> {
 
   Widget buildCategory(context, title, icons, category) {
     return Container(
-        margin: EdgeInsets.only(left: GlobalConfig.widthPercentage(.1)),
+        margin:
+            EdgeInsets.symmetric(horizontal: GlobalConfig.widthPercentage(.1)),
         child: Column(
           children: [
             Row(
@@ -72,26 +73,24 @@ class _CameraScreenState extends State<CameraScreen> {
             ),
             SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Container(
-                    width: GlobalConfig.width,
-                    child: Row(
-                      children: [
-                        for (final icon in icons)
-                          IconButton(
-                            icon: Icon(icon),
-                            color:
-                                GlobalConfig.alternativeComplementaryColorApp,
-                            highlightColor: GlobalConfig.secundaryColorApp,
-                            iconSize: GlobalConfig.heightPercentage(0.06),
-                            onPressed: () {
-                              setState(() {
-                                _category = category;
-                              });
-                              _showTemplate(icons.indexOf(icon));
-                            },
-                          ),
-                      ],
-                    ))),
+                child: Row(
+                  children: [
+                    for (final icon in icons)
+                      IconButton(
+                        icon: Icon(icon),
+                        color: GlobalConfig.alternativeComplementaryColorApp,
+                        highlightColor: GlobalConfig.secundaryColorApp,
+                        iconSize: GlobalConfig.heightPercentage(0.06),
+                        onPressed: () {
+                          setState(() {
+                            _photo = false;
+                            _category = category;
+                          });
+                          _showTemplate(icons.indexOf(icon));
+                        },
+                      ),
+                  ],
+                )),
           ],
         ));
   }
@@ -113,13 +112,15 @@ class _CameraScreenState extends State<CameraScreen> {
         child: Column(
           children: [
             Container(
-                height: GlobalConfig.heightPercentage(.65),
+                margin: EdgeInsets.symmetric(
+                    horizontal: GlobalConfig.widthPercentage(.05)),
+                height: GlobalConfig.heightPercentage(.70),
                 width: GlobalConfig.width,
                 child: cameraWidget(_valueRotation, _cameraController, context,
                     _category, _pageController, _photo, parameters['photo'])),
             Container(
               color: GlobalConfig.backgroundColor,
-              height: GlobalConfig.heightPercentage(.35),
+              height: GlobalConfig.heightPercentage(.20),
               width: GlobalConfig.width,
               child: ListView(
                 children: <Widget>[

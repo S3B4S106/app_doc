@@ -39,6 +39,8 @@ class _PacientListState extends State<PacientListScreen> {
     // Devuelve el widget solo cuando el arreglo de pacientes esté lleno
     return Scaffold(
       appBar: AppBar(
+        iconTheme:
+            IconThemeData(color: GlobalConfig.alternativeComplementaryColorApp),
         elevation: 10,
         centerTitle: true,
         flexibleSpace: header(),

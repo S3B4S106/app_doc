@@ -43,7 +43,14 @@ Widget cameraWidget(accelerometer, cameraController, context, templates,
           Container(
             child: PageView(
               controller: pageController,
-              children: _allTemplates[templates]!,
+              children: ghost && photo != null
+                  ? [
+                      Image.network(
+                        photo.ruta,
+                        opacity: AlwaysStoppedAnimation(.25),
+                      )
+                    ]
+                  : _allTemplates[templates]!,
             ),
           ),
           Container(
@@ -80,18 +87,12 @@ Widget cameraWidget(accelerometer, cameraController, context, templates,
 }
 
 Widget grid3X3() {
-  Path customPath = Path()
-    ..lineTo(0, 200)
-    ..moveTo(137, 0)
-    ..lineTo(137, 200);
-
   return LayoutGrid(
     columnSizes: [1.fr, 1.fr, 1.fr],
     rowSizes: [1.fr, 1.fr, 1.fr],
     children: [
       Container(),
       DottedBorder(
-        customPath: (size) => customPath,
         dashPattern: [8],
         color: Colors.grey,
         strokeWidth: 1,
@@ -118,7 +119,6 @@ Widget grid3X3() {
       ),
       Container(),
       DottedBorder(
-        customPath: (size) => customPath,
         dashPattern: [8],
         color: Colors.grey,
         strokeWidth: 1,

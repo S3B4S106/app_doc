@@ -43,12 +43,14 @@ class _PreviewPageScreenState extends State<PreviewPageScreen> {
             child: TextButton(
               child: Text(S.of(context).submit),
               onPressed: () async {
+                DateTime currentDate = DateTime.now();
                 String urlImage = await widget._storageService.uploadFile(
-                    widget.image!, DateTime.now().toIso8601String());
+                    widget.image!,
+                    '${parameters["pacient"].id}/${currentDate.toIso8601String()}');
                 Photo newPhoto = Photo(
-                    nombre: "nombre",
-                    fecha: DateTime.now(),
-                    tipo: "tipo",
+                    nombre: currentDate.toIso8601String(),
+                    fecha: currentDate,
+                    tipo: "image",
                     ruta: urlImage);
                 widget._dbService
                     .addItem("fotos", newPhoto, parameters['pacient'].uid);

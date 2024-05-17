@@ -1,6 +1,4 @@
 import 'package:app_doc/features/entity/photo.dart';
-import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
-import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
 import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/global_config.dart';
@@ -10,8 +8,7 @@ import 'package:app_doc/generated/l10n.dart';
 
 class CollageScreen extends StatefulWidget {
   CollageScreen({super.key});
-  final FirebaseStorageService _storageService = FirebaseStorageService();
-  final FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
+
   @override
   _CollageScreenState createState() => _CollageScreenState();
 }
@@ -31,6 +28,8 @@ class _CollageScreenState extends State<CollageScreen> {
     }
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(
+              color: GlobalConfig.alternativeComplementaryColorApp),
           title: titleApp(),
           flexibleSpace: header(),
         ),
@@ -124,8 +123,10 @@ class _CollageScreenState extends State<CollageScreen> {
                                     } else {
                                       collage.insert(1, image);
                                       Navigator.popAndPushNamed(
-                                          context, "/comparative",
-                                          arguments: {'images': collage});
+                                          context, "/comparative", arguments: {
+                                        'images': collage,
+                                        'pacient': parameters['pacient']
+                                      });
                                     }
                                   } else {
                                     collage.add(image);

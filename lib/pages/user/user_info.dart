@@ -28,7 +28,7 @@ class _UserScreenState extends State<UserScreen> {
           title: titleApp(),
         ),
         body: user != null
-            ? Column(
+            ? Container(margin: EdgeInsets.symmetric(vertical: GlobalConfig.heightPercentage(.02),horizontal: GlobalConfig.widthPercentage(.05)), child:Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.max,
@@ -119,7 +119,7 @@ class _UserScreenState extends State<UserScreen> {
                                 ),
                               ]))))
                 ],
-              )
+              ))
             : Container());
   }
 
