@@ -62,10 +62,7 @@ Widget cameraWidget(cameraController, context, templates, pageController) {
 }
 
 Widget grid3X3() {
-  Path customPath = Path()
-    ..lineTo(0, 200)
-    ..moveTo(137, 0)
-    ..lineTo(137, 200);
+  
 
   return LayoutGrid(
     columnSizes: [1.fr, 1.fr, 1.fr],
@@ -73,9 +70,8 @@ Widget grid3X3() {
     children: [
       Container(),
       DottedBorder(
-        customPath: (size) => customPath,
         dashPattern: [8],
-        color: Colors.grey,
+        color:  Colors.grey,
         strokeWidth: 1,
         child: Container(),
       ),
@@ -100,7 +96,6 @@ Widget grid3X3() {
       ),
       Container(),
       DottedBorder(
-        customPath: (size) => customPath,
         dashPattern: [8],
         color: Colors.grey,
         strokeWidth: 1,

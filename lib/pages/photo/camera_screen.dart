@@ -45,7 +45,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   Widget buildCategory(context, title, icons, category) {
     return Container(
-        margin: EdgeInsets.only(left: GlobalConfig.widthPercentage(.1)),
+        margin: EdgeInsets.symmetric(horizontal: GlobalConfig.widthPercentage(.1)),
         child: Column(
           children: [
             Row(
@@ -58,9 +58,7 @@ class _CameraScreenState extends State<CameraScreen> {
             ),
             SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Container(
-                    width: GlobalConfig.width,
-                    child: Row(
+                child: Row(
                       children: [
                         for (final icon in icons)
                           IconButton(
@@ -77,7 +75,7 @@ class _CameraScreenState extends State<CameraScreen> {
                             },
                           ),
                       ],
-                    ))),
+                    )),
           ],
         ));
   }
