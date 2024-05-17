@@ -54,7 +54,10 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
             child: version
                 ? orientation
                     ? Container(
-                        margin: EdgeInsets.only(top: GlobalConfig.widthPercentage(.1), right: GlobalConfig.widthPercentage(.2),left: GlobalConfig.widthPercentage(.2)),
+                        margin: EdgeInsets.only(
+                            top: GlobalConfig.heightPercentage(.6) * 0.03,
+                            right: GlobalConfig.widthPercentage(.2),
+                            left: GlobalConfig.widthPercentage(.2)),
                         child: Column(children: scroll(key)))
                     : Container(
                         margin: EdgeInsets.only(
