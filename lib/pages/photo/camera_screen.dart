@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:app_doc/features/entity/photo.dart';
+import 'package:app_doc/features/global/accelerometer.dart';
 import 'package:app_doc/features/global/camera_widgets.dart';
 import 'package:app_doc/features/global/commun/iconsapp_icons.dart';
 import 'package:app_doc/features/global/global_config.dart';
@@ -16,14 +18,25 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
+  RotationAngleDetector? _rotationAngleDetector;
   CameraController? _cameraController;
   String _category = 'G';
+  bool _photo = true;
+  double _valueRotation = 0.0;
   final PageController _pageController = PageController();
 
   @override
   void initState() {
     super.initState();
+    _rotationAngleDetector =
+        RotationAngleDetector(onRotationAngleUpdate: _updateRotationAngle);
     _initCamera();
+  }
+
+  void _updateRotationAngle(double rotationAngle) {
+    setState(() {
+      _valueRotation = rotationAngle;
+    });
   }
 
   void _initCamera() async {
@@ -39,6 +52,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   void dispose() {
+    _rotationAngleDetector!.dispose();
     _cameraController?.dispose();
     super.dispose();
   }
@@ -101,8 +115,8 @@ class _CameraScreenState extends State<CameraScreen> {
             Container(
                 height: GlobalConfig.heightPercentage(.65),
                 width: GlobalConfig.width,
-                child: cameraWidget(
-                    _cameraController, context, _category, _pageController)),
+                child: cameraWidget(_valueRotation, _cameraController, context,
+                    _category, _pageController, _photo, parameters['photo'])),
             Container(
               color: GlobalConfig.backgroundColor,
               height: GlobalConfig.heightPercentage(.35),

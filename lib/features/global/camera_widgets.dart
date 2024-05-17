@@ -1,3 +1,4 @@
+import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:camera/camera.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -34,7 +35,8 @@ final Map<String, List<Widget>> _allTemplates = {
   ]
 };
 
-Widget cameraWidget(cameraController, context, templates, pageController) {
+Widget cameraWidget(accelerometer, cameraController, context, templates,
+    pageController, ghost, photo) {
   return CameraPreview(cameraController!,
       child: Stack(
         children: [
@@ -56,7 +58,23 @@ Widget cameraWidget(cameraController, context, templates, pageController) {
                 onPressed: () {
                   Navigator.pop(context);
                 }),
-          )
+          ),
+          Container(
+            margin: EdgeInsets.only(
+                left: GlobalConfig.widthPercentage(.7),
+                top: GlobalConfig.heightPercentage(.05)),
+            child: ClipOval(
+                child: TextButton(
+              onPressed: () {},
+              child: Text(
+                '${accelerometer.truncate()}°',
+                style: TextStyle(color: Colors.black),
+              ),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(
+                      Color.fromARGB(111, 213, 209, 209))),
+            )),
+          ),
         ],
       ));
 }
