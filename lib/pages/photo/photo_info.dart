@@ -3,6 +3,8 @@ import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.
 import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class PhotoInfoPageScreen extends StatefulWidget {
   Photo? image;
@@ -67,13 +69,30 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
                                         .alternativeComplementaryColorApp,
                                     Icons.compare)),
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  XFile image = await getImageXFileByUrl(
+                                      widget.image!.ruta);
+                                  final result = await Share.shareXFiles(
+                                      [image],
+                                      text: 'Great picture');
+
+                                  if (result.status ==
+                                      ShareResultStatus.success) {
+                                    print('Thank you for sharing the picture!');
+                                  }
+                                },
                                 icon: Icon(
                                     color: GlobalConfig
                                         .alternativeComplementaryColorApp,
                                     Icons.ios_share_rounded)),
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context, "/camera",
+                                      arguments: {
+                                        'pacient': parameters['pacient'],
+                                        'photo': widget.image
+                                      });
+                                },
                                 icon: Icon(
                                     color: GlobalConfig
                                         .alternativeComplementaryColorApp,
@@ -112,5 +131,11 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniStartTop,
     );
+  }
+
+  static Future<XFile> getImageXFileByUrl(String url) async {
+    var file = await DefaultCacheManager().getSingleFile(url);
+    XFile result = await XFile(file.path);
+    return result;
   }
 }

@@ -88,7 +88,6 @@ class MyApp extends StatelessWidget {
         '/resetPassword': (context) => ResetPasswordScreen(),
         '/home': (context) => HomeScreen(_entitysModel!),
         '/newPx': (context) => NewPxScreen(),
-        '/firstpage': (context) => firstpage(),
         '/fotos': (context) => PhotosScreen(),
         '/listPx': (context) => PacientListScreen(),
         '/user-info': (context) => UserScreen(),

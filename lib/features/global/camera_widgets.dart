@@ -34,14 +34,22 @@ final Map<String, List<Widget>> _allTemplates = {
   ]
 };
 
-Widget cameraWidget(cameraController, context, templates, pageController) {
+Widget cameraWidget(
+    cameraController, context, templates, pageController, ghost, photo) {
   return CameraPreview(cameraController!,
       child: Stack(
         children: [
           Container(
             child: PageView(
               controller: pageController,
-              children: _allTemplates[templates]!,
+              children: ghost && photo != null
+                  ? [
+                      Image.network(
+                        photo.ruta,
+                        opacity: AlwaysStoppedAnimation(.25),
+                      )
+                    ]
+                  : _allTemplates[templates]!,
             ),
           ),
           Container(
@@ -62,8 +70,6 @@ Widget cameraWidget(cameraController, context, templates, pageController) {
 }
 
 Widget grid3X3() {
-  
-
   return LayoutGrid(
     columnSizes: [1.fr, 1.fr, 1.fr],
     rowSizes: [1.fr, 1.fr, 1.fr],
@@ -71,7 +77,7 @@ Widget grid3X3() {
       Container(),
       DottedBorder(
         dashPattern: [8],
-        color:  Colors.grey,
+        color: Colors.grey,
         strokeWidth: 1,
         child: Container(),
       ),
