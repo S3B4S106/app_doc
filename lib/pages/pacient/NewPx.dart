@@ -98,7 +98,7 @@ class _NewPxScreenState extends State<NewPxScreen> {
                                 S.of(context).submit,
                                 style: TextStyle(
                                     fontSize: 28,
-                                    color: Color.fromRGBO(221, 252, 212, 1)),
+                                    color: GlobalConfig.complementaryColorApp),
                               ),
                             ]))))),
 

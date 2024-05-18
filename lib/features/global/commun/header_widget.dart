@@ -5,7 +5,10 @@ Widget header() {
   return Container(
     decoration: BoxDecoration(
         gradient: LinearGradient(
-      colors: [GlobalConfig.primaryColorApp, Color.fromRGBO(124, 187, 176, 1)],
+      colors: [
+        GlobalConfig.secundaryColorApp,
+        GlobalConfig.primaryColorApp,
+      ],
     )),
   );
 }

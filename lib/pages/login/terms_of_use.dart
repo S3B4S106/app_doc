@@ -1,3 +1,5 @@
+import 'package:app_doc/features/global/commun/transversals.dart';
+import 'package:app_doc/features/global/global_config.dart';
 import 'package:app_doc/pages/login/dialogs/policy_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,8 @@ class TermsOfUse extends StatelessWidget {
                           context: context,
                           builder: (context) {
                             return PolicyDialog(
+                              backgroundColor:
+                                  GlobalConfig.backgroundButtonColor,
                               mdFileName: 'terms_and_conditions.md',
                             );
                           });
@@ -46,6 +50,8 @@ class TermsOfUse extends StatelessWidget {
                           context: context,
                           builder: (context) {
                             return PolicyDialog(
+                              backgroundColor:
+                                  GlobalConfig.backgroundButtonColor,
                               mdFileName: 'privacy_policy.md',
                             );
                           });

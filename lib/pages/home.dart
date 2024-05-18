@@ -126,10 +126,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             ]))))),
             _authService.getUser()!.emailVerified
                 ? Container()
-                : Text(
-                    'verificar',
-                    style: TextStyle(color: Colors.white),
-                  )
+                : TextButton(
+                    onPressed: () {
+                      _authService.sendEmailVerification();
+                    },
+                    child: Text(
+                      'verificar',
+                      style: TextStyle(color: Colors.white),
+                    ))
           ],
           //color: Colors.black,
         ),
