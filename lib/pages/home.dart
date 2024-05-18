@@ -1,3 +1,4 @@
+import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:app_doc/features/model/notify.dart';
@@ -17,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   EntitysModel? _entitysModel;
-  User? user;
+  FirebaseAuthService _authService = FirebaseAuthService();
 
   _HomeScreenState(EntitysModel? entitysModel) {
     _entitysModel = entitysModel;
@@ -123,6 +124,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: GlobalConfig.textColor),
                               )
                             ]))))),
+            _authService.getUser()!.emailVerified
+                ? Container()
+                : Text(
+                    'verificar',
+                    style: TextStyle(color: Colors.white),
+                  )
           ],
           //color: Colors.black,
         ),

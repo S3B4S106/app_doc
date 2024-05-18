@@ -50,7 +50,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             children: [
               Text(
                 S.of(context).labelSignUp,
-                style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: GlobalConfig.alternativeComplementaryColorApp,
+                    fontSize: 27,
+                    fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 30,
@@ -114,7 +117,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(S.of(context).copyHaveAccount),
+                  Text(
+                    S.of(context).copyHaveAccount,
+                    style: TextStyle(
+                        color: GlobalConfig.alternativeComplementaryColorApp),
+                  ),
                   SizedBox(
                     width: 5,
                   ),
@@ -158,6 +165,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
     if (user != null) {
       showToast(message: "User is successfully created");
+      await _auth.sendEmailVerification();
       Navigator.pushNamed(context, "/home");
     } else {
       showToast(message: "Some error happend");

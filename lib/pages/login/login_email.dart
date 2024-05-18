@@ -47,8 +47,10 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
             children: [
               Text(
                 S.of(context).labelLogin,
-                style:
-                    const TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: GlobalConfig.focusColorApp,
+                    fontSize: 27,
+                    fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 30,
@@ -72,7 +74,11 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(S.of(context).copyResetPassword),
+                  Text(
+                    S.of(context).copyResetPassword,
+                    style: TextStyle(
+                        color: GlobalConfig.alternativeComplementaryColorApp),
+                  ),
                   SizedBox(
                     width: 5,
                   ),
@@ -135,7 +141,11 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(S.of(context).copyCreateAccount),
+                  Text(
+                    S.of(context).copyCreateAccount,
+                    style: TextStyle(
+                        color: GlobalConfig.alternativeComplementaryColorApp),
+                  ),
                   SizedBox(
                     width: 5,
                   ),

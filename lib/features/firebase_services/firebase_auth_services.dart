@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_doc/features/entity/doctor.dart';
 import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/global/commun/toast.dart';
@@ -53,6 +55,10 @@ class FirebaseAuthService {
     } on FirebaseAuthException catch (e) {
       return e.code;
     }
+  }
+
+  Future<void> sendEmailVerification() async {
+    await _auth.currentUser?.sendEmailVerification();
   }
 
   User? getUser() {
