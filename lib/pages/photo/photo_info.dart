@@ -140,18 +140,18 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
           containerCopertino(Column(
             children: [
               Container(
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   child: Text(
                     S.of(context).titleDelete(S.of(context).photo),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      decoration: TextDecoration.none,
-                      color: GlobalConfig.complementaryColorApp,
-                      fontSize: 10,
-                    ),
+                        decoration: TextDecoration.none,
+                        color: GlobalConfig.complementaryColorApp,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold),
                   )),
               Container(
-                  margin: EdgeInsets.only(bottom: 10),
+                  margin: const EdgeInsets.only(bottom: 10),
                   child: Text(S.of(context).copyDelete,
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -176,7 +176,7 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
             },
             child: Text(
               S.of(context).delete,
-              style: TextStyle(color: Colors.cyan),
+              style: const TextStyle(color: Colors.cyan),
             ),
           )),
           containerCopertino(CupertinoActionSheetAction(
