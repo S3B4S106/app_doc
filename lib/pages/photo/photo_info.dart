@@ -1,7 +1,9 @@
 import 'package:app_doc/features/entity/photo.dart';
 import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
+import 'package:app_doc/features/global/commun/progress_dialog.dart';
 import 'package:app_doc/features/global/global_config.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -70,8 +72,10 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
                                     Icons.compare)),
                             IconButton(
                                 onPressed: () async {
+                                  ProgressDialog.show(context);
                                   XFile image = await getImageXFileByUrl(
                                       widget.image!.ruta);
+                                  Navigator.pop(context);
                                   final result = await Share.shareXFiles(
                                       [image],
                                       text: 'Great picture');
@@ -99,13 +103,7 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
                                     Icons.photo_library_outlined)),
                             IconButton(
                                 onPressed: () {
-                                  widget._dbService.removeItem(
-                                      'fotos',
-                                      parameters['pacient'].uid,
-                                      widget.image!.uid!);
-                                  widget._storageService.removeFile(
-                                      name:
-                                          '${parameters['pacient'].id}/${widget.image!.fecha.toIso8601String()}');
+                                _showActionSheet(context,parameters);
                                 },
                                 icon: Icon(
                                     color: GlobalConfig
@@ -132,7 +130,45 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.miniStartTop,
     );
   }
-
+  
+  void _showActionSheet(BuildContext context, parameters) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        title: const Text('Delete photo?'),
+        message: const Text('This action cannot be undone'),
+        actions: <CupertinoActionSheetAction>[
+          CupertinoActionSheetAction(
+            /// This parameter indicates the action would be a default
+            /// default behavior, turns the action's text to bold text.
+            isDefaultAction: true,
+            onPressed: () {
+              widget._dbService.removeItem(
+                                      'fotos',
+                                      parameters['pacient'].uid,
+                                      widget.image!.uid!);
+                                  widget._storageService.removeFile(
+                                      name:
+                                          '${parameters['pacient'].id}/${widget.image!.fecha.toIso8601String()}');
+              Navigator.popUntil(context, (route) => route.settings.name == '/fotos');
+            },
+            child: const Text('Delete'),
+          ),
+          
+          CupertinoActionSheetAction(
+            /// This parameter indicates the action would perform
+            /// a destructive action such as delete or exit and turns
+            /// the action's text color to red.
+            isDestructiveAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+  }
   static Future<XFile> getImageXFileByUrl(String url) async {
     var file = await DefaultCacheManager().getSingleFile(url);
     XFile result = await XFile(file.path);

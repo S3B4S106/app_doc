@@ -5,10 +5,12 @@ import 'package:app_doc/features/entity/photo.dart';
 import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
+import 'package:app_doc/features/global/commun/progress_dialog.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:app_doc/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -66,18 +68,18 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
                             bottom: GlobalConfig.heightPercentage(.02)),
                         child: Row(children: scroll(key)))
                 : orientation
-                    ? Row(
+                    ? RepaintBoundary(key:key,child:Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: alignet(
                             GlobalConfig.widthPercentage(.4), null, 0, 0),
-                      )
-                    : Column(
+                      ))
+                    : RepaintBoundary(key:key, child:Column(
                         children: alignet(
                             null,
                             GlobalConfig.heightPercentage(.26),
                             0,
                             GlobalConfig.heightPercentage(.01)),
-                      ),
+                      )),
           ),
           Container(
             color: GlobalConfig.backgroundColor,
@@ -87,7 +89,7 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
               children: <Widget>[
                 Container(
                     margin: EdgeInsets.symmetric(
-                        vertical: GlobalConfig.heightPercentage(.05)),
+                        vertical: GlobalConfig.heightPercentage(.02)),
                     child: Column(
                       children: [
                         Row(
@@ -147,12 +149,20 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
                             ),
                           ],
                         ),
+                        
                         Container(
-                          margin: EdgeInsets.only(
-                              top: GlobalConfig.heightPercentage(.02)),
-                          child: TextButton(
-                              onPressed: () async {
-                                final boundary =
+                          margin:EdgeInsets.only(top: GlobalConfig.heightPercentage(.02)),
+            width: GlobalConfig.width,
+                child: Material(
+                    color: GlobalConfig.backgroundButtonColor,
+                    elevation: 13,
+                    borderRadius: BorderRadius.circular(150),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: InkWell(
+                        splashColor: Colors.white70,
+                        onTap: () async{
+                          ProgressDialog.show(context);
+                           final boundary =
                                     key.currentContext?.findRenderObject()
                                         as RenderRepaintBoundary?;
                                 final image = await boundary?.toImage();
@@ -179,16 +189,24 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
                                       tipo: "image",
                                       ruta: urlImage);
                                   widget._dbService.addItem("fotos", newPhoto,
-                                      parameters['pacient'].uid);
-                                }
-                              },
-                              child: Text(
+                                      parameters['pacient'].uid);}
+                                      Navigator.popUntil(context, (route) => route.settings.name == '/fotos');
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: GlobalConfig.borderColor, width: 3),
+                              borderRadius: BorderRadius.circular(150),
+                            ),
+                            child: Column(children: [
+                              Text(
                                 S.of(context).submit,
                                 style: TextStyle(
-                                    color: GlobalConfig
-                                        .alternativeComplementaryColorApp),
-                              )),
-                        )
+                                    fontSize: 28,
+                                    color: GlobalConfig.complementaryColorApp),
+                              ),
+                            ])))))
                       ],
                     ))
               ],
