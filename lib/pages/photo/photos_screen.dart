@@ -61,71 +61,89 @@ class _PhotosScreenState extends State<PhotosScreen> {
         title: titleApp(),
         flexibleSpace: header(),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(8.0),
-        itemCount: _groupedImages.length,
-        itemBuilder: (context, index) {
-          final date = _groupedImages.keys.toList()[index];
-          final images = _groupedImages[date]!;
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: GlobalConfig.width * 0.02),
+      body: Column(children: [
+        ListTile(
+            title: Center(
                 child: Text(
-                  formatDate(date),
-                  style: TextStyle(
-                    color: GlobalConfig.alternativeComplementaryColorApp,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              SizedBox(height: 8),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.all(8.0),
-                itemCount: images.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 1.0,
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
-                ),
-                itemBuilder: (context, index) {
-                  final image = images[index];
-                  return GridTile(
-                      footer: GridTileBar(
-                        backgroundColor: Colors.black54,
-                        title: Text(
-                          style: TextStyle(
-                              color: GlobalConfig
-                                  .alternativeComplementaryColorApp),
-                          formatDate(image.fecha),
-                          textAlign: TextAlign.center,
-                        ),
+          parameters['pacient'].userName,
+          style: TextStyle(color: GlobalConfig.complementaryColorApp),
+        ))),
+        ListTile(
+            title: Center(
+                child: Text(
+          parameters['pacient'].id,
+          style: TextStyle(color: GlobalConfig.complementaryColorApp),
+        ))),
+        SizedBox(
+          height: GlobalConfig.heightPercentage(.7),
+          child: ListView.builder(
+            padding: const EdgeInsets.all(8.0),
+            itemCount: _groupedImages.length,
+            itemBuilder: (context, index) {
+              final date = _groupedImages.keys.toList()[index];
+              final images = _groupedImages[date]!;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: GlobalConfig.width * 0.02),
+                    child: Text(
+                      formatDate(date),
+                      style: TextStyle(
+                        color: GlobalConfig.alternativeComplementaryColorApp,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
-                      child: GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/photo-info',
-                                arguments: {
-                                  'images': _groupedImages,
-                                  'image': image,
-                                  'pacient': parameters['pacient']
-                                });
-                          },
-                          child: FadeInImage.memoryNetwork(
-                            image: image.ruta,
-                            fit: BoxFit.cover,
-                            placeholder: kTransparentImage,
-                          )));
-                },
-              ),
-            ],
-          );
-        },
-      ),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(8.0),
+                    itemCount: images.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1.0,
+                      crossAxisSpacing: 8.0,
+                      mainAxisSpacing: 8.0,
+                    ),
+                    itemBuilder: (context, index) {
+                      final image = images[index];
+                      return GridTile(
+                          footer: GridTileBar(
+                            backgroundColor: Colors.black54,
+                            title: Text(
+                              style: TextStyle(
+                                  color: GlobalConfig
+                                      .alternativeComplementaryColorApp),
+                              formatDate(image.fecha),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/photo-info',
+                                    arguments: {
+                                      'images': _groupedImages,
+                                      'image': image,
+                                      'pacient': parameters['pacient']
+                                    });
+                              },
+                              child: FadeInImage.memoryNetwork(
+                                image: image.ruta,
+                                fit: BoxFit.cover,
+                                placeholder: kTransparentImage,
+                              )));
+                    },
+                  ),
+                ],
+              );
+            },
+          ),
+        )
+      ]),
       floatingActionButton: FloatingActionButton(
         backgroundColor: GlobalConfig.primaryColorApp,
         heroTag: "add",
