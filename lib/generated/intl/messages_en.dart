@@ -27,15 +27,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "advanced": MessageLookupByLibrary.simpleMessage("advanced"),
         "age": MessageLookupByLibrary.simpleMessage("Age"),
         "basic": MessageLookupByLibrary.simpleMessage("Basic"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "changeSubscrip":
             MessageLookupByLibrary.simpleMessage("Change subscription"),
         "copyCreateAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t you have an account?"),
+        "copyCreatePasient": MessageLookupByLibrary.simpleMessage(
+            "for create your first patient please press \'Create\' button"),
+        "copyDelete": MessageLookupByLibrary.simpleMessage(
+            "This action cannot be undone"),
         "copyHaveAccount": MessageLookupByLibrary.simpleMessage(
             "Do you alredy have an account?"),
         "copyResetPassword": MessageLookupByLibrary.simpleMessage(
             "Can not remember your password?"),
+        "create": MessageLookupByLibrary.simpleMessage("Create"),
         "date": MessageLookupByLibrary.simpleMessage("Date of Bird"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "fullName": MessageLookupByLibrary.simpleMessage("FullName"),
         "id": MessageLookupByLibrary.simpleMessage("Identification Number"),
         "labelEmail": MessageLookupByLibrary.simpleMessage("Email"),
@@ -54,6 +61,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectAnotherPhoto":
             MessageLookupByLibrary.simpleMessage("Select another photo:"),
         "selectPhoto": MessageLookupByLibrary.simpleMessage("Select a photo:"),
-        "submit": MessageLookupByLibrary.simpleMessage("SUBMIT")
+        "submit": MessageLookupByLibrary.simpleMessage("SUBMIT"),
+        "titleCreatePasient": MessageLookupByLibrary.simpleMessage(
+            "You don\'t have any patients yet"),
+        "titleDelete": MessageLookupByLibrary.simpleMessage("Delete photo?")
       };
 }

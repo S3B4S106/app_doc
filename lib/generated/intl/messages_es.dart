@@ -27,15 +27,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "advanced": MessageLookupByLibrary.simpleMessage("Avanzado"),
         "age": MessageLookupByLibrary.simpleMessage("Edad"),
         "basic": MessageLookupByLibrary.simpleMessage("Basico"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "changeSubscrip":
             MessageLookupByLibrary.simpleMessage("Modificar suscripción"),
         "copyCreateAccount":
             MessageLookupByLibrary.simpleMessage("¿No tienes una cuenta?"),
+        "copyCreatePasient": MessageLookupByLibrary.simpleMessage(
+            "Para crear su primer paciente, presione el botón \'Crear\'"),
+        "copyDelete": MessageLookupByLibrary.simpleMessage(
+            "Esta acción no se puede deshacer"),
         "copyHaveAccount":
             MessageLookupByLibrary.simpleMessage("¿Ya tienes una cuenta?"),
         "copyResetPassword":
             MessageLookupByLibrary.simpleMessage("¿Olvidaste tu contraseña?"),
+        "create": MessageLookupByLibrary.simpleMessage("Crear"),
         "date": MessageLookupByLibrary.simpleMessage("Fecha de Nacimiento"),
+        "delete": MessageLookupByLibrary.simpleMessage("Borrar"),
         "fullName": MessageLookupByLibrary.simpleMessage("Nombre Completo"),
         "id": MessageLookupByLibrary.simpleMessage("Número Identificación"),
         "labelEmail": MessageLookupByLibrary.simpleMessage("Correo"),
@@ -55,6 +62,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Seleccione otra foto:"),
         "selectPhoto":
             MessageLookupByLibrary.simpleMessage("Seleccione una foto:"),
-        "submit": MessageLookupByLibrary.simpleMessage("Confirmar")
+        "submit": MessageLookupByLibrary.simpleMessage("Confirmar"),
+        "titleCreatePasient":
+            MessageLookupByLibrary.simpleMessage("Aún no tienes pacientes"),
+        "titleDelete": MessageLookupByLibrary.simpleMessage("¿Borrar foto?")
       };
 }

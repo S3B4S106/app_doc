@@ -289,6 +289,76 @@ class S {
       args: [],
     );
   }
+
+  /// `You don't have any patients yet`
+  String get titleCreatePasient {
+    return Intl.message(
+      'You don\'t have any patients yet',
+      name: 'titleCreatePasient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `for create your first patient please press 'Create' button`
+  String get copyCreatePasient {
+    return Intl.message(
+      'for create your first patient please press \'Create\' button',
+      name: 'copyCreatePasient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create`
+  String get create {
+    return Intl.message(
+      'Create',
+      name: 'create',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete photo?`
+  String get titleDelete {
+    return Intl.message(
+      'Delete photo?',
+      name: 'titleDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This action cannot be undone`
+  String get copyDelete {
+    return Intl.message(
+      'This action cannot be undone',
+      name: 'copyDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

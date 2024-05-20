@@ -22,5 +22,12 @@
     "advanced":"avançado",
     "changeSubscrip":"Modificar inscrição",
     "selectPhoto":"Selecione uma foto:",
-    "selectAnotherPhoto":"Selecione outra foto:"
+    "selectAnotherPhoto":"Selecione outra foto:",
+    "titleCreatePasient":"Você ainda não tem nenhum paciente",
+    "copyCreatePasient":"para criar seu primeiro paciente, pressione o botão 'Criar'",
+    "create":"Criar",
+    "titleDelete":"Deletar foto?",
+    "copyDelete":"Essa ação não pode ser desfeita",
+    "delete":"Deletar",
+    "cancel":"Cancelar"
 }

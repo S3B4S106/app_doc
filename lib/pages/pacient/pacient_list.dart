@@ -40,80 +40,105 @@ class _PacientListState extends State<PacientListScreen> {
 
     // Devuelve el widget solo cuando el arreglo de pacientes esté lleno
     return Scaffold(
-      appBar: AppBar(
-        iconTheme:
-            IconThemeData(color: GlobalConfig.alternativeComplementaryColorApp),
-        elevation: 10,
-        centerTitle: true,
-        flexibleSpace: header(),
-        title: titleApp(),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-                color: GlobalConfig.alternativeComplementaryColorApp,
-                Icons.search),
-            onPressed: () {
-              // Mostramos la barra de búsqueda
-              showSearch(
-                  context: context,
-                  delegate: SearchList(pacientes, parameters['model']));
-            },
-          ),
-        ],
-      ),
-      body: pacientes.isNotEmpty
-          ? ListView(
-              children: [
-                // Listamos los clientes
-                for (final paciente in pacientes)
-                  ListTile(
-                    textColor: GlobalConfig.textColor,
-                    title: Text(paciente.userName),
-                    subtitle: Text(paciente.id),
-                    trailing: Text(paciente.fotos!.length.toString()),
-                    onTap: () {
-                      // Mostramos las fotos del cliente
-                      Navigator.pushNamed(
-                        context,
-                        "/fotos",
-                        arguments: {
-                          'pacient': paciente,
-                          'model': parameters['model']
-                        },
-                      );
-                    },
-                  ),
-              ],
-            )
-          : PopScope(child: 
-           Center(child:Card(margin: EdgeInsets.only(top: GlobalConfig.heightPercentage(.2),bottom: GlobalConfig.heightPercentage(.48),left: GlobalConfig.widthPercentage(.05),right: GlobalConfig.widthPercentage(.05)), color: GlobalConfig.secundaryColorApp, child: Column(children: [ListTile(title: Text("You don't have any pacients yet"),subtitle: Text('for create your first pacient please press "Create" button '),), 
-           Container(
-            width: GlobalConfig.widthPercentage(.6),
-                child: Material(
-                    color: GlobalConfig.backgroundButtonColor,
-                    elevation: 13,
-                    borderRadius: BorderRadius.circular(150),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: InkWell(
-                        splashColor: Colors.white70,
-                        onTap: () {
-                          Navigator.popAndPushNamed(context, "/newPx", arguments: {'model': parameters['model'] });
-                        },
-                        child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              border: Border.all(
-                                  color: GlobalConfig.borderColor, width: 3),
-                              borderRadius: BorderRadius.circular(150),
-                            ),
-                            child: Column(children: [
-                              Text(
-                                'Create',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    color: GlobalConfig.complementaryColorApp),
-                              ),
-                            ])))))],),)))
-    );
+        appBar: AppBar(
+          iconTheme: IconThemeData(
+              color: GlobalConfig.alternativeComplementaryColorApp),
+          elevation: 10,
+          centerTitle: true,
+          flexibleSpace: header(),
+          title: titleApp(),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                  color: GlobalConfig.alternativeComplementaryColorApp,
+                  Icons.search),
+              onPressed: () {
+                // Mostramos la barra de búsqueda
+                showSearch(
+                    context: context,
+                    delegate: SearchList(pacientes, parameters['model']));
+              },
+            ),
+          ],
+        ),
+        body: pacientes.isNotEmpty
+            ? ListView(
+                children: [
+                  // Listamos los clientes
+                  for (final paciente in pacientes)
+                    ListTile(
+                      textColor: GlobalConfig.textColor,
+                      title: Text(paciente.userName),
+                      subtitle: Text(paciente.id),
+                      trailing: Text(paciente.fotos!.length.toString()),
+                      onTap: () {
+                        // Mostramos las fotos del cliente
+                        Navigator.pushNamed(
+                          context,
+                          "/fotos",
+                          arguments: {
+                            'pacient': paciente,
+                            'model': parameters['model']
+                          },
+                        );
+                      },
+                    ),
+                ],
+              )
+            : PopScope(
+                child: Center(
+                    child: Card(
+                margin: EdgeInsets.only(
+                    top: GlobalConfig.heightPercentage(.2),
+                    bottom: GlobalConfig.heightPercentage(.48),
+                    left: GlobalConfig.widthPercentage(.05),
+                    right: GlobalConfig.widthPercentage(.05)),
+                color: GlobalConfig.secundaryColorApp,
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: Text(
+                          S.of(context).titleCreatePasient,
+                          style: TextStyle(
+                              color: GlobalConfig.complementaryColorApp),
+                        ),
+                        subtitle: Text(S.of(context).copyCreatePasient,
+                            style: TextStyle(
+                                color: GlobalConfig.complementaryColorApp))),
+                    SizedBox(
+                        width: GlobalConfig.widthPercentage(.6),
+                        child: Material(
+                            color: GlobalConfig.backgroundButtonColor,
+                            elevation: 13,
+                            borderRadius: BorderRadius.circular(150),
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            child: InkWell(
+                                splashColor: Colors.white70,
+                                onTap: () {
+                                  Navigator.popAndPushNamed(context, "/newPx",
+                                      arguments: {
+                                        'model': parameters['model']
+                                      });
+                                },
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      border: Border.all(
+                                          color: GlobalConfig.borderColor,
+                                          width: 3),
+                                      borderRadius: BorderRadius.circular(150),
+                                    ),
+                                    child: Column(children: [
+                                      Text(
+                                        S.of(context).create,
+                                        style: TextStyle(
+                                            fontSize: 28,
+                                            color: GlobalConfig
+                                                .complementaryColorApp),
+                                      ),
+                                    ])))))
+                  ],
+                ),
+              ))));
   }
 }
