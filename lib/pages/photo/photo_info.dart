@@ -136,10 +136,32 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
-        title: Text(S.of(context).titleDelete(S.of(context).photo)),
-        message: Text(S.of(context).copyDelete),
-        actions: <CupertinoActionSheetAction>[
-          CupertinoActionSheetAction(
+        actions: [
+          containerCopertino(Column(
+            children: [
+              Container(
+                  margin: EdgeInsets.all(10),
+                  child: Text(
+                    S.of(context).titleDelete(S.of(context).photo),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      decoration: TextDecoration.none,
+                      color: GlobalConfig.complementaryColorApp,
+                      fontSize: 10,
+                    ),
+                  )),
+              Container(
+                  margin: EdgeInsets.only(bottom: 10),
+                  child: Text(S.of(context).copyDelete,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        decoration: TextDecoration.none,
+                        fontSize: 10,
+                        color: GlobalConfig.complementaryColorApp,
+                      )))
+            ],
+          )),
+          containerCopertino(CupertinoActionSheetAction(
             /// This parameter indicates the action would be a default
             /// default behavior, turns the action's text to bold text.
             isDefaultAction: true,
@@ -152,9 +174,12 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
               Navigator.popUntil(
                   context, (route) => route.settings.name == '/fotos');
             },
-            child: Text(S.of(context).delete),
-          ),
-          CupertinoActionSheetAction(
+            child: Text(
+              S.of(context).delete,
+              style: TextStyle(color: Colors.cyan),
+            ),
+          )),
+          containerCopertino(CupertinoActionSheetAction(
             /// This parameter indicates the action would perform
             /// a destructive action such as delete or exit and turns
             /// the action's text color to red.
@@ -163,7 +188,7 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
               Navigator.pop(context);
             },
             child: Text(S.of(context).cancel),
-          ),
+          ))
         ],
       ),
     );
@@ -173,5 +198,12 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
     var file = await DefaultCacheManager().getSingleFile(url);
     XFile result = await XFile(file.path);
     return result;
+  }
+
+  Widget containerCopertino(Widget? child) {
+    return Container(
+      color: GlobalConfig.seedColor,
+      child: child,
+    );
   }
 }
