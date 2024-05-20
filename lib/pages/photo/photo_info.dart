@@ -136,7 +136,7 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
-        title: Text(S.of(context).titleDelete),
+        title: Text(S.of(context).titleDelete(S.of(context).photo)),
         message: Text(S.of(context).copyDelete),
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(

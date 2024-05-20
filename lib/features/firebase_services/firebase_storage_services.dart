@@ -25,6 +25,16 @@ class FirebaseStorageService {
 
   void removeFile({required String name}) async {
     final fotoRef = _storage.ref().child('fotos/$name');
+    print(fotoRef.fullPath);
     await fotoRef.delete();
+  }
+
+  Future<void> deleteFolder(String folderPath) async {
+    final storage = FirebaseStorage.instance;
+    final folderRef = storage.ref().root.child('fotos/$folderPath/');
+    final ListResult listResult = await folderRef.list();
+    for (Reference fileRef in listResult.items) {
+      await fileRef.delete();
+    }
   }
 }

@@ -320,13 +320,13 @@ class S {
     );
   }
 
-  /// `Delete photo?`
-  String get titleDelete {
+  /// `Delete {item}?`
+  String titleDelete(Object item) {
     return Intl.message(
-      'Delete photo?',
+      'Delete $item?',
       name: 'titleDelete',
       desc: '',
-      args: [],
+      args: [item],
     );
   }
 
@@ -355,6 +355,26 @@ class S {
     return Intl.message(
       'Cancel',
       name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Patient`
+  String get patient {
+    return Intl.message(
+      'Patient',
+      name: 'patient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Photo`
+  String get photo {
+    return Intl.message(
+      'Photo',
+      name: 'photo',
       desc: '',
       args: [],
     );

@@ -26,8 +26,10 @@
     "titleCreatePasient":"Você ainda não tem nenhum paciente",
     "copyCreatePasient":"para criar seu primeiro paciente, pressione o botão 'Criar'",
     "create":"Criar",
-    "titleDelete":"Deletar foto?",
+    "titleDelete":"Deletar {item}?",
     "copyDelete":"Essa ação não pode ser desfeita",
     "delete":"Deletar",
-    "cancel":"Cancelar"
+    "cancel":"Cancelar",
+    "patient":"Paciente",
+    "photo": "Foto"
 }

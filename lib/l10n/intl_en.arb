@@ -26,8 +26,10 @@
     "titleCreatePasient":"You don't have any patients yet",
     "copyCreatePasient":"for create your first patient please press 'Create' button",
     "create":"Create",
-    "titleDelete":"Delete photo?",
+    "titleDelete":"Delete {item}?",
     "copyDelete":"This action cannot be undone",
     "delete":"Delete",
-    "cancel":"Cancel"
+    "cancel":"Cancel",
+    "patient":"Patient",
+    "photo": "Photo"
 }

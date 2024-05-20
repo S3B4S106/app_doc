@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(provider) => "Iniciar sesión ${provider}";
 
+  static String m1(item) => "¿Borrar ${item}?";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "advanced": MessageLookupByLibrary.simpleMessage("Avanzado"),
@@ -58,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("N U E V O   P A C I E N T E"),
         "pacientsList": MessageLookupByLibrary.simpleMessage(
             "L I S T A    D E    P A C I E N T E S"),
+        "patient": MessageLookupByLibrary.simpleMessage("Paciente"),
+        "photo": MessageLookupByLibrary.simpleMessage("Foto"),
         "selectAnotherPhoto":
             MessageLookupByLibrary.simpleMessage("Seleccione otra foto:"),
         "selectPhoto":
@@ -65,6 +69,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "submit": MessageLookupByLibrary.simpleMessage("Confirmar"),
         "titleCreatePasient":
             MessageLookupByLibrary.simpleMessage("Aún no tienes pacientes"),
-        "titleDelete": MessageLookupByLibrary.simpleMessage("¿Borrar foto?")
+        "titleDelete": m1
       };
 }

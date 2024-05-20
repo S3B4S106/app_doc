@@ -1,12 +1,17 @@
 import 'package:app_doc/features/entity/pacient.dart';
+import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
+import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
+import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:app_doc/generated/l10n.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_doc/features/global/commun/searchList_widget.dart';
 
 class PacientListScreen extends StatefulWidget {
+  final FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
+  final FirebaseAuthService _authService = FirebaseAuthService();
+  final FirebaseStorageService _storageService = FirebaseStorageService();
   @override
   _PacientListState createState() => _PacientListState();
 }
@@ -71,6 +76,43 @@ class _PacientListState extends State<PacientListScreen> {
                       title: Text(paciente.userName),
                       subtitle: Text(paciente.id),
                       trailing: Text(paciente.fotos!.length.toString()),
+                      onLongPress: () {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Text(
+                              S.of(context).titleDelete(S.of(context).patient),
+                              style: TextStyle(
+                                  color: GlobalConfig.complementaryColorApp),
+                            ),
+                            content: Text(
+                              S.of(context).copyDelete,
+                              style: TextStyle(
+                                  color: GlobalConfig.complementaryColorApp),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: Text(S.of(context).cancel),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  if (paciente.fotos!.isNotEmpty) {
+                                    widget._storageService
+                                        .deleteFolder('${paciente.id}/');
+                                  }
+                                  widget._dbService.removeItem(
+                                      'clientes',
+                                      widget._authService.getUser()!.uid,
+                                      paciente.uid!);
+                                },
+                                child: Text(S.of(context).delete),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                       onTap: () {
                         // Mostramos las fotos del cliente
                         Navigator.pushNamed(
