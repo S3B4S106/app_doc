@@ -56,6 +56,7 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
                 height: 30,
               ),
               FormContainerWidget(
+                color: GlobalConfig.complementaryColorApp,
                 controller: _emailController,
                 hintText: S.of(context).labelEmail,
                 isPasswordField: false,
@@ -64,6 +65,7 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
                 height: 10,
               ),
               FormContainerWidget(
+                color: GlobalConfig.complementaryColorApp,
                 controller: _passwordController,
                 hintText: S.of(context).labelPassword,
                 isPasswordField: true,
@@ -84,11 +86,10 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushAndRemoveUntil(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => ResetPasswordScreen()),
-                        (route) => false,
                       );
                     },
                     child: Text(

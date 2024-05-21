@@ -11,6 +11,8 @@ class FormContainerWidget extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onFieldSubmitted;
   final TextInputType? inputType;
+  final Color? color;
+  final Color? backgroundcolor;
 
   const FormContainerWidget(
       {this.controller,
@@ -22,7 +24,9 @@ class FormContainerWidget extends StatefulWidget {
       this.onSaved,
       this.validator,
       this.onFieldSubmitted,
-      this.inputType});
+      this.inputType,
+      this.color = Colors.white,
+      this.backgroundcolor = Colors.black});
 
   @override
   _FormContainerWidgetState createState() => new _FormContainerWidgetState();
@@ -39,8 +43,8 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
         color: Colors.grey.withOpacity(.35),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: new TextFormField(
-        style: TextStyle(color: Colors.black),
+      child: TextFormField(
+        style: TextStyle(color: widget.color),
         controller: widget.controller,
         keyboardType: widget.inputType,
         key: widget.fieldKey,
@@ -48,12 +52,14 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
         onSaved: widget.onSaved,
         validator: widget.validator,
         onFieldSubmitted: widget.onFieldSubmitted,
-        decoration: new InputDecoration(
+        decoration: InputDecoration(
+          fillColor: widget.backgroundcolor,
           border: InputBorder.none,
           filled: true,
           hintText: widget.hintText,
-          hintStyle: TextStyle(color: Colors.black45),
-          suffixIcon: new GestureDetector(
+          hintStyle: TextStyle(color: widget.color),
+          labelStyle: TextStyle(color: widget.color),
+          suffixIcon: GestureDetector(
             onTap: () {
               setState(() {
                 _obscureText = !_obscureText;

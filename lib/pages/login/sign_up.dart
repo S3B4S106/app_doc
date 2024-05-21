@@ -59,6 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 30,
               ),
               FormContainerWidget(
+                color: GlobalConfig.complementaryColorApp,
                 controller: _usernameController,
                 hintText: S.of(context).labelUserName,
                 isPasswordField: false,
@@ -67,6 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 10,
               ),
               FormContainerWidget(
+                color: GlobalConfig.complementaryColorApp,
                 controller: _emailController,
                 hintText: S.of(context).labelEmail,
                 isPasswordField: false,
@@ -75,6 +77,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 10,
               ),
               FormContainerWidget(
+                color: GlobalConfig.complementaryColorApp,
                 controller: _passwordController,
                 hintText: S.of(context).labelPassword,
                 isPasswordField: true,

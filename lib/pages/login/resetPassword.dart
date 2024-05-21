@@ -44,12 +44,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             children: [
               Text(
                 "${S.of(context).labelReset} ${S.of(context).labelPassword}",
-                style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 27,
+                    fontWeight: FontWeight.bold,
+                    color: GlobalConfig.complementaryColorApp),
               ),
               SizedBox(
                 height: 30,
               ),
               FormContainerWidget(
+                color: GlobalConfig.complementaryColorApp,
                 controller: _emailController,
                 hintText: S.of(context).labelEmail,
                 isPasswordField: false,
