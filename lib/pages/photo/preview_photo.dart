@@ -6,6 +6,7 @@ import 'package:app_doc/features/global/commun/progress_dialog.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:flutter/material.dart';
 import 'package:app_doc/generated/l10n.dart';
+import 'package:photo_view/photo_view.dart';
 
 class PreviewPageScreen extends StatefulWidget {
   File? image;
@@ -33,52 +34,56 @@ class _PreviewPageScreenState extends State<PreviewPageScreen> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
-            color: Colors.black,
-            margin: EdgeInsets.symmetric(vertical: GlobalConfig.heightPercentage( .1),horizontal: GlobalConfig.widthPercentage(.1)),
-            height: GlobalConfig.heightPercentage(.50),
-            width: GlobalConfig.widthPercentage(.9),
-            child: Image.file(widget.image!),
-          ),
+              color: Colors.black,
+              margin: EdgeInsets.symmetric(
+                  vertical: GlobalConfig.heightPercentage(.1),
+                  horizontal: GlobalConfig.widthPercentage(.1)),
+              height: GlobalConfig.heightPercentage(.50),
+              width: GlobalConfig.widthPercentage(.9),
+              child: PhotoView(
+                imageProvider: FileImage(widget.image!),
+              )),
           Container(
-            width: GlobalConfig.width,
-                child: Material(
-                    color: GlobalConfig.backgroundButtonColor,
-                    elevation: 13,
-                    borderRadius: BorderRadius.circular(150),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: InkWell(
-                        splashColor: Colors.white70,
-                        onTap: () async{
-                          ProgressDialog.show(context);
-                           DateTime currentDate = DateTime.now();
-                            String urlImage = await widget._storageService.uploadFile(
-                                widget.image!,
-                                '${parameters["pacient"].id}/${currentDate.toIso8601String()}');
-                            Photo newPhoto = Photo(
-                                nombre: currentDate.toIso8601String(),
-                                fecha: currentDate,
-                                tipo: "image",
-                                ruta: urlImage);
-                            widget._dbService
-                                .addItem("fotos", newPhoto, parameters['pacient'].uid);
-                  
-                            Navigator.popUntil(context, (route) => route.settings.name == '/fotos');
-                        },
-                        child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              border: Border.all(
-                                  color: GlobalConfig.borderColor, width: 3),
-                              borderRadius: BorderRadius.circular(150),
+              width: GlobalConfig.width,
+              child: Material(
+                  color: GlobalConfig.backgroundButtonColor,
+                  elevation: 13,
+                  borderRadius: BorderRadius.circular(150),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  child: InkWell(
+                      splashColor: Colors.white70,
+                      onTap: () async {
+                        ProgressDialog.show(context);
+                        DateTime currentDate = DateTime.now();
+                        String urlImage = await widget._storageService.uploadFile(
+                            widget.image!,
+                            '${parameters["pacient"].id}/${currentDate.toIso8601String()}');
+                        Photo newPhoto = Photo(
+                            nombre: currentDate.toIso8601String(),
+                            fecha: currentDate,
+                            tipo: "image",
+                            ruta: urlImage);
+                        widget._dbService.addItem(
+                            "fotos", newPhoto, parameters['pacient'].uid);
+
+                        Navigator.popUntil(context,
+                            (route) => route.settings.name == '/fotos');
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(
+                                color: GlobalConfig.borderColor, width: 3),
+                            borderRadius: BorderRadius.circular(150),
+                          ),
+                          child: Column(children: [
+                            Text(
+                              S.of(context).submit,
+                              style: TextStyle(
+                                  fontSize: 28,
+                                  color: GlobalConfig.complementaryColorApp),
                             ),
-                            child: Column(children: [
-                              Text(
-                                S.of(context).submit,
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    color: GlobalConfig.complementaryColorApp),
-                              ),
-                            ]))))),
+                          ]))))),
         ],
       ),
       floatingActionButton: FloatingActionButton(

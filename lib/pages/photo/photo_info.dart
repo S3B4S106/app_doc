@@ -7,6 +7,7 @@ import 'package:app_doc/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class PhotoInfoPageScreen extends StatefulWidget {
@@ -42,7 +43,9 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
             ),
             height: GlobalConfig.heightPercentage(.6),
             width: GlobalConfig.widthPercentage(.9),
-            child: Image.network(widget.image!.ruta),
+            child: PhotoView(
+              imageProvider: NetworkImage(widget.image!.ruta),
+            ),
           ),
           Container(
             margin: EdgeInsets.only(top: GlobalConfig.heightPercentage(.1)),

@@ -8,9 +8,10 @@ import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/commun/progress_dialog.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:app_doc/generated/l10n.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -50,37 +51,50 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
       body: Column(
         children: <Widget>[
           Container(
-            color: Colors.black,
-            height: GlobalConfig.heightPercentage(.6),
-            width: GlobalConfig.width,
-            child: version
-                ? orientation
-                    ? Container(
-                        margin: EdgeInsets.only(
-                            top: GlobalConfig.heightPercentage(.6) * 0.03,
-                            right: GlobalConfig.widthPercentage(.2),
-                            left: GlobalConfig.widthPercentage(.2)),
-                        child: Column(children: scroll(key)))
-                    : Container(
-                        margin: EdgeInsets.only(
-                            left: GlobalConfig.widthPercentage(.17),
-                            top: GlobalConfig.heightPercentage(.02),
-                            bottom: GlobalConfig.heightPercentage(.02)),
-                        child: Row(children: scroll(key)))
-                : orientation
-                    ? RepaintBoundary(key:key,child:Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: alignet(
-                            GlobalConfig.widthPercentage(.4), null, 0, 0),
-                      ))
-                    : RepaintBoundary(key:key, child:Column(
-                        children: alignet(
-                            null,
-                            GlobalConfig.heightPercentage(.26),
-                            0,
-                            GlobalConfig.heightPercentage(.01)),
-                      )),
-          ),
+              color: Colors.black,
+              height: GlobalConfig.heightPercentage(.6),
+              width: GlobalConfig.width,
+              child: version
+                  ? orientation
+                      ? Stack(children: [
+                          Container(
+                              margin: EdgeInsets.only(
+                                bottom: GlobalConfig.heightPercentage(.08),
+                                top: GlobalConfig.heightPercentage(0.02),
+                              ),
+                              child: scroll(key)),
+                          buttonSlider(top: GlobalConfig.heightPercentage(.51))
+                        ])
+                      : Stack(children: [
+                          Container(
+                              margin: EdgeInsets.only(
+                                  right: GlobalConfig.widthPercentage(.15),
+                                  top: GlobalConfig.heightPercentage(0.02),
+                                  bottom: GlobalConfig.heightPercentage(0.02)),
+                              child: scroll(key)),
+                          buttonSlider(left: GlobalConfig.widthPercentage(.85))
+                        ])
+                  : orientation
+                      ? RepaintBoundary(
+                          key: key,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: alignet(
+                                GlobalConfig.widthPercentage(.4), null, 0, 0),
+                          ))
+                      : SizedBox(
+                          height: 50,
+                          child: RepaintBoundary(
+                              key: key,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: alignet(
+                                    null,
+                                    GlobalConfig.heightPercentage(.26),
+                                    0,
+                                    GlobalConfig.heightPercentage(.01)),
+                              )),
+                        )),
           Container(
             color: GlobalConfig.backgroundColor,
             width: GlobalConfig.width,
@@ -149,64 +163,76 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
                             ),
                           ],
                         ),
-                        
                         Container(
-                          margin:EdgeInsets.only(top: GlobalConfig.heightPercentage(.02)),
-            width: GlobalConfig.width,
-                child: Material(
-                    color: GlobalConfig.backgroundButtonColor,
-                    elevation: 13,
-                    borderRadius: BorderRadius.circular(150),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: InkWell(
-                        splashColor: Colors.white70,
-                        onTap: () async{
-                          ProgressDialog.show(context);
-                           final boundary =
-                                    key.currentContext?.findRenderObject()
-                                        as RenderRepaintBoundary?;
-                                final image = await boundary?.toImage();
-                                final byteData = await image?.toByteData(
-                                    format: ImageByteFormat.png);
-                                final imageBytes =
-                                    byteData?.buffer.asUint8List();
+                            margin: EdgeInsets.only(
+                                top: GlobalConfig.heightPercentage(.02)),
+                            width: GlobalConfig.width,
+                            child: Material(
+                                color: GlobalConfig.backgroundButtonColor,
+                                elevation: 13,
+                                borderRadius: BorderRadius.circular(150),
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                child: InkWell(
+                                    splashColor: Colors.white70,
+                                    onTap: () async {
+                                      ProgressDialog.show(context);
+                                      final boundary =
+                                          key.currentContext?.findRenderObject()
+                                              as RenderRepaintBoundary?;
+                                      final image = await boundary?.toImage();
+                                      final byteData = await image?.toByteData(
+                                          format: ImageByteFormat.png);
+                                      final imageBytes =
+                                          byteData?.buffer.asUint8List();
 
-                                if (imageBytes != null) {
-                                  final directorio_en_cache =
-                                      await getTemporaryDirectory();
+                                      if (imageBytes != null) {
+                                        final directorio_en_cache =
+                                            await getTemporaryDirectory();
 
-                                  File tu_archivo_file = await File(
-                                          '${directorio_en_cache.path}/image.png')
-                                      .create();
-                                  tu_archivo_file.writeAsBytesSync(imageBytes);
-                                  DateTime currentDate = DateTime.now();
-                                  String urlImage = await widget._storageService
-                                      .uploadFile(tu_archivo_file,
-                                          '${parameters["pacient"].id}/${currentDate.toIso8601String()}');
-                                  Photo newPhoto = Photo(
-                                      nombre: currentDate.toIso8601String(),
-                                      fecha: currentDate,
-                                      tipo: "image",
-                                      ruta: urlImage);
-                                  widget._dbService.addItem("fotos", newPhoto,
-                                      parameters['pacient'].uid);}
-                                      Navigator.popUntil(context, (route) => route.settings.name == '/fotos');
-                        },
-                        child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              border: Border.all(
-                                  color: GlobalConfig.borderColor, width: 3),
-                              borderRadius: BorderRadius.circular(150),
-                            ),
-                            child: Column(children: [
-                              Text(
-                                S.of(context).submit,
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    color: GlobalConfig.complementaryColorApp),
-                              ),
-                            ])))))
+                                        File tu_archivo_file = await File(
+                                                '${directorio_en_cache.path}/image.png')
+                                            .create();
+                                        tu_archivo_file
+                                            .writeAsBytesSync(imageBytes);
+                                        DateTime currentDate = DateTime.now();
+                                        String urlImage = await widget
+                                            ._storageService
+                                            .uploadFile(tu_archivo_file,
+                                                '${parameters["pacient"].id}/${currentDate.toIso8601String()}');
+                                        Photo newPhoto = Photo(
+                                            nombre:
+                                                currentDate.toIso8601String(),
+                                            fecha: currentDate,
+                                            tipo: "image",
+                                            ruta: urlImage);
+                                        widget._dbService.addItem(
+                                            "fotos",
+                                            newPhoto,
+                                            parameters['pacient'].uid);
+                                      }
+                                      Navigator.popUntil(
+                                          context,
+                                          (route) =>
+                                              route.settings.name == '/fotos');
+                                    },
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.transparent,
+                                          border: Border.all(
+                                              color: GlobalConfig.borderColor,
+                                              width: 3),
+                                          borderRadius:
+                                              BorderRadius.circular(150),
+                                        ),
+                                        child: Column(children: [
+                                          Text(
+                                            S.of(context).submit,
+                                            style: TextStyle(
+                                                fontSize: 28,
+                                                color: GlobalConfig
+                                                    .complementaryColorApp),
+                                          ),
+                                        ])))))
                       ],
                     ))
               ],
@@ -217,51 +243,29 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
     );
   }
 
-  List<Widget> scroll(key) {
-    return [
-      RepaintBoundary(
-          key: key,
-          child: Stack(
-            children: <Widget>[
-              _image1 != null
-                  ? FadeInImage.memoryNetwork(
-                      image: _image1!.ruta,
-                      fit: BoxFit.cover,
-                      placeholder: kTransparentImage,
-                    )
-                  : Container(),
-              _image2 != null
-                  ? ClipPath(
-                      clipper: MycustomClippper(_image2Offset, orientation),
-                      child: FadeInImage.memoryNetwork(
-                        image: _image2!.ruta,
-                        fit: BoxFit.cover,
-                        placeholder: kTransparentImage,
-                      ))
-                  : Container(),
-            ],
-          )),
-      SfSliderTheme(
-          data: SfSliderThemeData(
-              inactiveTrackHeight: 0,
-              activeTrackHeight: 0,
-              thumbRadius: 17,
-              thumbColor: GlobalConfig.primaryColorApp),
-          child: RotatedBox(
-            quarterTurns: orientation ? 0 : 1,
-            child: SfSlider(
-              thumbIcon: Icon(Iconsapp.left_and_right_11wtecpnwuem),
-              value: _image2Offset,
-              min: 0.0,
-              max: 1.0,
-              onChanged: (dynamic value) {
-                setState(() {
-                  _image2Offset = value;
-                });
-              },
-            ),
-          )),
-    ];
+  Widget scroll(key) {
+    return RepaintBoundary(
+        key: key,
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            _image1 != null
+                ? ClipPath(
+                    clipper: MycustomClippper(1, orientation),
+                    child: PhotoView(
+                      imageProvider: NetworkImage(_image1!.ruta),
+                    ),
+                  )
+                : Container(),
+            _image2 != null
+                ? ClipPath(
+                    clipper: MycustomClippper(_image2Offset, orientation),
+                    child: PhotoView(
+                      imageProvider: NetworkImage(_image2!.ruta),
+                    ))
+                : Container(),
+          ],
+        ));
   }
 
   List<Widget> alignet(double? width, double? height, double left, double top) {
@@ -271,26 +275,52 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
               margin: EdgeInsets.only(left: left, top: top),
               height: height,
               width: width,
-              child: FadeInImage.memoryNetwork(
-                image: _image1!.ruta,
-                fit: BoxFit.cover,
-                placeholder: kTransparentImage,
-              ),
-            )
+              child: ClipPath(
+                clipper: MycustomClippper(1, orientation),
+                child: PhotoView(
+                  imageProvider: NetworkImage(_image1!.ruta),
+                ),
+              ))
           : Container(),
       _image2 != null
           ? Container(
               margin: EdgeInsets.only(top: top),
               height: height,
               width: width,
-              child: FadeInImage.memoryNetwork(
-                image: _image2!.ruta,
-                fit: BoxFit.cover,
-                placeholder: kTransparentImage,
-              ),
-            )
+              child: ClipPath(
+                clipper: MycustomClippper(1, orientation),
+                child: PhotoView(
+                  imageProvider: NetworkImage(_image1!.ruta),
+                ),
+              ))
           : Container(),
     ];
+  }
+
+  Widget buttonSlider({top = 0.0, left = 0.0}) {
+    return Container(
+        margin: EdgeInsets.only(top: top, left: left),
+        alignment: Alignment.center,
+        child: SfSliderTheme(
+            data: SfSliderThemeData(
+                inactiveTrackHeight: 0,
+                activeTrackHeight: 0,
+                thumbRadius: 17,
+                thumbColor: GlobalConfig.primaryColorApp),
+            child: RotatedBox(
+              quarterTurns: orientation ? 0 : 1,
+              child: SfSlider(
+                thumbIcon: Icon(Iconsapp.left_and_right_11wtecpnwuem),
+                value: _image2Offset,
+                min: 0.0,
+                max: 1.0,
+                onChanged: (dynamic value) {
+                  setState(() {
+                    _image2Offset = value;
+                  });
+                },
+              ),
+            )));
   }
 }
 
