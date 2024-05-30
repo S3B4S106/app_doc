@@ -1,4 +1,5 @@
 import 'package:app_doc/comparative.dart';
+import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:app_doc/features/model/notify.dart';
@@ -35,8 +36,11 @@ void main() async {
   );
 
   FirebaseAuthService auth = FirebaseAuthService();
+  FirebaseRealTimeDbService dbService = FirebaseRealTimeDbService();
   Widget currentScreen;
   EntitysModel entitysModel = EntitysModel();
+
+  entitysModel.planes = await dbService.getAllPlants();
   List<CameraDescription> cameras = [];
   cameras = await availableCameras();
 

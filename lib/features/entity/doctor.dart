@@ -12,11 +12,11 @@ class Doctor {
       required this.suscriptionType,
       required this.suscriptionActive});
 
-  factory Doctor.fromMap(Map<String, dynamic> map) {
+  factory Doctor.fromMap(Map<Object?, dynamic> map) {
     return Doctor(
         id: map['id'],
         name: map['nombre'],
-        dueDate: map['fechaVencimiento'],
+        dueDate: DateTime.parse(map['fechaVencimiento']),
         suscriptionActive: map['suscipcionActiva'],
         suscriptionType: map['tipoSuscripcion']);
   }

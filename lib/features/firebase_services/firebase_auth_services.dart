@@ -106,17 +106,20 @@ class FirebaseAuthService {
     }
   }
 
-  Future<void> injectDependencies(entitysModel) async {
-    entitysModel.doctor = Doctor(
-        id: getUser()!.uid,
-        name: getUser()!.displayName != "" && getUser()!.displayName != null
-            ? getUser()!.displayName
-            : getUser()!.providerData.first.displayName,
-        dueDate: null,
-        suscriptionType: "basic",
-        suscriptionActive: false);
+  Future<void> injectDependencies(EntitysModel entitysModel) async {
     if (!await _dbService.fetchContent("medicos/${getUser()!.uid}")) {
       _dbService.addItem("medicos", entitysModel.doctor, null, getUser()!.uid);
+      entitysModel.doctor = Doctor(
+          id: getUser()!.uid,
+          name: getUser()!.displayName != "" && getUser()!.displayName != null
+              ? getUser()!.displayName
+              : getUser()!.providerData.first.displayName,
+          dueDate: null,
+          suscriptionType: "free",
+          suscriptionActive: false);
+    } else {
+      entitysModel.doctor =
+          await _dbService.getDoctor("medicos/${getUser()!.uid}");
     }
 
     var pacientRef =

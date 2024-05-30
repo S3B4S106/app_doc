@@ -1,20 +1,31 @@
 import 'package:app_doc/features/entity/doctor.dart';
 import 'package:app_doc/features/entity/photo.dart';
+import 'package:app_doc/features/entity/plant.dart';
 import 'package:flutter/foundation.dart';
 import 'package:app_doc/features/entity/pacient.dart';
 
 class EntitysModel with ChangeNotifier {
   Doctor? doctor;
   List<Pacient>? pacientes;
-  List<Photo>? fotos;
+  int? fotos;
+  List<Plant>? planes;
   EntitysModel() {
     doctor = null;
     pacientes = [];
     fotos = null;
+    planes = [];
   }
   Doctor? get getDoctor => doctor;
   List<Pacient>? get getPacients => pacientes;
-  List<Photo>? get getPhotos => fotos;
+  int? get getPhotos => fotos;
+  Plant? getPlan(id) {
+    for (var plan in planes!) {
+      if (plan.id == id) {
+        return plan;
+      }
+    }
+    return null;
+  }
 
   // void setDoctor(var newva) {
   //   doctor = newva;

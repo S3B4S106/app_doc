@@ -75,6 +75,18 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
                                         .alternativeComplementaryColorApp,
                                     Icons.compare)),
                             IconButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, "/camera",
+                                      arguments: {
+                                        'pacient': parameters['pacient'],
+                                        'photo': widget.image
+                                      });
+                                },
+                                icon: Icon(
+                                    color: GlobalConfig
+                                        .alternativeComplementaryColorApp,
+                                    Icons.photo_library_outlined)),
+                            IconButton(
                                 onPressed: () async {
                                   ProgressDialog.show(context);
                                   XFile image = await getImageXFileByUrl(
@@ -93,18 +105,6 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
                                     color: GlobalConfig
                                         .alternativeComplementaryColorApp,
                                     Icons.ios_share_rounded)),
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "/camera",
-                                      arguments: {
-                                        'pacient': parameters['pacient'],
-                                        'photo': widget.image
-                                      });
-                                },
-                                icon: Icon(
-                                    color: GlobalConfig
-                                        .alternativeComplementaryColorApp,
-                                    Icons.photo_library_outlined)),
                             IconButton(
                                 onPressed: () {
                                   _showActionSheet(context, parameters);

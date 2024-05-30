@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:app_doc/features/entity/doctor.dart';
 import 'package:app_doc/features/entity/pacient.dart';
 import 'package:app_doc/features/entity/photo.dart';
+import 'package:app_doc/features/entity/plant.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class FirebaseRealTimeDbService {
@@ -97,9 +99,40 @@ class FirebaseRealTimeDbService {
     return pacientes;
   }
 
+  Future<Doctor?> getDoctor(String ref) async {
+    dynamic snapshot = await fetchOnce(ref);
+    if (snapshot != null) {
+      Doctor doctor = Doctor.fromMap(snapshot);
+      return doctor;
+    }
+    return null;
+  }
+
+  Future<List<Plant>> getAllPlants() async {
+    List<Plant> plants = [];
+    Plant plant;
+    dynamic snapshot = await fetchOnce('planes');
+
+    if (snapshot == null) return plants;
+    // Actualiza el arreglo de pacientes
+    for (var child in snapshot) {
+      if (child != null) {
+        dynamic currentPlant = child;
+        plant = Plant(
+          id: currentPlant["id"],
+          limit: currentPlant["limit"],
+          name: currentPlant["name"],
+        );
+        plants.add(plant);
+      }
+    }
+    return plants;
+  }
+
   void createSuscription(entitysModel, DatabaseReference pacientRef) {
     suscriptionController = pacientRef.onValue.listen((event) {
       final data = event.snapshot.value;
+      entitysModel.fotos = 0;
       entitysModel.pacientes = getAllPacients(data);
       if (entitysModel.pacientes != null) {
         entitysModel.pacientes!.forEach((element) {
@@ -108,6 +141,7 @@ class FirebaseRealTimeDbService {
           photoRef.onValue.listen((event) {
             final data = event.snapshot.children;
             element.fotos = getAllPhotos(data);
+            entitysModel.fotos = entitysModel.fotos + element.fotos.length;
             entitysModel.notify();
           });
         });
