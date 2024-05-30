@@ -43,7 +43,7 @@ class _UserScreenState extends State<UserScreen> {
                           fontSize: 30, color: GlobalConfig.textColor),
                     ),
                     Text(
-                      user.suscriptionType != null
+                      myModel.getPlan(user!.suscriptionType) != null
                           ? myModel.getPlan(user!.suscriptionType).name
                           : "Free",
                       style: TextStyle(
@@ -58,16 +58,20 @@ class _UserScreenState extends State<UserScreen> {
                       animationDuration: 2750,
                       radius: 200,
                       lineWidth: 20,
-                      percent: myModel.fotos *
-                          1 /
-                          myModel.getPlan(user!.suscriptionType).limit,
+                      percent: myModel.getPlan(user!.suscriptionType) != null
+                          ? myModel.fotos *
+                              1 /
+                              myModel.getPlan(user!.suscriptionType).limit
+                          : 0,
                       backgroundColor:
                           GlobalConfig.primaryColorApp, //35, 93, 113, 1
                       progressColor:
                           Color.fromRGBO(165, 219, 195, 1), //165, 219, 195, 1
                       circularStrokeCap: CircularStrokeCap.round,
                       center: Text(
-                        '${myModel.fotos * 100 / myModel.getPlan(user!.suscriptionType).limit}%',
+                        myModel.getPlan(user!.suscriptionType) != null
+                            ? '${myModel.fotos * 100 / myModel.getPlan(user!.suscriptionType).limit}%'
+                            : '0%',
                         style: TextStyle(
                             color:
                                 GlobalConfig.alternativeComplementaryColorApp),
@@ -78,7 +82,7 @@ class _UserScreenState extends State<UserScreen> {
                       height: 100,
                       width: 100,
                       child: Text(
-                        '${myModel.fotos}  / ${myModel.getPlan(user!.suscriptionType).limit}',
+                        '${myModel.fotos}  / ${myModel.getPlan(user!.suscriptionType) != null ? myModel.getPlan(user!.suscriptionType).limit : 0}',
                         style: TextStyle(
                             color:
                                 GlobalConfig.alternativeComplementaryColorApp),

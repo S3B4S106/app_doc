@@ -169,8 +169,8 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
             /// default behavior, turns the action's text to bold text.
             isDefaultAction: true,
             onPressed: () {
-              widget._dbService.removeItem(
-                  'fotos', parameters['pacient'].uid, widget.image!.uid!);
+              widget._dbService.removeItem('fotos', parameters['pacient'].uid,
+                  idItem: widget.image!.uid!);
               widget._storageService.removeFile(
                   name:
                       '${parameters['pacient'].id}/${widget.image!.fecha.toIso8601String()}');

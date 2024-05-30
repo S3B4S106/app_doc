@@ -101,11 +101,14 @@ class _PacientListState extends State<PacientListScreen> {
                                   if (paciente.fotos!.isNotEmpty) {
                                     widget._storageService
                                         .deleteFolder('${paciente.id}/');
+                                    widget._dbService
+                                        .removeItem('fotos', paciente.uid!);
                                   }
                                   widget._dbService.removeItem(
-                                      'clientes',
-                                      widget._authService.getUser()!.uid,
-                                      paciente.uid!);
+                                    'clientes',
+                                    widget._authService.getUser()!.uid,
+                                    idItem: paciente.uid!,
+                                  );
                                 },
                                 child: Text(S.of(context).delete),
                               ),

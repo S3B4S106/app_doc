@@ -50,9 +50,11 @@ class FirebaseRealTimeDbService {
   }
 
   // Obtener ruta imagen
-  void removeItem(String ref, String idParent, String idItem) async {
+  void removeItem(String ref, String idParent, {String? idItem}) async {
     final DatabaseReference dbRef;
-    dbRef = _realtimeDb.ref('$ref/$idParent/$idItem');
+    dbRef = idItem != null
+        ? _realtimeDb.ref('$ref/$idParent/$idItem')
+        : _realtimeDb.ref('$ref/$idParent');
     dbRef.remove();
   }
 

@@ -8,13 +8,11 @@ import 'package:app_doc/features/global/commun/header_widget.dart';
 import 'package:app_doc/features/global/commun/progress_dialog.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:app_doc/generated/l10n.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
-import 'package:transparent_image/transparent_image.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:app_doc/features/global/commun/iconsapp_icons.dart';
 
@@ -186,18 +184,17 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
                                           byteData?.buffer.asUint8List();
 
                                       if (imageBytes != null) {
-                                        final directorio_en_cache =
+                                        final cacheFolder =
                                             await getTemporaryDirectory();
 
-                                        File tu_archivo_file = await File(
-                                                '${directorio_en_cache.path}/image.png')
+                                        File myFile = await File(
+                                                '${cacheFolder.path}/image.png')
                                             .create();
-                                        tu_archivo_file
-                                            .writeAsBytesSync(imageBytes);
+                                        myFile.writeAsBytesSync(imageBytes);
                                         DateTime currentDate = DateTime.now();
                                         String urlImage = await widget
                                             ._storageService
-                                            .uploadFile(tu_archivo_file,
+                                            .uploadFile(myFile,
                                                 '${parameters["pacient"].id}/${currentDate.toIso8601String()}');
                                         Photo newPhoto = Photo(
                                             nombre:
@@ -310,7 +307,7 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
             child: RotatedBox(
               quarterTurns: orientation ? 0 : 1,
               child: SfSlider(
-                thumbIcon: Icon(Iconsapp.left_and_right_11wtecpnwuem),
+                thumbIcon: const Icon(Iconsapp.left_and_right_11wtecpnwuem),
                 value: _image2Offset,
                 min: 0.0,
                 max: 1.0,

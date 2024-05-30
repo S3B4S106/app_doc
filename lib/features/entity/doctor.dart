@@ -16,9 +16,11 @@ class Doctor {
     return Doctor(
         id: map['id'],
         name: map['nombre'],
-        dueDate: DateTime.parse(map['fechaVencimiento']),
+        dueDate: map['fechaVencimiento'] != null
+            ? DateTime.parse(map['fechaVencimiento'])
+            : map['fechaVencimiento'],
         suscriptionActive: map['suscipcionActiva'],
-        suscriptionType: map['tipoSuscripcion']);
+        suscriptionType: map['tipoSuscripcion'] ?? '');
   }
 
   Map<String, dynamic> toMap() {

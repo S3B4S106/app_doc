@@ -31,5 +31,6 @@
     "delete":"Borrar",
     "cancel":"Cancelar",
     "patient":"Paciente",
-    "photo": "Foto"
+    "photo": "Foto",
+    "account":"Cuenta"
 }

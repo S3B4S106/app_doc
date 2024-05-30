@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:app_doc/features/entity/doctor.dart';
+import 'package:app_doc/features/entity/pacient.dart';
 import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
+import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
 import 'package:app_doc/features/global/commun/toast.dart';
 import 'package:app_doc/features/model/notify.dart';
 import 'package:app_doc/pages/login/login.dart';
@@ -12,6 +14,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseRealTimeDbService _dbService = FirebaseRealTimeDbService();
+  final FirebaseStorageService _storageService = FirebaseStorageService();
 
   Future<User?> signUpWithEmailAndPassword(
       String email, String password, String name, entitysModel) async {
@@ -72,6 +75,11 @@ class FirebaseAuthService {
   Future<void> signOut(context, myModel) async {
     await _auth.signOut();
     //_dbService.cancelSuscription();
+    closeAll(context, myModel);
+  }
+
+  void closeAll(context, myModel) {
+    //_dbService.cancelSuscription();
     myModel.reset();
     Navigator.pushAndRemoveUntil(
       context,
@@ -82,11 +90,11 @@ class FirebaseAuthService {
   }
 
   Future<void> loginWithGoogle(context, EntitysModel entitysModel) async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
+    final GoogleSignIn googleSignIn = GoogleSignIn();
 
     try {
       final GoogleSignInAccount? googleSignInAccount =
-          await _googleSignIn.signIn();
+          await googleSignIn.signIn();
 
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
@@ -108,15 +116,15 @@ class FirebaseAuthService {
 
   Future<void> injectDependencies(EntitysModel entitysModel) async {
     if (!await _dbService.fetchContent("medicos/${getUser()!.uid}")) {
-      _dbService.addItem("medicos", entitysModel.doctor, null, getUser()!.uid);
       entitysModel.doctor = Doctor(
           id: getUser()!.uid,
           name: getUser()!.displayName != "" && getUser()!.displayName != null
               ? getUser()!.displayName
               : getUser()!.providerData.first.displayName,
           dueDate: null,
-          suscriptionType: "free",
+          suscriptionType: "1",
           suscriptionActive: false);
+      _dbService.addItem("medicos", entitysModel.doctor, null, getUser()!.uid);
     } else {
       entitysModel.doctor =
           await _dbService.getDoctor("medicos/${getUser()!.uid}");
@@ -126,5 +134,56 @@ class FirebaseAuthService {
         _dbService.getReference("clientes", entitysModel.doctor!.id);
 
     _dbService.createSuscription(entitysModel, pacientRef);
+  }
+
+  Future<bool> deleteAccount(
+      User? user, String password, EntitysModel model) async {
+    if (user == null) {
+      return false; // Handle the case when the user is not logged in
+    }
+
+    try {
+      // Verify user identity by re-entering password
+
+      if (password != '') {
+        // Check if user is authenticated with email
+        if (user.providerData.first.providerId == 'password') {
+          await user.reauthenticateWithCredential(
+            EmailAuthProvider.credential(
+                email: user.email!, password: password),
+          );
+        }
+      } else if (user.providerData.first.providerId == 'google.com') {
+        final GoogleSignIn googleSignIn = GoogleSignIn();
+        // Handle Google Sign In reauthentication
+        final googleAccount = await googleSignIn.signIn();
+        if (googleAccount != null) {
+          final googleSignInAuthentication = await googleAccount.authentication;
+          final googleAuthCredential = GoogleAuthProvider.credential(
+            idToken: googleSignInAuthentication.idToken,
+            accessToken: googleSignInAuthentication.accessToken,
+          );
+          await user.reauthenticateWithCredential(googleAuthCredential);
+        }
+      } else if (user.providerData.first.providerId == 'apple.com') {}
+
+      for (Pacient pacient in model.pacientes!) {
+        _storageService.deleteFolder('${pacient.id}/');
+        _dbService.removeItem('fotos', pacient.uid!);
+      }
+
+      _dbService.removeItem('medicos', getUser()!.uid);
+      _dbService.removeItem('clientes', getUser()!.uid);
+
+      // Delete user from Firebase Authentication
+      await user.delete();
+
+      // Delete user data from other storage (optional)
+      // ...
+
+      return true;
+    } on FirebaseAuthException catch (e) {
+      return false;
+    }
   }
 }

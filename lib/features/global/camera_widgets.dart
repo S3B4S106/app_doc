@@ -1,4 +1,3 @@
-import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:camera/camera.dart';
 import 'package:dotted_border/dotted_border.dart';

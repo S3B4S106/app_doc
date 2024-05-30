@@ -1,5 +1,6 @@
 import 'package:app_doc/features/firebase_services/firebase_auth_services.dart';
 import 'package:app_doc/features/global/commun/header_widget.dart';
+import 'package:app_doc/features/global/commun/toast.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:app_doc/features/model/notify.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,8 +18,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final _passwordController = TextEditingController();
   EntitysModel? _entitysModel;
-  FirebaseAuthService _authService = FirebaseAuthService();
+  final FirebaseAuthService _authService = FirebaseAuthService();
 
   _HomeScreenState(EntitysModel? entitysModel) {
     _entitysModel = entitysModel;
@@ -159,21 +161,108 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: _openUserInfo,
           ),
           actions: [
-            IconButton(
+            PopupMenuButton(
+              color: GlobalConfig.secundaryColorApp,
+              position: PopupMenuPosition.under,
               icon: Icon(
                   color: GlobalConfig.alternativeComplementaryColorApp,
                   Icons.menu_rounded),
-              onPressed: () {},
-            )
+              onSelected: (dynamic item) {},
+              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                PopupMenuItem(
+                  padding: EdgeInsets.only(left: 10),
+                  onTap: () {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: Text(
+                          S.of(context).titleDelete(S.of(context).account),
+                          style: TextStyle(
+                              color: GlobalConfig.complementaryColorApp),
+                        ),
+                        content:
+                            Column(mainAxisSize: MainAxisSize.min, children: [
+                          Text(
+                            S.of(context).copyDelete,
+                            style: TextStyle(
+                                color: GlobalConfig.complementaryColorApp),
+                          ),
+                          _authService
+                                      .getUser()!
+                                      .providerData
+                                      .first
+                                      .providerId ==
+                                  'password'
+                              ? TextFormField(
+                                  style: TextStyle(
+                                      color: GlobalConfig
+                                          .alternativeComplementaryColorApp),
+                                  controller: _passwordController,
+                                  decoration: InputDecoration(
+                                      labelText: S.of(context).labelPassword,
+                                      labelStyle: TextStyle(
+                                          color: GlobalConfig
+                                              .alternativeComplementaryColorApp)),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Ingrese su contraseña';
+                                    }
+                                    return null;
+                                  },
+                                )
+                              : const SizedBox()
+                        ]),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              _passwordController.clear();
+                              Navigator.pop(context, 'Cancel');
+                            },
+                            child: Text(S.of(context).cancel),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              if (await _authService.deleteAccount(
+                                  _authService.getUser(),
+                                  _passwordController.text,
+                                  _entitysModel!)) {
+                                _entitysModel!.reset();
+                                _authService.closeAll(context, _entitysModel);
+                              } else {
+                                _passwordController.clear();
+                                showToast(message: 'Credenciales invalidas');
+                              }
+                            },
+                            child: Text(S.of(context).delete),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.delete_rounded,
+                      color: GlobalConfig.alternativeComplementaryColorApp,
+                    ),
+                    title: Text(
+                      S.of(context).titleDelete(S.of(context).account),
+                      style: TextStyle(
+                          color: GlobalConfig.alternativeComplementaryColorApp),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
           flexibleSpace: header(),
           title: titleApp()),
-      body: Container(
-        width: GlobalConfig.width,
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
+                margin: EdgeInsets.symmetric(
+                    vertical: GlobalConfig.heightPercentage(.05)),
                 child: Material(
                     color: GlobalConfig.backgroundButtonColor,
                     elevation: 12,
@@ -265,4 +354,6 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.pushNamed(context, "/user-info",
         arguments: {'model': _entitysModel});
   }
+
+  void _deleteAccount() async {}
 }
