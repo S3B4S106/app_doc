@@ -12,7 +12,7 @@ class EntitysModel with ChangeNotifier {
   EntitysModel() {
     doctor = null;
     pacientes = [];
-    fotos = null;
+    fotos = 0;
     planes = [];
   }
   Doctor? get getDoctor => doctor;
