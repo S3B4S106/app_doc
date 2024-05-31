@@ -57,7 +57,7 @@ class _UserScreenState extends State<UserScreen> {
                       animation: true,
                       animationDuration: 2750,
                       radius: 200,
-                      lineWidth: 20,
+                      lineWidth: 35,
                       percent: myModel.getPlan(user!.suscriptionType) != null
                           ? myModel.fotos *
                               1 /
@@ -73,6 +73,7 @@ class _UserScreenState extends State<UserScreen> {
                             ? '${myModel.fotos * 100 / myModel.getPlan(user!.suscriptionType).limit}%'
                             : '0%',
                         style: TextStyle(
+                            fontSize: 30,
                             color:
                                 GlobalConfig.alternativeComplementaryColorApp),
                       ),
@@ -84,6 +85,7 @@ class _UserScreenState extends State<UserScreen> {
                       child: Text(
                         '${myModel.fotos}  / ${myModel.getPlan(user!.suscriptionType) != null ? myModel.getPlan(user!.suscriptionType).limit : 0}',
                         style: TextStyle(
+                            fontSize: 20,
                             color:
                                 GlobalConfig.alternativeComplementaryColorApp),
                       ),

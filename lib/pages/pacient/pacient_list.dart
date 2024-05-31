@@ -131,59 +131,64 @@ class _PacientListState extends State<PacientListScreen> {
                 ],
               )
             : PopScope(
-                child: Center(
+                child: Container(
+                    margin: EdgeInsets.only(
+                        top: GlobalConfig.heightPercentage(33),
+                        bottom: GlobalConfig.heightPercentage(38)),
                     child: Card(
-                margin: EdgeInsets.only(
-                    top: GlobalConfig.heightPercentage(.2),
-                    bottom: GlobalConfig.heightPercentage(.48),
-                    left: GlobalConfig.widthPercentage(.05),
-                    right: GlobalConfig.widthPercentage(.05)),
-                color: GlobalConfig.secundaryColorApp,
-                child: Column(
-                  children: [
-                    ListTile(
-                        title: Text(
-                          S.of(context).titleCreatePasient,
-                          style: TextStyle(
-                              color: GlobalConfig.complementaryColorApp),
-                        ),
-                        subtitle: Text(S.of(context).copyCreatePasient,
-                            style: TextStyle(
-                                color: GlobalConfig.complementaryColorApp))),
-                    SizedBox(
-                        width: GlobalConfig.widthPercentage(.6),
-                        child: Material(
-                            color: GlobalConfig.backgroundButtonColor,
-                            elevation: 13,
-                            borderRadius: BorderRadius.circular(150),
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: InkWell(
-                                splashColor: Colors.white70,
-                                onTap: () {
-                                  Navigator.popAndPushNamed(context, "/newPx",
-                                      arguments: {
-                                        'model': parameters['model']
-                                      });
-                                },
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      border: Border.all(
-                                          color: GlobalConfig.borderColor,
-                                          width: 3),
-                                      borderRadius: BorderRadius.circular(150),
-                                    ),
-                                    child: Column(children: [
-                                      Text(
-                                        S.of(context).create,
-                                        style: TextStyle(
-                                            fontSize: 28,
-                                            color: GlobalConfig
-                                                .complementaryColorApp),
-                                      ),
-                                    ])))))
-                  ],
-                ),
-              ))));
+                      //margin: EdgeInsets.only(
+                      //top: GlobalConfig.heightPercentage(.20),
+                      //bottom: GlobalConfig.heightPercentage(.50),
+                      //left: GlobalConfig.widthPercentage(.05),
+                      //right: GlobalConfig.widthPercentage(.05)),
+                      color: GlobalConfig.secundaryColorApp,
+                      child: Column(
+                        children: [
+                          ListTile(
+                              title: Text(
+                                S.of(context).titleCreatePasient,
+                                style: TextStyle(
+                                    color: GlobalConfig.complementaryColorApp),
+                              ),
+                              subtitle: Text(S.of(context).copyCreatePasient,
+                                  style: TextStyle(
+                                      color:
+                                          GlobalConfig.complementaryColorApp))),
+                          SizedBox(
+                              width: GlobalConfig.widthPercentage(.6),
+                              child: Material(
+                                  color: GlobalConfig.backgroundButtonColor,
+                                  elevation: 13,
+                                  borderRadius: BorderRadius.circular(150),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  child: InkWell(
+                                      splashColor: Colors.white70,
+                                      onTap: () {
+                                        Navigator.popAndPushNamed(
+                                            context, "/newPx", arguments: {
+                                          'model': parameters['model']
+                                        });
+                                      },
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            border: Border.all(
+                                                color: GlobalConfig.borderColor,
+                                                width: 3),
+                                            borderRadius:
+                                                BorderRadius.circular(150),
+                                          ),
+                                          child: Column(children: [
+                                            Text(
+                                              S.of(context).create,
+                                              style: TextStyle(
+                                                  fontSize: 28,
+                                                  color: GlobalConfig
+                                                      .complementaryColorApp),
+                                            ),
+                                          ])))))
+                        ],
+                      ),
+                    ))));
   }
 }

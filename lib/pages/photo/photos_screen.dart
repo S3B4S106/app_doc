@@ -63,17 +63,21 @@ class _PhotosScreenState extends State<PhotosScreen> {
       ),
       body: Column(children: [
         ListTile(
-            title: Center(
+            title: Container(
+                alignment: Alignment.center,
                 child: Text(
-          parameters['pacient'].userName,
-          style: TextStyle(color: GlobalConfig.complementaryColorApp),
-        ))),
-        ListTile(
-            title: Center(
+                  parameters['pacient'].userName,
+                  style: TextStyle(
+                      color: GlobalConfig.complementaryColorApp,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                )),
+            subtitle: Container(
+                alignment: Alignment.center,
                 child: Text(
-          parameters['pacient'].id,
-          style: TextStyle(color: GlobalConfig.complementaryColorApp),
-        ))),
+                  parameters['pacient'].id,
+                  style: TextStyle(color: GlobalConfig.complementaryColorApp),
+                ))),
         SizedBox(
           height: GlobalConfig.heightPercentage(.7),
           child: ListView.builder(

@@ -166,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
               position: PopupMenuPosition.under,
               icon: Icon(
                   color: GlobalConfig.alternativeComplementaryColorApp,
-                  Icons.menu_rounded),
+                  Icons.more_horiz),
               onSelected: (dynamic item) {},
               itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                 PopupMenuItem(
@@ -226,11 +226,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   _authService.getUser(),
                                   _passwordController.text,
                                   _authService
-                                      .getUser()!
-                                      .providerData
-                                      .first
-                                      .providerId ==
-                                  'password',
+                                          .getUser()!
+                                          .providerData
+                                          .first
+                                          .providerId ==
+                                      'password',
                                   _entitysModel!)) {
                                 _entitysModel!.reset();
                                 _authService.closeAll(context, _entitysModel);
