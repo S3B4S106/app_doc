@@ -134,13 +134,13 @@ class FirebaseRealTimeDbService {
   void createSuscription(entitysModel, DatabaseReference pacientRef) {
     suscriptionController = pacientRef.onValue.listen((event) {
       final data = event.snapshot.value;
-      entitysModel.fotos = 0;
       entitysModel.pacientes = getAllPacients(data);
       if (entitysModel.pacientes != null) {
         entitysModel.pacientes!.forEach((element) {
           var photoRef = getReference("fotos", element.uid);
 
           photoRef.onValue.listen((event) {
+            entitysModel.fotos = 0;
             final data = event.snapshot.children;
             element.fotos = getAllPhotos(data);
             entitysModel.fotos = entitysModel.fotos + element.fotos.length;

@@ -287,7 +287,7 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
               child: ClipPath(
                 clipper: MycustomClippper(1, orientation),
                 child: PhotoView(
-                  imageProvider: NetworkImage(_image1!.ruta),
+                  imageProvider: NetworkImage(_image2!.ruta),
                 ),
               ))
           : Container(),
