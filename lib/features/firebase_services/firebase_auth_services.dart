@@ -137,7 +137,7 @@ class FirebaseAuthService {
   }
 
   Future<bool> deleteAccount(
-      User? user, String password, EntitysModel model) async {
+      User? user, String password,bool havePassword, EntitysModel model) async {
     if (user == null) {
       return false; // Handle the case when the user is not logged in
     }
@@ -145,7 +145,7 @@ class FirebaseAuthService {
     try {
       // Verify user identity by re-entering password
 
-      if (password != '') {
+      if (havePassword) {
         // Check if user is authenticated with email
         if (user.providerData.first.providerId == 'password') {
           await user.reauthenticateWithCredential(

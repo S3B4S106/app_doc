@@ -225,6 +225,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               if (await _authService.deleteAccount(
                                   _authService.getUser(),
                                   _passwordController.text,
+                                  _authService
+                                      .getUser()!
+                                      .providerData
+                                      .first
+                                      .providerId ==
+                                  'password',
                                   _entitysModel!)) {
                                 _entitysModel!.reset();
                                 _authService.closeAll(context, _entitysModel);
