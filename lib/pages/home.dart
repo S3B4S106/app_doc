@@ -6,6 +6,7 @@ import 'package:app_doc/features/model/notify.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_doc/generated/l10n.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   late final EntitysModel? _entitysModel;
@@ -21,6 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final _passwordController = TextEditingController();
   EntitysModel? _entitysModel;
   final FirebaseAuthService _authService = FirebaseAuthService();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<bool> _switchValue;
 
   _HomeScreenState(EntitysModel? entitysModel) {
     _entitysModel = entitysModel;
@@ -29,6 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _switchValue = _prefs.then((SharedPreferences prefs){
+      return prefs.getBool('authenticade') ?? false;
+    });
     if (!_authService.getUser()!.emailVerified) {
       Future.delayed(const Duration(seconds: 1), () {
         showCupertinoModalPopup(
@@ -168,96 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: GlobalConfig.alternativeComplementaryColorApp,
                   Icons.more_horiz),
               onSelected: (dynamic item) {},
-              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                PopupMenuItem(
-                  padding: EdgeInsets.only(left: 10),
-                  onTap: () {
-                    showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: Text(
-                          S.of(context).titleDelete(S.of(context).account),
-                          style: TextStyle(
-                              color: GlobalConfig.complementaryColorApp),
-                        ),
-                        content:
-                            Column(mainAxisSize: MainAxisSize.min, children: [
-                          Text(
-                            S.of(context).copyDelete,
-                            style: TextStyle(
-                                color: GlobalConfig.complementaryColorApp),
-                          ),
-                          _authService
-                                      .getUser()!
-                                      .providerData
-                                      .first
-                                      .providerId ==
-                                  'password'
-                              ? TextFormField(
-                                  style: TextStyle(
-                                      color: GlobalConfig
-                                          .alternativeComplementaryColorApp),
-                                  controller: _passwordController,
-                                  decoration: InputDecoration(
-                                      labelText: S.of(context).labelPassword,
-                                      labelStyle: TextStyle(
-                                          color: GlobalConfig
-                                              .alternativeComplementaryColorApp)),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Ingrese su contraseña';
-                                    }
-                                    return null;
-                                  },
-                                )
-                              : const SizedBox()
-                        ]),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              _passwordController.clear();
-                              Navigator.pop(context, 'Cancel');
-                            },
-                            child: Text(S.of(context).cancel),
-                          ),
-                          TextButton(
-                            onPressed: () async {
-                              if (await _authService.deleteAccount(
-                                  _authService.getUser(),
-                                  _passwordController.text,
-                                  _authService
-                                          .getUser()!
-                                          .providerData
-                                          .first
-                                          .providerId ==
-                                      'password',
-                                  _entitysModel!)) {
-                                _entitysModel!.reset();
-                                _authService.closeAll(context, _entitysModel);
-                              } else {
-                                _passwordController.clear();
-                                showToast(message: 'Credenciales invalidas');
-                              }
-                            },
-                            child: Text(S.of(context).delete),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.delete_rounded,
-                      color: GlobalConfig.alternativeComplementaryColorApp,
-                    ),
-                    title: Text(
-                      S.of(context).titleDelete(S.of(context).account),
-                      style: TextStyle(
-                          color: GlobalConfig.alternativeComplementaryColorApp),
-                    ),
-                  ),
-                ),
-              ],
+              itemBuilder: (BuildContext context) => _buidlMenu()
             ),
           ],
           flexibleSpace: header(),
@@ -361,5 +278,174 @@ class _HomeScreenState extends State<HomeScreen> {
         arguments: {'model': _entitysModel});
   }
 
-  void _deleteAccount() async {}
+
+   Future<void> _activeSwitch() async {
+      final SharedPreferences prefs = await _prefs;
+      final bool switchValue = !(prefs.getBool('authenticade') ?? false);
+      setState(() {
+        _switchValue = prefs.setBool('authenticade', switchValue).then((bool success) {
+          return switchValue;
+        });
+      });
+    }
+  void _handleSwitch() async{
+    final SharedPreferences prefs = await _prefs;
+    final bool switchValue = prefs.getBool('authenticade') ?? false;
+    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: Text(
+                          "Protect app with biometrics and PIN" ,
+                          style: TextStyle(
+                              color: GlobalConfig.complementaryColorApp),
+                        ),
+                        content:
+                            Column(mainAxisSize: MainAxisSize.min, children: [
+                          Text(
+                            "Nex time the app starts it will request your chosen PIN code",
+                            style: TextStyle(
+                                color: GlobalConfig.complementaryColorApp),
+                          ),
+                        ]),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context, 'Cancel');
+                            },
+                            child: Text(S.of(context).cancel),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              _activeSwitch();
+                              Navigator.pop(context, 'onPressed');
+                            },
+                            child: switchValue ? Text('Desactive') : Text('Active'),
+                          ),
+                        ],
+                      ),
+                    );
+  }
+ List<PopupMenuEntry> _buidlMenu(){
+    return <PopupMenuEntry>[
+                PopupMenuItem(
+                  padding: EdgeInsets.only(left: 10),
+                  onTap: () {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: Text(
+                          S.of(context).titleDelete(S.of(context).account),
+                          style: TextStyle(
+                              color: GlobalConfig.complementaryColorApp),
+                        ),
+                        content:
+                            Column(mainAxisSize: MainAxisSize.min, children: [
+                          Text(
+                            S.of(context).copyDelete,
+                            style: TextStyle(
+                                color: GlobalConfig.complementaryColorApp),
+                          ),
+                          _authService
+                                      .getUser()!
+                                      .providerData
+                                      .first
+                                      .providerId ==
+                                  'password'
+                              ? TextFormField(
+                                  style: TextStyle(
+                                      color: GlobalConfig
+                                          .alternativeComplementaryColorApp),
+                                  controller: _passwordController,
+                                  decoration: InputDecoration(
+                                      labelText: S.of(context).labelPassword,
+                                      labelStyle: TextStyle(
+                                          color: GlobalConfig
+                                              .alternativeComplementaryColorApp)),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Ingrese su contraseña';
+                                    }
+                                    return null;
+                                  },
+                                )
+                              : const SizedBox()
+                        ]),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              _passwordController.clear();
+                              Navigator.pop(context, 'Cancel');
+                            },
+                            child: Text(S.of(context).cancel),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              if (await _authService.deleteAccount(
+                                  _authService.getUser(),
+                                  _passwordController.text,
+                                  _authService
+                                          .getUser()!
+                                          .providerData
+                                          .first
+                                          .providerId ==
+                                      'password',
+                                  _entitysModel!)) {
+                                _entitysModel!.reset();
+                                _authService.closeAll(context, _entitysModel);
+                              } else {
+                                _passwordController.clear();
+                                showToast(message: 'Credenciales invalidas');
+                              }
+                            },
+                            child: Text(S.of(context).delete),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.delete_rounded,
+                      color: GlobalConfig.alternativeComplementaryColorApp,
+                    ),
+                    title: Text(
+                      S.of(context).titleDelete(S.of(context).account),
+                      style: TextStyle(
+                          color: GlobalConfig.alternativeComplementaryColorApp),
+                    ),
+                  ),
+                ),
+                PopupMenuItem(
+                  padding: EdgeInsets.only(left: 10),
+                  onTap: (){
+                    _handleSwitch();
+                  },
+                  child: FutureBuilder<bool>(
+              future: _switchValue,
+              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                    return const CircularProgressIndicator();
+                  case ConnectionState.active:
+                  case ConnectionState.done:
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      return Row(children: [
+                        CupertinoSwitch(
+                        value: snapshot.data!,
+                        activeColor: GlobalConfig.primaryColorApp,
+                        onChanged:(bool? value){
+                          Navigator.pop(context, 'onPressedSwitch');
+                          _handleSwitch();
+                        }  ,
+                      ),Text('Protected app with biometric', style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),)
+                      ],);
+                    }
+                }
+              })
+                ),
+              ];
+  }
 }

@@ -38,7 +38,10 @@ dependencies:
   share_plus: ^9.0.0
   flutter_cache_manager: ^3.3.2
   sensors: ^2.0.3
-
+  pin_code_fields: ^8.0.1
+  local_auth: ^2.0.0 # Autenticación biométrica
+  flutter_secure_storage: ^9.2.2 # Almacenamiento seguro
+  shared_preferences: ^2.2.3
 
 
 dev_dependencies:
