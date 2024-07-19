@@ -3,6 +3,7 @@ import 'package:app_doc/features/entity/photo.dart';
 import 'package:app_doc/features/firebase_services/firebase_realtimedb_services.dart';
 import 'package:app_doc/features/firebase_services/firebase_storage_services.dart';
 import 'package:app_doc/features/global/commun/progress_dialog.dart';
+import 'package:app_doc/features/global/commun/transversals.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:flutter/material.dart';
 import 'package:app_doc/generated/l10n.dart';
@@ -29,6 +30,7 @@ class _PreviewPageScreenState extends State<PreviewPageScreen> {
   Widget build(BuildContext context) {
     Map parameters = ModalRoute.of(context)?.settings.arguments as Map;
     widget.image = parameters['image'];
+    Map <String,String> info = parameters['info'];
     return Scaffold(
       body: Column(
         mainAxisSize: MainAxisSize.max,
@@ -61,7 +63,9 @@ class _PreviewPageScreenState extends State<PreviewPageScreen> {
                         Photo newPhoto = Photo(
                             nombre: currentDate.toIso8601String(),
                             fecha: currentDate,
-                            tipo: "image",
+                            tipo: info['format'] ?? 'JPG',
+                            angle: info['angle'] ?? '0',
+                            template: getTemplate(info['template']??''),
                             ruta: urlImage);
                         widget._dbService.addItem(
                             "fotos", newPhoto, parameters['pacient'].uid);

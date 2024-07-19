@@ -4,6 +4,8 @@ class Photo {
   DateTime fecha;
   String tipo;
   String ruta;
+  String? template;
+  String? angle;
 
   Photo({
     this.uid,
@@ -11,6 +13,8 @@ class Photo {
     required this.fecha,
     required this.tipo,
     required this.ruta,
+    this.angle,
+    this.template
   });
 
   factory Photo.fromMap(Map<String, dynamic> map) {
@@ -20,6 +24,8 @@ class Photo {
       fecha: map['fecha'],
       tipo: map['tipo'],
       ruta: map['ruta'],
+      angle: map['angle'],
+      template: map['template']
     );
   }
 
@@ -32,4 +38,5 @@ class Photo {
       'ruta': ruta,
     };
   }
+
 }

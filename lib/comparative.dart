@@ -200,7 +200,7 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
                                             nombre:
                                                 currentDate.toIso8601String(),
                                             fecha: currentDate,
-                                            tipo: "image",
+                                            tipo: "Collage",
                                             ruta: urlImage);
                                         widget._dbService.addItem(
                                             "fotos",

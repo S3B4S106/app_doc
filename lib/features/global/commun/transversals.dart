@@ -58,3 +58,9 @@ MaterialColor colour(Color darkmint1) {
   };
   return MaterialColor(darkmint1.value, shades);
 }
+
+
+  String getTemplate(String template){
+    var templates = {'G0':'No Grid','G1':'Grid 3x3','G2':'Grid 4x4','A0':'Facial Front','A1':'Facial 45° Left','A2':'Facial 45° Right','A3':'Facial Left','A4':'Facial Right','A5':'Facial Back'};
+    return templates[template] ?? 'No Grid';
+  }

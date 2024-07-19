@@ -145,7 +145,8 @@ class _CameraScreenState extends State<CameraScreen> {
                 final croppedFile = await _cropImage(image);
                 Navigator.pushNamed(context, '/preview-photo', arguments: {
                   'image': File(croppedFile!.path),
-                  'pacient': parameters['pacient']
+                  'pacient': parameters['pacient'],
+                  'info': {'format': image.path.split('.').last , 'template':'${_category}${_pageController.page}' , 'angle': '$_valueRotation.truncate()'}
                 });
 
                 // Guardar la foto con la grilla aplicada

@@ -52,15 +52,21 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
             width: GlobalConfig.widthPercentage(.9),
             height: GlobalConfig.heightPercentage(.1),
             color: GlobalConfig.primaryColorApp,
-            child: Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: GlobalConfig.widthPercentage(.2)),
+            
                 child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Container(
-                        width: GlobalConfig.width,
+                        width: GlobalConfig.widthPercentage(.9),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            IconButton(
+                                onPressed: () {
+                                },
+                                icon: Icon(
+                                    color: GlobalConfig
+                                        .alternativeComplementaryColorApp,
+                                    Icons.info_outline_rounded)),
                             IconButton(
                                 onPressed: () {
                                   Navigator.pushNamed(context, "/collage",
@@ -114,7 +120,7 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
                                         .alternativeComplementaryColorApp,
                                     Icons.delete))
                           ],
-                        )))),
+                        ))),
           )
         ],
       ),
