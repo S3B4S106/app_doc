@@ -9,6 +9,7 @@ import 'package:app_doc/features/app/splash_screen/splash_screen.dart';
 import 'package:app_doc/features/firebase_services/firebase_options.dart';
 import 'package:app_doc/pages/photo/camera_screen.dart';
 import 'package:app_doc/pages/photo/collage_screen.dart';
+import 'package:app_doc/pages/photo/photo_detail.dart';
 import 'package:app_doc/pages/photo/photo_info.dart';
 import 'package:app_doc/pages/photo/photos_screen.dart';
 import 'package:app_doc/pages/home.dart';
@@ -98,7 +99,8 @@ class MyApp extends StatelessWidget {
         '/preview-photo': (context) => PreviewPageScreen(),
         '/photo-info': (context) => PhotoInfoPageScreen(),
         '/collage': (context) => CollageScreen(),
-        '/comparative': (context) => ComparativeScreen()
+        '/comparative': (context) => ComparativeScreen(),
+        '/photo-detail':(context) => PhotoDetailScreen()
       },
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,

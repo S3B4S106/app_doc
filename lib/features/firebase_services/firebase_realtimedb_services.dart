@@ -69,6 +69,8 @@ class FirebaseRealTimeDbService {
         fecha: DateTime.parse(photo['fecha']),
         tipo: photo["tipo"],
         ruta: photo["ruta"],
+        angle: photo["angle"]?? "0",
+        template: photo["template"]?? "G0"
       );
       photos.add(foto);
     }

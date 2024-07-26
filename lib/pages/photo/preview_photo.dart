@@ -31,6 +31,7 @@ class _PreviewPageScreenState extends State<PreviewPageScreen> {
     Map parameters = ModalRoute.of(context)?.settings.arguments as Map;
     widget.image = parameters['image'];
     Map <String,String> info = parameters['info'];
+    print(info);
     return Scaffold(
       body: Column(
         mainAxisSize: MainAxisSize.max,

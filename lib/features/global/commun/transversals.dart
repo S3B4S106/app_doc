@@ -13,9 +13,12 @@ Future<File> fileFromAssets(String path) async {
 String formatDate(DateTime date, {order = 1}) {
   var month = date.month > 9 ? date.month : "0${date.month}";
   var day = date.day > 9 ? date.day : "0${date.day}";
+  var time = date.minute > 9 ? "${date.hour}:${date.minute}" : "${date.hour}:0${date.minute}";
   if (order == 2) {
     return "${date.year}-$month-$day";
-  } else {
+  } else if(order == 3){
+    return "$day/$month/${date.year} $time";
+  }else {
     return "$day-$month-${date.year}";
   }
 }

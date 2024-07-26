@@ -35,7 +35,7 @@ final Map<String, List<Widget>> _allTemplates = {
 };
 
 Widget cameraWidget(accelerometer, cameraController, context, templates,
-    pageController, ghost, photo) {
+    pageController, ghost, photo,{opacity = .0}) {
   return CameraPreview(cameraController!,
       child: Stack(
         children: [
@@ -44,10 +44,14 @@ Widget cameraWidget(accelerometer, cameraController, context, templates,
               controller: pageController,
               children: ghost && photo != null
                   ? [
-                      Image.network(
+                      Opacity(opacity:opacity ,child:
+                      Stack(children: [Image.network(
                         photo.ruta,
-                        opacity: AlwaysStoppedAnimation(.25),
-                      )
+                      ),
+                      labelAccelerometer(double.parse(photo.angle),top: .11),],)
+                       
+                      ),
+                      
                     ]
                   : _allTemplates[templates]!,
             ),
@@ -65,10 +69,18 @@ Widget cameraWidget(accelerometer, cameraController, context, templates,
                   Navigator.pop(context);
                 }),
           ),
-          Container(
+          labelAccelerometer(accelerometer)
+          
+        ],
+      ));
+}
+
+Widget labelAccelerometer(accelerometer,{left = .7,top =.05}){
+ return Container(
+            
             margin: EdgeInsets.only(
-                left: GlobalConfig.widthPercentage(.7),
-                top: GlobalConfig.heightPercentage(.05)),
+                left: GlobalConfig.widthPercentage(left),
+                top: GlobalConfig.heightPercentage(top)),
             child: ClipOval(
                 child: TextButton(
               onPressed: () {},
@@ -77,12 +89,10 @@ Widget cameraWidget(accelerometer, cameraController, context, templates,
                 style: TextStyle(color: Colors.black),
               ),
               style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(
-                      Color.fromARGB(111, 213, 209, 209))),
+                  backgroundColor: accelerometer.truncate() != 0 ? MaterialStatePropertyAll(
+                      Color.fromARGB(111, 213, 209, 209)): MaterialStatePropertyAll(Colors.blue)),
             )),
-          ),
-        ],
-      ));
+          );
 }
 
 Widget grid3X3() {

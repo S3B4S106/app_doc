@@ -62,6 +62,12 @@ class _PhotoInfoPageScreenState extends State<PhotoInfoPageScreen> {
                           children: [
                             IconButton(
                                 onPressed: () {
+                                  Navigator.pushNamed(context, "/photo-detail",
+                                      arguments: {
+                                        "image": widget.image,
+                                        "images": parameters['images'],
+                                        'pacient': parameters['pacient']
+                                      });
                                 },
                                 icon: Icon(
                                     color: GlobalConfig

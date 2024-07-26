@@ -20,18 +20,19 @@ class CameraScreen extends StatefulWidget {
   _CameraScreenState createState() => _CameraScreenState();
 }
 
-enum Option {zoom,brightness}
+enum Option {zoom,brightness,nothing}
 class _CameraScreenState extends State<CameraScreen> {
   RotationAngleDetector? _rotationAngleDetector;
   CameraController? _cameraController;
   double _offsetSlider = 0.0;
+  double _offsetGhost = 0.5;
   double exposure = 0.0;
-  double zoom = 1.0;
+  double zoom = 2.0;
   String _category = 'G';
   bool _photo = true;
   double _valueRotation = 0.0;
   final PageController _pageController = PageController();
-  Option optionView = Option.zoom;
+  Option optionView = Option.nothing;
 
   @override
   void initState() {
@@ -127,18 +128,16 @@ class _CameraScreenState extends State<CameraScreen> {
             AspectRatio(
               aspectRatio: 1 / 1,
               child: cameraWidget(_valueRotation, _cameraController, context,
-                  _category, _pageController, _photo, parameters['photo']),
+                  _category, _pageController, _photo, parameters['photo'],opacity: _offsetGhost),
             ),
-            _options(),
-            optionView == Option.zoom ?
-              _slider(icon:Icons.zoom_in_rounded , min: 1)
-            : _slider(icon: Icons.brightness_6_outlined ,min: -2,max: 2),
+            buildOptions(),
+            
             FloatingActionButton(
               heroTag: "camera",
               backgroundColor: GlobalConfig.primaryColorApp,
               child: Icon(
-                  color: GlobalConfig.backgroundColor,
-                  Icons.camera_alt_outlined,
+                  color: GlobalConfig.alternativeComplementaryColorApp,
+                  Icons.camera,
                   size: GlobalConfig.heightPercentage(0.05)),
               onPressed: () async {
                 final image = await _cameraController!.takePicture();
@@ -146,12 +145,15 @@ class _CameraScreenState extends State<CameraScreen> {
                 Navigator.pushNamed(context, '/preview-photo', arguments: {
                   'image': File(croppedFile!.path),
                   'pacient': parameters['pacient'],
-                  'info': {'format': image.path.split('.').last , 'template':'${_category}${_pageController.page}' , 'angle': '$_valueRotation.truncate()'}
+                  'info': {'format': image.path.split('.').last , 'template':'${_category}${_pageController.page}' , 'angle': '${_valueRotation.truncate()}'}
                 });
 
                 // Guardar la foto con la grilla aplicada
               },
             ),
+            if (_photo  && parameters['photo']!= null )
+              _slider(offset: _offsetGhost, max: 1, icon: Icon(Icons.snapchat_rounded)),
+            
             Container(
               color: GlobalConfig.backgroundColor,
               height: GlobalConfig.heightPercentage(.20),
@@ -188,37 +190,76 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  Widget _options() {
+  Widget buildOptions(){
+    List options = [];
+    Map titles = {'Option.zoom': 'Zoom','Option.brightness':'Brightness'};
+    Map<String,Icon> icons = {'Option.zoom': Icon(Icons.zoom_in_rounded),'Option.brightness':Icon(Icons.brightness_6_outlined)};
+    Icon? icon;
+    double max = 0;
+    double min = 0;
+    if( optionView != Option.nothing){
+       options = [optionView];
+       icon = icons[optionView.toString()];
+       if (optionView == Option.zoom){
+        max = 5.0;
+        min = 2.0;
+       }else{
+        max = 2.0;
+        min = -2.0;
+       }
+    }else{
+       options = [Option.brightness, Option.zoom];
+    }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [_options(icons: icons,options: options,titles: titles),
+      if (optionView != Option.nothing)
+        _slider(offset: _offsetSlider, icon: icon,min: min,max: max)
+      ],
+    );
+  }
+
+  Widget _options({required options, required titles, required icons}) {
+    
+    
     return SegmentedButton<Option>(
-      segments: const <ButtonSegment<Option>>[
-        ButtonSegment<Option>(
-            value: Option.zoom,
-            label: Text('Zoom'),
-            icon: Icon(Icons.zoom_in_rounded)),
-        ButtonSegment<Option>(
-            value: Option.brightness,
-            label: Text('Brightness'),
-            icon: Icon(Icons.brightness_6_outlined)),
+      segments:  <ButtonSegment<Option>>[
+        
+          for (Option option in options)
+              ButtonSegment<Option>(
+                  value: option,
+                  label: Text(titles[option.toString()]),
+                  icon: icons[option.toString()])
+            
       ],
       selected: <Option>{optionView},
+      emptySelectionAllowed: true,
       onSelectionChanged: (Set<Option> newSelection) {
         setState(() {
           // By default there is only a single segment that can be
           // selected at one time, so its value is always the first
           // item in the selected set.
+          if (newSelection.isEmpty){
+            optionView = Option.nothing;
+          }else
           if(newSelection.first == Option.zoom){
             _offsetSlider = zoom;
+            optionView = newSelection.first;
           }else{
             _offsetSlider = exposure;
+            optionView = newSelection.first;
           }
-          optionView = newSelection.first;
         });
       },
     );
   }
 
-  Widget _slider({IconData? icon, double min = 0, double max = 5}) {
-    return Row(mainAxisAlignment: MainAxisAlignment.center,children: [Icon(icon),SfSliderTheme(
+  Widget _slider({Icon? icon, double min = 0, double max = 5,required offset}) {
+    bool repeatIcon = true;
+    if(min != 0 && max != 1){
+      repeatIcon = false;
+    }
+    return Row(mainAxisAlignment: MainAxisAlignment.center,children: [repeatIcon ? icon! : const SizedBox(),SfSliderTheme(
         data: SfSliderThemeData(
             thumbRadius: 17, thumbColor: GlobalConfig.primaryColorApp),
         child: RotatedBox(
@@ -226,8 +267,8 @@ class _CameraScreenState extends State<CameraScreen> {
           child: SfSlider(
             enableTooltip: true, interval: 1, stepSize: 0.1, showDividers: true,
             dividerShape: SfDividerShape(),
-            thumbIcon: Icon(icon), //Icon(Icons.zoom_in),
-            value: _offsetSlider,
+            thumbIcon: icon, //Icon(Icons.zoom_in),
+            value: offset,
             min: min,
             max: max,
             onChanged: (dynamic changed) {
@@ -236,11 +277,16 @@ class _CameraScreenState extends State<CameraScreen> {
                   HapticFeedback.heavyImpact();
                 }
 
-                _offsetSlider = changed;
-                if (min < 0) {
+                
+                if(min == 0 && max == 1){
+                  _offsetGhost = changed;
+                }
+                else if (min < 0) {
+                  _offsetSlider = changed;
                   _cameraController!.setExposureOffset(changed);
                   exposure = changed;
                 } else {
+                  _offsetSlider = changed;
                   _cameraController!.setZoomLevel(changed);
                   zoom = changed;
                 }

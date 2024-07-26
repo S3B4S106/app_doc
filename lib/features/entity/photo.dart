@@ -36,6 +36,8 @@ class Photo {
       'fecha': fecha.toIso8601String(),
       'tipo': tipo,
       'ruta': ruta,
+      'angle': angle,
+      'template': template,
     };
   }
 
