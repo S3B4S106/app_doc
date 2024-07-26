@@ -105,10 +105,10 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
                       hintText: '+ Add note',
                     ),
                   ) ,),
-                  Text(formatDate(photo!.fecha,order: 3)),
-                  Text("${photo!.angle??0}°"),
-                  Text(photo!.template??"template"),
-                  Text(photo!.tipo),
+                  Text(formatDate(photo!.fecha,order: 3),style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),),
+                  Text("${photo!.angle??0}°",style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp)),
+                  Text(photo!.template??"template",style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp)),
+                  Text(photo!.tipo,style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp)),
                   
                 ],),
               )

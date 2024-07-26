@@ -193,7 +193,7 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget buildOptions(){
     List options = [];
     Map titles = {'Option.zoom': 'Zoom','Option.brightness':'Brightness'};
-    Map<String,Icon> icons = {'Option.zoom': Icon(Icons.zoom_in_rounded),'Option.brightness':Icon(Icons.brightness_6_outlined)};
+    Map<String,Icon> icons = {'Option.zoom': Icon(Icons.zoom_in_rounded,color: GlobalConfig.alternativeComplementaryColorApp),'Option.brightness':Icon(Icons.brightness_6_outlined,color: GlobalConfig.alternativeComplementaryColorApp)};
     Icon? icon;
     double max = 0;
     double min = 0;
@@ -228,7 +228,7 @@ class _CameraScreenState extends State<CameraScreen> {
           for (Option option in options)
               ButtonSegment<Option>(
                   value: option,
-                  label: Text(titles[option.toString()]),
+                  label: Text(titles[option.toString()],style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp)),
                   icon: icons[option.toString()])
             
       ],
