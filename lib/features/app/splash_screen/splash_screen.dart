@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
           }));
     });
     
-    _controller = VideoPlayerController.asset("assets/Opening.mp4");
+    _controller = VideoPlayerController.asset("assets/Opening2.mp4");
     _controller.initialize().then((_) {
       _controller.play();
     });

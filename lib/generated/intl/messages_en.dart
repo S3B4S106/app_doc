@@ -22,12 +22,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(provider) => "Login With ${provider}";
 
-  static String m1(item) => "Delete ${item}?";
+  static String m1(howMany) =>
+      "${Intl.plural(howMany, one: 'Photo', other: 'Photos')}";
+
+  static String m2(item) => "Delete ${item}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "account": MessageLookupByLibrary.simpleMessage("Account"),
-        "advanced": MessageLookupByLibrary.simpleMessage("advanced"),
         "age": MessageLookupByLibrary.simpleMessage("Age"),
         "basic": MessageLookupByLibrary.simpleMessage("Basic"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -46,7 +48,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "date": MessageLookupByLibrary.simpleMessage("Date of Bird"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "facial": MessageLookupByLibrary.simpleMessage("facial"),
         "fullName": MessageLookupByLibrary.simpleMessage("FullName"),
+        "grid": MessageLookupByLibrary.simpleMessage("grid"),
         "id": MessageLookupByLibrary.simpleMessage("Identification Number"),
         "labelEmail": MessageLookupByLibrary.simpleMessage("Email"),
         "labelLogin": MessageLookupByLibrary.simpleMessage("Login"),
@@ -63,12 +67,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("P A C I E N T S     L I S T"),
         "patient": MessageLookupByLibrary.simpleMessage("Patient"),
         "photo": MessageLookupByLibrary.simpleMessage("Photo"),
+        "photos": MessageLookupByLibrary.simpleMessage("Photos"),
         "selectAnotherPhoto":
             MessageLookupByLibrary.simpleMessage("Select another photo:"),
         "selectPhoto": MessageLookupByLibrary.simpleMessage("Select a photo:"),
         "submit": MessageLookupByLibrary.simpleMessage("SUBMIT"),
+        "textWithPlural": m1,
         "titleCreatePasient": MessageLookupByLibrary.simpleMessage(
             "You don\'t have any patients yet"),
-        "titleDelete": m1
+        "titleDelete": m2
       };
 }

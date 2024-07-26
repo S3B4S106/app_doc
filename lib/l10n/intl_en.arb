@@ -19,7 +19,8 @@
     "age":"Age",
     "date":"Date of Bird",
     "basic":"Basic",
-    "advanced":"advanced",
+    "grid":"grid",
+    "facial":"facial",
     "changeSubscrip":"Change subscription",
     "selectPhoto":"Select a photo:",
     "selectAnotherPhoto":"Select another photo:",
@@ -32,5 +33,7 @@
     "cancel":"Cancel",
     "patient":"Patient",
     "photo": "Photo",
-    "account":"Account"
+    "photos": "Photos",
+    "account":"Account",
+    "textWithPlural":"{howMany, plural, one{Photo} other{Photos}}"
 }
