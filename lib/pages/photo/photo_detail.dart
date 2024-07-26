@@ -91,6 +91,7 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
                   Padding(padding: EdgeInsets.symmetric(horizontal: GlobalConfig.widthPercentage(.1),vertical: 8),child: TextFormField(
                     controller: noteController ,
                     focusNode: focusController ,
+                    style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp),
                     onEditingComplete: ()async {
                       final SharedPreferences prefs = await _prefs;
                       if(noteController.text != ''){
@@ -101,6 +102,7 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
                       focusController.unfocus();
                     },
                     decoration: InputDecoration(
+                      hintStyle:TextStyle(color: GlobalConfig.alternativeComplementaryColorApp) ,
                       border: OutlineInputBorder(),
                       hintText: '+ Add note',
                     ),

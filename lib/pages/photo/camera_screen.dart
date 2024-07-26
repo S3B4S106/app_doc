@@ -152,7 +152,7 @@ class _CameraScreenState extends State<CameraScreen> {
               },
             ),
             if (_photo  && parameters['photo']!= null )
-              _slider(offset: _offsetGhost, max: 1, icon: Icon(Icons.snapchat_rounded)),
+              _slider(offset: _offsetGhost, max: 1, icon: Icon(Icons.snapchat_rounded,color: GlobalConfig.alternativeComplementaryColorApp,)),
             
             Container(
               color: GlobalConfig.backgroundColor,
@@ -305,10 +305,10 @@ class _CameraScreenState extends State<CameraScreen> {
         compressQuality: 100,
         uiSettings: [
           AndroidUiSettings(
+            hideBottomControls: true,
             toolbarTitle: 'Cropper',
-            toolbarColor: Colors.deepOrange,
+            toolbarColor: const Color.fromARGB(255, 0, 0, 0),
             toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.square,
             lockAspectRatio: false,
           ),
           IOSUiSettings(
