@@ -75,7 +75,8 @@ class _PacientListState extends State<PacientListScreen> {
                       textColor: GlobalConfig.textColor,
                       title: Text(paciente.userName),
                       subtitle: Text(paciente.id),
-                      trailing: Text(paciente.fotos!.length.toString()),
+                      trailing: Text(
+                          '${paciente.fotos!.length} ${S.of(context).textWithPlural(paciente.fotos!.length)}'),
                       onLongPress: () {
                         showDialog<String>(
                           context: context,

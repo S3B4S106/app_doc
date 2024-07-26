@@ -19,7 +19,8 @@
     "age":"Edad",
     "date":"Fecha de Nacimiento",
     "basic":"Basico",
-    "advanced":"Avanzado",
+    "grid":"Cuadricula",
+    "facial":"Facial",
     "changeSubscrip":"Modificar suscripción",
     "selectPhoto":"Seleccione una foto:",
     "selectAnotherPhoto":"Seleccione otra foto:",
@@ -32,5 +33,7 @@
     "cancel":"Cancelar",
     "patient":"Paciente",
     "photo": "Foto",
-    "account":"Cuenta"
+    "photos": "Fotos",
+    "account":"Cuenta",
+    "textWithPlural":"{howMany, plural, one{Foto} other{Fotos}}"
 }

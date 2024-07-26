@@ -22,12 +22,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(provider) => "Entrar com ${provider}";
 
-  static String m1(item) => "Deletar ${item}?";
+  static String m1(howMany) =>
+      "${Intl.plural(howMany, one: 'Foto', other: 'Fotos')}";
+
+  static String m2(item) => "Deletar ${item}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "account": MessageLookupByLibrary.simpleMessage("Conta"),
-        "advanced": MessageLookupByLibrary.simpleMessage("avançado"),
         "age": MessageLookupByLibrary.simpleMessage("Idade"),
         "basic": MessageLookupByLibrary.simpleMessage("básico"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
@@ -46,7 +48,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "create": MessageLookupByLibrary.simpleMessage("Criar"),
         "date": MessageLookupByLibrary.simpleMessage("Data de Nascimento"),
         "delete": MessageLookupByLibrary.simpleMessage("Deletar"),
+        "facial": MessageLookupByLibrary.simpleMessage("facial"),
         "fullName": MessageLookupByLibrary.simpleMessage("Nome Completo"),
+        "grid": MessageLookupByLibrary.simpleMessage("quadricula"),
         "id": MessageLookupByLibrary.simpleMessage("Número de Identificação"),
         "labelEmail": MessageLookupByLibrary.simpleMessage("E-mail"),
         "labelLogin": MessageLookupByLibrary.simpleMessage("Entrar"),
@@ -64,13 +68,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "L I S T A    D E    P A C I E N T E S"),
         "patient": MessageLookupByLibrary.simpleMessage("Paciente"),
         "photo": MessageLookupByLibrary.simpleMessage("Foto"),
+        "photos": MessageLookupByLibrary.simpleMessage("Fotos"),
         "selectAnotherPhoto":
             MessageLookupByLibrary.simpleMessage("Selecione outra foto:"),
         "selectPhoto":
             MessageLookupByLibrary.simpleMessage("Selecione uma foto:"),
         "submit": MessageLookupByLibrary.simpleMessage("Enviar"),
+        "textWithPlural": m1,
         "titleCreatePasient": MessageLookupByLibrary.simpleMessage(
             "Você ainda não tem nenhum paciente"),
-        "titleDelete": m1
+        "titleDelete": m2
       };
 }

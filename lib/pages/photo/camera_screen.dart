@@ -126,7 +126,7 @@ class _CameraScreenState extends State<CameraScreen> {
                 children: <Widget>[
                   buildCategory(
                       context,
-                      S.of(context).basic,
+                      S.of(context).grid,
                       [
                         Icons.square_outlined,
                         Icons.grid_3x3,
@@ -135,7 +135,7 @@ class _CameraScreenState extends State<CameraScreen> {
                       "G"),
                   buildCategory(
                       context,
-                      S.of(context).advanced,
+                      S.of(context).facial,
                       [
                         Iconsapp.front,
                         Iconsapp.draftL,

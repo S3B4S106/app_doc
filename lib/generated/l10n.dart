@@ -250,11 +250,21 @@ class S {
     );
   }
 
-  /// `advanced`
-  String get advanced {
+  /// `grid`
+  String get grid {
     return Intl.message(
-      'advanced',
-      name: 'advanced',
+      'grid',
+      name: 'grid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `facial`
+  String get facial {
+    return Intl.message(
+      'facial',
+      name: 'facial',
       desc: '',
       args: [],
     );
@@ -380,6 +390,16 @@ class S {
     );
   }
 
+  /// `Photos`
+  String get photos {
+    return Intl.message(
+      'Photos',
+      name: 'photos',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Account`
   String get account {
     return Intl.message(
@@ -387,6 +407,18 @@ class S {
       name: 'account',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `{howMany, plural, one{Photo} other{Photos}}`
+  String textWithPlural(num howMany) {
+    return Intl.plural(
+      howMany,
+      one: 'Photo',
+      other: 'Photos',
+      name: 'textWithPlural',
+      desc: '',
+      args: [howMany],
     );
   }
 }
