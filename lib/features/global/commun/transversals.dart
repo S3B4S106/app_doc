@@ -1,6 +1,20 @@
 import 'dart:io';
+import 'package:app_doc/features/entity/photo.dart';
+import 'package:app_doc/features/global/global_config.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+
+ Future<List<XFile>> getImageXFileByUrl(List<Photo> photos) async {
+  List<XFile> result = [];
+  for(Photo photo in photos){
+    var file = await DefaultCacheManager().getSingleFile(photo.ruta);
+    result.add(await XFile(file.path)) ;
+  }
+    
+    return result;
+  }
 
 Future<File> fileFromAssets(String path) async {
   var bytes = await rootBundle.load('assets/$path');
@@ -62,8 +76,14 @@ MaterialColor colour(Color darkmint1) {
   return MaterialColor(darkmint1.value, shades);
 }
 
-
-  String getTemplate(String template){
-    var templates = {'G0':'No Grid','G1':'Grid 3x3','G2':'Grid 4x4','A0':'Facial Front','A1':'Facial 45° Left','A2':'Facial 45° Right','A3':'Facial Left','A4':'Facial Right','A5':'Facial Back'};
-    return templates[template] ?? 'No Grid';
+Widget containerCopertino(Widget? child) {
+    return Container(
+      color: GlobalConfig.seedColor,
+      child: child,
+    );
   }
+  
+String getTemplate(String template){
+  var templates = {'G0':'No Grid','G1':'Grid 3x3','G2':'Grid 4x4','A0':'Facial Front','A1':'Facial 45° Left','A2':'Facial 45° Right','A3':'Facial Left','A4':'Facial Right','A5':'Facial Back'};
+  return templates[template] ?? 'No Grid';
+}
