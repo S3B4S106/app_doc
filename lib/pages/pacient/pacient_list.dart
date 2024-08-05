@@ -110,6 +110,7 @@ class _PacientListState extends State<PacientListScreen> {
                                     widget._authService.getUser()!.uid,
                                     idItem: paciente.uid!,
                                   );
+                                  Navigator.pop(context, 'Delete');
                                 },
                                 child: Text(S.of(context).delete),
                               ),
