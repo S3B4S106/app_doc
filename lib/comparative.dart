@@ -57,8 +57,9 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
                       ? Stack(children: [
                           Container(
                               margin: EdgeInsets.only(
-                                bottom: GlobalConfig.heightPercentage(.08),
-                                top: GlobalConfig.heightPercentage(0.02),
+                                top: GlobalConfig.heightPercentage(0.1),
+                                left: GlobalConfig.widthPercentage(.1),
+                                right: GlobalConfig.widthPercentage(.1)
                               ),
                               child: scroll(key)),
                           buttonSlider(top: GlobalConfig.heightPercentage(.51))
@@ -66,9 +67,10 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
                       : Stack(children: [
                           Container(
                               margin: EdgeInsets.only(
+                                  left: GlobalConfig.widthPercentage(.05),
                                   right: GlobalConfig.widthPercentage(.15),
-                                  top: GlobalConfig.heightPercentage(0.02),
-                                  bottom: GlobalConfig.heightPercentage(0.02)),
+                                  top: GlobalConfig.heightPercentage(0.12),
+                                  bottom: GlobalConfig.heightPercentage(.00002)),
                               child: scroll(key)),
                           buttonSlider(left: GlobalConfig.widthPercentage(.85))
                         ])
@@ -80,19 +82,18 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
                             children: alignet(
                                 GlobalConfig.widthPercentage(.4), null, 0, 0),
                           ))
-                      : SizedBox(
-                          height: 50,
-                          child: RepaintBoundary(
+                      : RepaintBoundary(
                               key: key,
-                              child: Column(
+                              child: AspectRatio(aspectRatio: 1/1,child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: alignet(
                                     null,
                                     GlobalConfig.heightPercentage(.26),
                                     0,
                                     GlobalConfig.heightPercentage(.01)),
-                              )),
-                        )),
+                              ) ,) 
+                              ),
+                        ),
           Container(
             color: GlobalConfig.backgroundColor,
             width: GlobalConfig.width,
@@ -246,51 +247,54 @@ class _ComparativeScreenState extends State<ComparativeScreen> {
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
-            _image1 != null
-                ? ClipPath(
+            if(_image1 != null)
+            AspectRatio(aspectRatio: 1/1,child: ClipPath(
                     clipper: MycustomClippper(1, orientation),
                     child: PhotoView(
+                      minScale: PhotoViewComputedScale.contained ,
                       imageProvider: NetworkImage(_image1!.ruta),
                     ),
-                  )
-                : Container(),
-            _image2 != null
-                ? ClipPath(
+                  ) ,),
+            if(_image2 != null)
+              AspectRatio(aspectRatio: 1, child: ClipPath(
                     clipper: MycustomClippper(_image2Offset, orientation),
                     child: PhotoView(
+                      minScale: PhotoViewComputedScale.covered,
                       imageProvider: NetworkImage(_image2!.ruta),
-                    ))
-                : Container(),
+                    )),)
+                  
           ],
         ));
   }
 
   List<Widget> alignet(double? width, double? height, double left, double top) {
     return <Widget>[
-      _image1 != null
-          ? Container(
-              margin: EdgeInsets.only(left: left, top: top),
-              height: height,
-              width: width,
-              child: ClipPath(
-                clipper: MycustomClippper(1, orientation),
-                child: PhotoView(
-                  imageProvider: NetworkImage(_image1!.ruta),
-                ),
-              ))
-          : Container(),
-      _image2 != null
-          ? Container(
-              margin: EdgeInsets.only(top: top),
-              height: height,
-              width: width,
-              child: ClipPath(
-                clipper: MycustomClippper(1, orientation),
-                child: PhotoView(
-                  imageProvider: NetworkImage(_image2!.ruta),
-                ),
-              ))
-          : Container(),
+      if (_image1 != null)
+        Container(
+          margin: EdgeInsets.only(left: left, top: top),
+          height: height,
+          width: width,
+          child:AspectRatio(aspectRatio: 1/1,child: ClipPath(
+            clipper: MycustomClippper(1, orientation),
+            child: PhotoView(
+              minScale: PhotoViewComputedScale.covered,
+              imageProvider: NetworkImage(_image1!.ruta),
+            ),
+        )),
+        ),
+      if(_image2 != null)  
+        Container(
+          margin: EdgeInsets.only(top: top),
+          height: height,
+          width: width,
+          child: AspectRatio(aspectRatio: 1/1,child:ClipPath(
+            clipper: MycustomClippper(1, orientation),
+            child: PhotoView(
+              minScale: PhotoViewComputedScale.contained,
+              imageProvider: NetworkImage(_image2!.ruta),
+            ),
+        ) ) 
+          )
     ];
   }
 
