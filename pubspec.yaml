@@ -23,7 +23,6 @@ dependencies:
   video_player: ^2.8.2
   provider: ^6.1.1
   firebase_database: ^10.4.0
-  camera: ^0.10.5+9
   flutter_layout_grid: ^2.0.5
   dotted_border: ^2.1.0
   percent_indicator: ^3.4.0
@@ -43,15 +42,15 @@ dependencies:
   flutter_secure_storage: ^9.2.2 # Almacenamiento seguro
   shared_preferences: ^2.2.3
   image_cropper: ^7.1.0
-  camerawesome: ^1.2.1
   haptic_feedback: ^0.5.1+1
+  camera: ^0.10.0+3
+  camerawesome: ^2.0.1
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  flutter_launcher_icons: ^0.9.2
 
 
 flutter_icons:

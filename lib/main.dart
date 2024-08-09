@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
         '/photo-info': (context) => PhotoInfoPageScreen(),
         '/collage': (context) => CollageScreen(),
         '/comparative': (context) => ComparativeScreen(),
-        '/photo-detail':(context) => PhotoDetailScreen()
+        '/photo-detail': (context) => PhotoDetailScreen()
       },
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,

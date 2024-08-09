@@ -1,8 +1,8 @@
-
 import 'dart:io';
 import 'package:app_doc/features/global/accelerometer.dart';
 import 'package:app_doc/features/global/camera_widgets.dart';
 import 'package:app_doc/features/global/commun/iconsapp_icons.dart';
+import 'package:app_doc/features/global/custom_ratio_camera_pro.dart';
 import 'package:app_doc/features/global/global_config.dart';
 import 'package:app_doc/generated/l10n.dart';
 import 'package:camera/camera.dart';
@@ -20,7 +20,8 @@ class CameraScreen extends StatefulWidget {
   _CameraScreenState createState() => _CameraScreenState();
 }
 
-enum Option {zoom,brightness,nothing}
+enum Option { zoom, brightness, nothing }
+
 class _CameraScreenState extends State<CameraScreen> {
   RotationAngleDetector? _rotationAngleDetector;
   CameraController? _cameraController;
@@ -51,15 +52,15 @@ class _CameraScreenState extends State<CameraScreen> {
   void _initCamera() async {
     _cameraController = CameraController(
       widget.camera,
-      ResolutionPreset.medium,
+      ResolutionPreset.max,
     );
     _cameraController!.initialize().then((_) {
       if (!mounted) return;
       setState(() {
-        _cameraController!.setZoomLevel(2.5);
+        _cameraController!.setZoomLevel(2);
       });
     });
-    _offsetSlider = 2.5;
+    _offsetSlider = 2;
   }
 
   @override
@@ -119,118 +120,136 @@ class _CameraScreenState extends State<CameraScreen> {
       return Container();
     }
     return Scaffold(
-      body: SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            AspectRatio(
-              aspectRatio: 1 / 1,
-              child: cameraWidget(_valueRotation, _cameraController, context,
-                  _category, _pageController, _photo, parameters['photo'],opacity: _offsetGhost),
-            ),
-            buildOptions(),
-            
-            FloatingActionButton(
-              heroTag: "camera",
-              backgroundColor: GlobalConfig.primaryColorApp,
-              child: Icon(
-                  color: GlobalConfig.alternativeComplementaryColorApp,
-                  Icons.camera,
-                  size: GlobalConfig.heightPercentage(0.05)),
-              onPressed: () async {
-                final image = await _cameraController!.takePicture();
-                final croppedFile = await _cropImage(image);
-                Navigator.pushNamed(context, '/preview-photo', arguments: {
-                  'image': File(croppedFile!.path),
-                  'pacient': parameters['pacient'],
-                  'info': {'format': image.path.split('.').last , 'template':'${_category}${_pageController.page}' , 'angle': '${_valueRotation.truncate()}'}
-                });
-
-                // Guardar la foto con la grilla aplicada
-              },
-            ),
-            if (_photo  && parameters['photo']!= null )
-              _slider(offset: _offsetGhost, max: 1, icon: Icon(Icons.snapchat_rounded,color: GlobalConfig.alternativeComplementaryColorApp,)),
-            
-            Container(
-              color: GlobalConfig.backgroundColor,
-              height: GlobalConfig.heightPercentage(.20),
-              width: GlobalConfig.width,
-              child: ListView(
-                children: <Widget>[
-                  buildCategory(
-                      context,
-                      S.of(context).grid,
-                      [
-                        Icons.square_outlined,
-                        Icons.grid_3x3,
-                        Icons.grid_4x4_outlined
-                      ],
-                      "G"),
-                  buildCategory(
-                      context,
-                      S.of(context).facial,
-                      [
-                        Iconsapp.front,
-                        Iconsapp.draftL,
-                        Iconsapp.draftR,
-                        Iconsapp.left,
-                        Iconsapp.right,
-                        Iconsapp.back,
-                      ],
-                      "A")
-                ],
+      body: Stack(
+        children: [
+          CustomRatioCameraPreview(
+            cameraController: _cameraController!,
+            expectedRatio: 1 / 1,
+            child: cameraWidget(_valueRotation, _cameraController, context,
+                _category, _pageController, _photo, parameters['photo'],
+                opacity: _offsetGhost),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: GlobalConfig.heightPercentage(.1)),
+                child: buildOptions(),
               ),
-            )
-          ],
-        ),
+              AspectRatio(aspectRatio: 1),
+              FloatingActionButton(
+                heroTag: "camera",
+                backgroundColor: GlobalConfig.primaryColorApp,
+                child: Icon(
+                    color: GlobalConfig.alternativeComplementaryColorApp,
+                    Icons.camera,
+                    size: GlobalConfig.heightPercentage(0.05)),
+                onPressed: () async {
+                  final image = await _cameraController!.takePicture();
+                  final croppedFile = await _cropImage(image);
+                  Navigator.pushNamed(context, '/preview-photo', arguments: {
+                    'image': File(croppedFile!.path),
+                    'pacient': parameters['pacient'],
+                    'info': {
+                      'format': image.path.split('.').last,
+                      'template': '${_category}${_pageController.page}',
+                      'angle': '${_valueRotation.truncate()}'
+                    }
+                  });
+
+                  // Guardar la foto con la grilla aplicada
+                },
+              ),
+              if (_photo && parameters['photo'] != null)
+                _slider(
+                    offset: _offsetGhost,
+                    max: 1,
+                    icon: Icon(
+                      Icons.snapchat_rounded,
+                      color: GlobalConfig.alternativeComplementaryColorApp,
+                    )),
+              Container(
+                color: GlobalConfig.backgroundColor,
+                height: GlobalConfig.heightPercentage(.20),
+                width: GlobalConfig.width,
+                child: ListView(
+                  children: <Widget>[
+                    buildCategory(
+                        context,
+                        S.of(context).grid,
+                        [
+                          Icons.square_outlined,
+                          Icons.grid_3x3,
+                          Icons.grid_4x4_outlined
+                        ],
+                        "G"),
+                    buildCategory(
+                        context,
+                        S.of(context).facial,
+                        [
+                          Iconsapp.front,
+                          Iconsapp.draftL,
+                          Iconsapp.draftR,
+                          Iconsapp.left,
+                          Iconsapp.right,
+                          Iconsapp.back,
+                        ],
+                        "A")
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
       ),
     );
   }
 
-  Widget buildOptions(){
+  Widget buildOptions() {
     List options = [];
-    Map titles = {'Option.zoom': 'Zoom','Option.brightness':'Brightness'};
-    Map<String,Icon> icons = {'Option.zoom': Icon(Icons.zoom_in_rounded,color: GlobalConfig.alternativeComplementaryColorApp),'Option.brightness':Icon(Icons.brightness_6_outlined,color: GlobalConfig.alternativeComplementaryColorApp)};
+    Map titles = {'Option.zoom': 'Zoom', 'Option.brightness': 'Brightness'};
+    Map<String, Icon> icons = {
+      'Option.zoom': Icon(Icons.zoom_in_rounded,
+          color: GlobalConfig.alternativeComplementaryColorApp),
+      'Option.brightness': Icon(Icons.brightness_6_outlined,
+          color: GlobalConfig.alternativeComplementaryColorApp)
+    };
     Icon? icon;
     double max = 0;
     double min = 0;
-    if( optionView != Option.nothing){
-       options = [optionView];
-       icon = icons[optionView.toString()];
-       if (optionView == Option.zoom){
+    if (optionView != Option.nothing) {
+      options = [optionView];
+      icon = icons[optionView.toString()];
+      if (optionView == Option.zoom) {
         max = 5.0;
         min = 2.0;
-       }else{
+      } else {
         max = 2.0;
         min = -2.0;
-       }
-    }else{
-       options = [Option.brightness, Option.zoom];
+      }
+    } else {
+      options = [Option.brightness, Option.zoom];
     }
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [_options(icons: icons,options: options,titles: titles),
-      if (optionView != Option.nothing)
-        _slider(offset: _offsetSlider, icon: icon,min: min,max: max)
+      children: [
+        _options(icons: icons, options: options, titles: titles),
+        if (optionView != Option.nothing)
+          _slider(offset: _offsetSlider, icon: icon, min: min, max: max)
       ],
     );
   }
 
   Widget _options({required options, required titles, required icons}) {
-    
-    
     return SegmentedButton<Option>(
-      segments:  <ButtonSegment<Option>>[
-        
-          for (Option option in options)
-              ButtonSegment<Option>(
-                  value: option,
-                  label: Text(titles[option.toString()],style: TextStyle(color: GlobalConfig.alternativeComplementaryColorApp)),
-                  icon: icons[option.toString()])
-            
+      segments: <ButtonSegment<Option>>[
+        for (Option option in options)
+          ButtonSegment<Option>(
+              value: option,
+              label: Text(titles[option.toString()],
+                  style: TextStyle(
+                      color: GlobalConfig.alternativeComplementaryColorApp)),
+              icon: icons[option.toString()])
       ],
       selected: <Option>{optionView},
       emptySelectionAllowed: true,
@@ -239,13 +258,12 @@ class _CameraScreenState extends State<CameraScreen> {
           // By default there is only a single segment that can be
           // selected at one time, so its value is always the first
           // item in the selected set.
-          if (newSelection.isEmpty){
+          if (newSelection.isEmpty) {
             optionView = Option.nothing;
-          }else
-          if(newSelection.first == Option.zoom){
+          } else if (newSelection.first == Option.zoom) {
             _offsetSlider = zoom;
             optionView = newSelection.first;
-          }else{
+          } else {
             _offsetSlider = exposure;
             optionView = newSelection.first;
           }
@@ -254,46 +272,49 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  Widget _slider({Icon? icon, double min = 0, double max = 5,required offset}) {
+  Widget _slider(
+      {Icon? icon, double min = 0, double max = 5, required offset}) {
     bool repeatIcon = true;
-    if(min != 0 && max != 1){
+    if (min != 0 && max != 1) {
       repeatIcon = false;
     }
-    return Row(mainAxisAlignment: MainAxisAlignment.center,children: [repeatIcon ? icon! : const SizedBox(),SfSliderTheme(
-        data: SfSliderThemeData(
-            thumbRadius: 17, thumbColor: GlobalConfig.primaryColorApp),
-        child: RotatedBox(
-          quarterTurns: 0,
-          child: SfSlider(
-            enableTooltip: true, interval: 1, stepSize: 0.1, showDividers: true,
-            dividerShape: SfDividerShape(),
-            thumbIcon: icon, //Icon(Icons.zoom_in),
-            value: offset,
-            min: min,
-            max: max,
-            onChanged: (dynamic changed) {
-              setState(() {
-                if (changed % 1 == 0) {
-                  HapticFeedback.heavyImpact();
-                }
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      repeatIcon ? icon! : const SizedBox(),
+      SfSliderTheme(
+          data: SfSliderThemeData(
+              thumbRadius: 17, thumbColor: GlobalConfig.primaryColorApp),
+          child: RotatedBox(
+            quarterTurns: 0,
+            child: SfSlider(
+              enableTooltip: true, interval: 1, stepSize: 0.1,
+              showDividers: true,
+              dividerShape: SfDividerShape(),
+              thumbIcon: icon, //Icon(Icons.zoom_in),
+              value: offset,
+              min: min,
+              max: max,
+              onChanged: (dynamic changed) {
+                setState(() {
+                  if (changed % 1 == 0) {
+                    HapticFeedback.heavyImpact();
+                  }
 
-                
-                if(min == 0 && max == 1){
-                  _offsetGhost = changed;
-                }
-                else if (min < 0) {
-                  _offsetSlider = changed;
-                  _cameraController!.setExposureOffset(changed);
-                  exposure = changed;
-                } else {
-                  _offsetSlider = changed;
-                  _cameraController!.setZoomLevel(changed);
-                  zoom = changed;
-                }
-              });
-            },
-          ),
-        ))]) ;
+                  if (min == 0 && max == 1) {
+                    _offsetGhost = changed;
+                  } else if (min < 0) {
+                    _offsetSlider = changed;
+                    _cameraController!.setExposureOffset(changed);
+                    exposure = changed;
+                  } else {
+                    _offsetSlider = changed;
+                    _cameraController!.setZoomLevel(changed);
+                    zoom = changed;
+                  }
+                });
+              },
+            ),
+          ))
+    ]);
   }
 
   Future<CroppedFile?> _cropImage(image) async {

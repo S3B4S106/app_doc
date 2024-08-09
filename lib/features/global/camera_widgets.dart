@@ -1,5 +1,6 @@
+import 'package:app_doc/features/global/custom_ratio_camera_pro.dart';
 import 'package:app_doc/features/global/global_config.dart';
-import 'package:camera/camera.dart';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
@@ -35,64 +36,66 @@ final Map<String, List<Widget>> _allTemplates = {
 };
 
 Widget cameraWidget(accelerometer, cameraController, context, templates,
-    pageController, ghost, photo,{opacity = .0}) {
-  return CameraPreview(cameraController!,
-      child: Stack(
-        children: [
-          Container(
-            child: PageView(
-              controller: pageController,
-              children: ghost && photo != null
-                  ? [
-                      Opacity(opacity:opacity ,child:
-                      Stack(children: [Image.network(
-                        photo.ruta,
-                      ),
-                      labelAccelerometer(double.parse(photo.angle),top: .11),],)
-                       
-                      ),
-                      
-                    ]
-                  : _allTemplates[templates]!,
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-                left: GlobalConfig.widthPercentage(.05),
-                top: GlobalConfig.heightPercentage(.05)),
-            child: FloatingActionButton(
-                heroTag: "close",
-                mini: true,
-                backgroundColor: Color.fromARGB(111, 213, 209, 209),
-                child: Icon(Icons.close),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
-          ),
-          labelAccelerometer(accelerometer)
-          
-        ],
-      ));
+    pageController, ghost, photo,
+    {opacity = .0}) {
+  return Stack(
+    children: [
+      Container(
+        child: PageView(
+          controller: pageController,
+          children: ghost && photo != null
+              ? [
+                  Opacity(
+                      opacity: opacity,
+                      child: Stack(
+                        children: [
+                          Image.network(
+                            photo.ruta,
+                          ),
+                          labelAccelerometer(double.parse(photo.angle),
+                              top: .11),
+                        ],
+                      )),
+                ]
+              : _allTemplates[templates]!,
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(
+            left: GlobalConfig.widthPercentage(.05),
+            top: GlobalConfig.heightPercentage(.05)),
+        child: FloatingActionButton(
+            heroTag: "close",
+            mini: true,
+            backgroundColor: Color.fromARGB(111, 213, 209, 209),
+            child: Icon(Icons.close),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+      ),
+      labelAccelerometer(accelerometer)
+    ],
+  );
 }
 
-Widget labelAccelerometer(accelerometer,{left = .7,top =.05}){
- return Container(
-            
-            margin: EdgeInsets.only(
-                left: GlobalConfig.widthPercentage(left),
-                top: GlobalConfig.heightPercentage(top)),
-            child: ClipOval(
-                child: TextButton(
-              onPressed: () {},
-              child: Text(
-                '${accelerometer.truncate()}°',
-                style: TextStyle(color: Colors.black),
-              ),
-              style: ButtonStyle(
-                  backgroundColor: accelerometer.truncate() != 0 ? MaterialStatePropertyAll(
-                      Color.fromARGB(111, 213, 209, 209)): MaterialStatePropertyAll(Colors.blue)),
-            )),
-          );
+Widget labelAccelerometer(accelerometer, {left = .7, top = .05}) {
+  return Container(
+    margin: EdgeInsets.only(
+        left: GlobalConfig.widthPercentage(left),
+        top: GlobalConfig.heightPercentage(top)),
+    child: ClipOval(
+        child: TextButton(
+      onPressed: () {},
+      child: Text(
+        '${accelerometer.truncate()}°',
+        style: TextStyle(color: Colors.black),
+      ),
+      style: ButtonStyle(
+          backgroundColor: accelerometer.truncate() != 0
+              ? MaterialStatePropertyAll(Color.fromARGB(111, 213, 209, 209))
+              : MaterialStatePropertyAll(Colors.blue)),
+    )),
+  );
 }
 
 Widget grid3X3() {
