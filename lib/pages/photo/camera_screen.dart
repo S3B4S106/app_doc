@@ -136,7 +136,16 @@ class _CameraScreenState extends State<CameraScreen> {
                 margin: EdgeInsets.only(top: GlobalConfig.heightPercentage(.1)),
                 child: buildOptions(),
               ),
-              AspectRatio(aspectRatio: 1),
+              if (_photo && parameters['photo'] != null)
+                _slider(
+                    offset: _offsetGhost,
+                    max: 1,
+                    icon: Icon(
+                      Icons.snapchat_rounded,
+                      color: GlobalConfig.alternativeComplementaryColorApp,
+                    )),
+              
+              const AspectRatio(aspectRatio: 1),
               FloatingActionButton(
                 heroTag: "camera",
                 backgroundColor: GlobalConfig.primaryColorApp,
@@ -160,29 +169,14 @@ class _CameraScreenState extends State<CameraScreen> {
                   // Guardar la foto con la grilla aplicada
                 },
               ),
-              if (_photo && parameters['photo'] != null)
-                _slider(
-                    offset: _offsetGhost,
-                    max: 1,
-                    icon: Icon(
-                      Icons.snapchat_rounded,
-                      color: GlobalConfig.alternativeComplementaryColorApp,
-                    )),
+              
               Container(
                 color: GlobalConfig.backgroundColor,
                 height: GlobalConfig.heightPercentage(.20),
                 width: GlobalConfig.width,
                 child: ListView(
+                  padding: EdgeInsets.only(top: 1),
                   children: <Widget>[
-                    buildCategory(
-                        context,
-                        S.of(context).grid,
-                        [
-                          Icons.square_outlined,
-                          Icons.grid_3x3,
-                          Icons.grid_4x4_outlined
-                        ],
-                        "G"),
                     buildCategory(
                         context,
                         S.of(context).facial,
@@ -194,7 +188,17 @@ class _CameraScreenState extends State<CameraScreen> {
                           Iconsapp.right,
                           Iconsapp.back,
                         ],
-                        "A")
+                        "A"),
+                    buildCategory(
+                        context,
+                        S.of(context).grid,
+                        [
+                          Icons.square_outlined,
+                          Icons.grid_3x3,
+                          Icons.grid_4x4_outlined
+                        ],
+                        "G"),
+                    
                   ],
                 ),
               )
@@ -242,6 +246,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   Widget _options({required options, required titles, required icons}) {
     return SegmentedButton<Option>(
+      style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent),iconColor: MaterialStatePropertyAll(GlobalConfig.alternativeComplementaryColorApp)),
       segments: <ButtonSegment<Option>>[
         for (Option option in options)
           ButtonSegment<Option>(

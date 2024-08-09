@@ -1,36 +1,36 @@
-import 'package:app_doc/features/global/custom_ratio_camera_pro.dart';
 import 'package:app_doc/features/global/global_config.dart';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+
+Animation<double> opacityFacial = AlwaysStoppedAnimation(.6);
 
 final Map<String, List<Widget>> _allTemplates = {
   "G": [Container(), grid3X3(), grid4X4()],
   "A": [
     Image.asset(
       "assets/1.png",
-      opacity: AlwaysStoppedAnimation(.25),
+      opacity: opacityFacial,
     ),
     Image.asset(
       "assets/2.png",
-      opacity: AlwaysStoppedAnimation(.25),
+      opacity: opacityFacial,
     ),
     Image.asset(
       "assets/3.png",
-      opacity: AlwaysStoppedAnimation(.25),
+      opacity: opacityFacial,
     ),
     Image.asset(
       "assets/4.png",
-      opacity: AlwaysStoppedAnimation(.25),
+      opacity: opacityFacial,
     ),
     Image.asset(
       "assets/5.png",
-      opacity: AlwaysStoppedAnimation(.25),
+      opacity: opacityFacial,
     ),
     Image.asset(
       "assets/6.png",
-      opacity: AlwaysStoppedAnimation(.25),
+      opacity: opacityFacial,
     ),
   ]
 };
@@ -62,8 +62,8 @@ Widget cameraWidget(accelerometer, cameraController, context, templates,
       ),
       Container(
         margin: EdgeInsets.only(
-            left: GlobalConfig.widthPercentage(.05),
-            top: GlobalConfig.heightPercentage(.05)),
+            left: GlobalConfig.widthPercentage(.03),
+            top: GlobalConfig.heightPercentage(.03)),
         child: FloatingActionButton(
             heroTag: "close",
             mini: true,
@@ -78,7 +78,7 @@ Widget cameraWidget(accelerometer, cameraController, context, templates,
   );
 }
 
-Widget labelAccelerometer(accelerometer, {left = .7, top = .05}) {
+Widget labelAccelerometer(accelerometer, {left = .82, top = .03}) {
   return Container(
     margin: EdgeInsets.only(
         left: GlobalConfig.widthPercentage(left),
@@ -106,33 +106,33 @@ Widget grid3X3() {
       Container(),
       DottedBorder(
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       Container(),
       DottedBorder(
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       Container(),
       DottedBorder(
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
@@ -151,69 +151,69 @@ Widget grid4X4() {
       DottedBorder(
         customPath: (size) => customPath,
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         customPath: (size) => customPath,
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         customPath: (size) => customPath,
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
@@ -221,21 +221,21 @@ Widget grid4X4() {
       DottedBorder(
         customPath: (size) => customPath,
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         customPath: (size) => customPath,
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
       DottedBorder(
         customPath: (size) => customPath,
         dashPattern: [8],
-        color: Colors.grey,
+        color: Colors.white,
         strokeWidth: 1,
         child: Container(),
       ),
